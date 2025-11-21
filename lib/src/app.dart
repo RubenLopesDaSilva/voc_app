@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:voc_app/src/features/words/presentation/word_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -7,11 +8,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: 'Vocabulary App',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const Placeholder(),
+      home: const WordScreen(),
     );
   }
 }
