@@ -44,6 +44,7 @@ class _WordScreenState extends State<WordScreen> {
                         key: Key(word.id),
                         word: word,
                         color: Colors.grey,
+                        color: Colors.grey,
                         actif: index == actualIndeex,
                         firstLanguage: 'fr',
                         secondLanguage: 'en',
