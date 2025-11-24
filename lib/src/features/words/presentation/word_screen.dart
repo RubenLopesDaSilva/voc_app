@@ -11,6 +11,15 @@ class WordScreen extends StatefulWidget {
 }
 
 class _WordScreenState extends State<WordScreen> {
+  final swipeController = CardSwiperController();
+  int? actualIndeex = 0;
+
+  @override
+  void dispose() {
+    swipeController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,6 +31,7 @@ class _WordScreenState extends State<WordScreen> {
               width: 400,
               height: 280,
               child: CardSwiper(
+                controller: swipeController,
                 cardBuilder:
                     (
                       context,
@@ -29,10 +39,24 @@ class _WordScreenState extends State<WordScreen> {
                       horizontalOffsetPercentage,
                       verticalOffsetPercentage,
                     ) {
-                      return WordCard(word: words[index], color: Colors.white);
+                      final word = words[index];
+                      return WordCard(
+                        key: Key(word.id),
+                        word: word,
+                        color: index == actualIndeex
+                            ? Colors.white
+                            : Colors.grey,
+                        actif: index == actualIndeex,
+                        firstSide: 'fr',
+                        secondSide: 'en',
+                      );
                     },
                 cardsCount: words.length,
                 numberOfCardsDisplayed: 5,
+                onSwipe: (previousIndex, currentIndex, direction) {
+                  actualIndeex = currentIndex;
+                  return true;
+                },
               ),
             ),
           ),
