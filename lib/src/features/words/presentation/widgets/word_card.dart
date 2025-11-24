@@ -6,6 +6,7 @@ class WordCard extends StatelessWidget {
   const WordCard({
     required this.word,
     required this.color,
+    required this.textColor,
     required this.actif,
     required this.firstLanguage,
     required this.secondLanguage,
@@ -14,6 +15,7 @@ class WordCard extends StatelessWidget {
 
   final Word word;
   final Color color;
+  final Color textColor;
   final bool actif;
   final String firstLanguage;
   final String secondLanguage;
@@ -29,12 +31,12 @@ class WordCard extends StatelessWidget {
       frontWidget: CardSide(
         title: word.trad[firstLanguage].toString(),
         color: color,
-        textColor: actif ? Colors.black : color,
+        textColor: actif ? textColor : color,
       ),
       backWidget: CardSide(
         title: word.trad[secondLanguage].toString(),
         color: color,
-        textColor: actif ? Colors.black : color,
+        textColor: actif ? textColor : color,
       ),
     );
   }
