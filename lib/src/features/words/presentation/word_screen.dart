@@ -39,17 +39,7 @@ class _WordScreenState extends State<WordScreen> {
                       horizontalOffsetPercentage,
                       verticalOffsetPercentage,
                     ) {
-                      final word = words[index];
-                      return WordCard(
-                        key: Key(word.id),
-                        word: word,
-                        color: index == actualIndeex
-                            ? Colors.white
-                            : Colors.grey,
-                        actif: index == actualIndeex,
-                        firstLanguage: 'fr',
-                        secondLanguage: 'en',
-                      );
+                      return WordCard(word: words[index], color: Colors.white);
                     },
                 cardsCount: words.length,
                 numberOfCardsDisplayed: 5,
