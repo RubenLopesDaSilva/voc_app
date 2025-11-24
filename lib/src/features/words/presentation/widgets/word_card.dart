@@ -29,20 +29,28 @@ class WordCard extends StatelessWidget {
       frontWidget: CardSide(
         title: word.trad[firstLanguage].toString(),
         color: color,
+        textColor: actif ? Colors.black : color,
       ),
       backWidget: CardSide(
         title: word.trad[secondLanguage].toString(),
         color: color,
+        textColor: actif ? Colors.black : color,
       ),
     );
   }
 }
 
 class CardSide extends StatelessWidget {
-  const CardSide({required this.title, required this.color, super.key});
+  const CardSide({
+    required this.title,
+    required this.color,
+    required this.textColor,
+    super.key,
+  });
 
   final String title;
   final Color color;
+  final Color textColor;
 
   @override
   Widget build(BuildContext context) {
@@ -51,14 +59,14 @@ class CardSide extends StatelessWidget {
       height: 240,
       decoration: BoxDecoration(
         color: color,
-        border: Border.all(color: Colors.black, width: 4.0),
+        border: Border.all(color: textColor, width: 4.0),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Center(
         child: Text(
           title,
           style: TextStyle(
-            color: Colors.black,
+            color: textColor,
             fontSize: 40,
             fontWeight: FontWeight.bold,
           ),
