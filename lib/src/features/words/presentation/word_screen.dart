@@ -43,9 +43,7 @@ class _WordScreenState extends State<WordScreen> {
                       return WordCard(
                         key: Key(word.id),
                         word: word,
-                        color: index == actualIndeex
-                            ? Colors.white
-                            : Colors.grey,
+                        color: Colors.grey,
                         actif: index == actualIndeex,
                         firstLanguage: 'fr',
                         secondLanguage: 'en',
@@ -54,6 +52,14 @@ class _WordScreenState extends State<WordScreen> {
                 cardsCount: words.length,
                 numberOfCardsDisplayed: 5,
                 onSwipe: (previousIndex, currentIndex, direction) {
+                  if (direction.isCloseTo(CardSwiperDirection.bottom)) {
+                    swipeController.undo();
+                    return false;
+                  }
+                  actualIndeex = currentIndex;
+                  return true;
+                },
+                onUndo: (previousIndex, currentIndex, direction) {
                   actualIndeex = currentIndex;
                   return true;
                 },
