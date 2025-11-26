@@ -20,21 +20,25 @@ class WordCard extends StatelessWidget {
   final String firstLanguage;
   final String secondLanguage;
 
+  //TODO animation si actif pour changer la couleur plus doucement
+
   @override
   Widget build(BuildContext context) {
     return FlipCard(
       controller: FlipCardController(),
       rotateSide: RotateSide.bottom,
-      animationDuration: Duration(seconds: 1),
+      animationDuration: Duration(milliseconds: 600),
       axis: FlipAxis.horizontal,
       onTapFlipping: actif,
       frontWidget: CardSide(
-        title: word.trad[firstLanguage].toString(),
+        title: word.traductions[firstLanguage].toString(),
+        phonetic: word.phonetics[firstLanguage].toString(),
         color: color,
         textColor: actif ? textColor : color,
       ),
       backWidget: CardSide(
-        title: word.trad[secondLanguage].toString(),
+        title: word.traductions[secondLanguage].toString(),
+        phonetic: word.phonetics[secondLanguage].toString(),
         color: color,
         textColor: actif ? textColor : color,
       ),
@@ -45,12 +49,14 @@ class WordCard extends StatelessWidget {
 class CardSide extends StatelessWidget {
   const CardSide({
     required this.title,
+    required this.phonetic,
     required this.color,
     required this.textColor,
     super.key,
   });
 
   final String title;
+  final String phonetic;
   final Color color;
   final Color textColor;
 
@@ -65,13 +71,26 @@ class CardSide extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
       ),
       child: Center(
-        child: Text(
-          title,
-          style: TextStyle(
-            color: textColor,
-            fontSize: 40,
-            fontWeight: FontWeight.bold,
-          ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              title,
+              style: TextStyle(
+                color: textColor,
+                fontSize: 40,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+              phonetic,
+              style: TextStyle(
+                color: textColor,
+                fontSize: 24,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+          ],
         ),
       ),
     );

@@ -13,8 +13,8 @@ class WordScreen extends StatefulWidget {
 class _WordScreenState extends State<WordScreen> {
   final swipeController = CardSwiperController();
   int? actualIndex = 0;
-  List<String> knownWords = <String>[];
-  List<String> unKnownWords = <String>[];
+  Set<String> knownWords = <String>{};
+  Set<String> unKnownWords = <String>{};
 
   @override
   void dispose() {
@@ -65,14 +65,14 @@ class _WordScreenState extends State<WordScreen> {
                   }
                   if (direction.isCloseTo(CardSwiperDirection.right) &&
                       currentIndex != null) {
-                    print("knownWords add ${words[previousIndex].trad['fr']}");
                     knownWords.add(words[previousIndex].id);
                   }
                   actualIndex = currentIndex;
                   return true;
                 },
                 onUndo: (previousIndex, currentIndex, direction) {
-                  //TODO remove word from lists
+                  knownWords.remove(words[currentIndex].id);
+                  unKnownWords.remove(words[currentIndex].id);
                   actualIndex = currentIndex;
                   return true;
                 },
