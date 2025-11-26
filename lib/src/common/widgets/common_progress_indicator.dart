@@ -16,9 +16,13 @@ class CommonProgressIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var sizedBox = SizedBox(
-      width: 240,
-      height: 40,
+    return Container(
+      width: Sizes.p256,
+      height: Sizes.p64,
+      decoration: BoxDecoration(
+        border: Border.all(width: Sizes.p4),
+        borderRadius: BorderRadius.circular(Sizes.p32),
+      ),
       child: PrimerProgressBar(
         segments: [
           Segment(value: passed, color: Colors.green),
@@ -26,43 +30,13 @@ class CommonProgressIndicator extends StatelessWidget {
         ],
         maxTotalValue: total,
         showLegend: false,
-        barStyle: SegmentedBarStyle(backgroundColor: Colors.transparent),
-      ),
-      // LinearProgressIndicator(
-      //   backgroundColor: Colors.grey,
-      //   valueColor: AlwaysStoppedAnimation(Colors.black),
-      //   value: (passed + other) / total,
-      //   borderRadius: BorderRadius.circular(24),
-      // ),
-    );
-    return Row(
-      mainAxisSize: MainAxisSize.max,
-      children: [
-        sizedBox,
-        gapW24,
-        Container(
-          decoration: ShapeDecoration(
-            shape: CircleBorder(
-              side: BorderSide(color: Colors.black, width: 4.0),
-            ),
-          ),
-          padding: EdgeInsets.all(24),
-          child: Center(
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Text(' $passed', style: TextStyle(fontSize: 24)),
-                Text(
-                  ' / ',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
-                Text(' ${passed + other} ', style: TextStyle(fontSize: 24)),
-              ],
-            ),
-          ),
+        barStyle: const SegmentedBarStyle(
+          backgroundColor: Colors.grey,
+          size: Sizes.p64,
+          gap: 4,
+          padding: EdgeInsets.all(0),
         ),
-      ],
+      ),
     );
   }
 }

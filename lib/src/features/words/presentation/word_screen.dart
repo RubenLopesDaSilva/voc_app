@@ -45,7 +45,7 @@ class _WordScreenState extends State<WordScreen> {
     return Scaffold(
       body: Column(
         children: [
-          Expanded(child: SizedBox()),
+          const Expanded(child: SizedBox()),
           Container(
             width: 480,
             height: 240,
@@ -54,7 +54,7 @@ class _WordScreenState extends State<WordScreen> {
               border: Border.all(color: Colors.black, width: 2.0),
               borderRadius: BorderRadius.circular(20),
             ),
-            padding: EdgeInsets.all(24),
+            padding: const EdgeInsets.all(24),
             child: Center(
               child: Column(
                 children: [
@@ -119,7 +119,7 @@ class _WordScreenState extends State<WordScreen> {
           ),
           gapH24,
 
-          Expanded(child: SizedBox()),
+          const Expanded(child: SizedBox()),
         ],
       ),
     );

@@ -27,7 +27,7 @@ class WordCard extends StatelessWidget {
     return FlipCard(
       controller: FlipCardController(),
       rotateSide: RotateSide.bottom,
-      animationDuration: Duration(milliseconds: 600),
+      animationDuration: const Duration(milliseconds: 600),
       axis: FlipAxis.horizontal,
       onTapFlipping: actif,
       frontWidget: CardSide(
