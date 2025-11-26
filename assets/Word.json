@@ -1,0 +1,362 @@
+[
+    {
+        "_id": {
+            "$oid": "6926b3b35ff4c7ed2aacf37d"
+        },
+        "trad": {
+            "fr": "rire",
+            "en": "laugh"
+        },
+        "userId": "1",
+        "definitions": {
+            "fr": "",
+            "en": ""
+        },
+        "phonetic": {
+            "fr": "ʁiʁ",
+            "en": "lɑːf"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "6926bad65ff4c7ed2aacf389"
+        },
+        "trad": {
+            "fr": "cuisine",
+            "en": "kitchen"
+        },
+        "userId": "2",
+        "definitions": {
+            "fr": "",
+            "en": ""
+        },
+        "phonetics": {
+            "fr": "kɥizin",
+            "en": "kɪtʃən"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "6926bb765ff4c7ed2aacf38a"
+        },
+        "trad": {
+            "fr": "boue",
+            "en": "mud"
+        },
+        "userId": "3",
+        "definitions": {
+            "fr": "",
+            "en": ""
+        },
+        "phonetic": {
+            "fr": "bu",
+            "en": "mʌd"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "6926bbe95ff4c7ed2aacf38b"
+        },
+        "trad": {
+            "fr": "outils",
+            "en": "tools"
+        },
+        "userId": "4",
+        "definitions": {
+            "fr": "",
+            "en": ""
+        },
+        "phonetic": {
+            "fr": "uti",
+            "en": "ˈtuːlz"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "6926bbf35ff4c7ed2aacf38c"
+        },
+        "trad": {
+            "fr": "squelette",
+            "en": "skeleton"
+        },
+        "userId": "5",
+        "definitions": {
+            "fr": "",
+            "en": ""
+        },
+        "phonetic": {
+            "fr": "skəlɛt",
+            "en": "ˈskel.ə.tən"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "6926bbf35ff4c7ed2aacf38d"
+        },
+        "trad": {
+            "fr": "aider",
+            "en": "help"
+        },
+        "userId": "6",
+        "definitions": {
+            "fr": "",
+            "en": ""
+        },
+        "phonetic": {
+            "fr": "ɛde",
+            "en": "hɛlp"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "6926bbf35ff4c7ed2aacf38e"
+        },
+        "trad": {
+            "fr": "grandir",
+            "en": "grow"
+        },
+        "userId": "7",
+        "definitions": {
+            "fr": "",
+            "en": ""
+        },
+        "phonetic": {
+            "fr": "gʁɑ̃diʁ",
+            "en": "ɡroʊ"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "6926bbf35ff4c7ed2aacf38f"
+        },
+        "trad": {
+            "fr": "cloche",
+            "en": "bell"
+        },
+        "userId": "8",
+        "definitions": {
+            "fr": "",
+            "en": ""
+        },
+        "phonetic": {
+            "fr": "[klɔʃ]",
+            "en": "bɛl"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "6926bbf35ff4c7ed2aacf39a"
+        },
+        "trad": {
+            "fr": "ceinture",
+            "en": "belt"
+        },
+        "userId": "9",
+        "definitions": {
+            "fr": "",
+            "en": ""
+        },
+        "phonetic": {
+            "fr": "sɛ̃tyʁ",
+            "en": "bɛlt"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "6926bbf35ff4c7ed2aacf39b"
+        },
+        "trad": {
+            "fr": "aube",
+            "en": "dawn"
+        },
+        "userId": "10",
+        "definitions": {
+            "fr": "",
+            "en": ""
+        },
+        "phonetic": {
+            "fr": "[obə]",
+            "en": "dɔːn"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "6926bbf35ff4c7ed2aacf39c"
+        },
+        "trad": {
+            "fr": "avion",
+            "en": "plane"
+        },
+        "userId": "11",
+        "definitions": {
+            "fr": "",
+            "en": ""
+        },
+        "phonetic": {
+            "fr": "avjɔ̃",
+            "en": "pleɪn"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "6926bbf35ff4c7ed2aacf39d"
+        },
+        "trad": {
+            "fr": "dehors",
+            "en": "outside"
+        },
+        "userId": "12",
+        "definitions": {
+            "fr": "",
+            "en": ""
+        },
+        "phonetic": {
+            "fr": "də.ɔʁ",
+            "en": "ˈaʊt.saɪd"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "6926bbf35ff4c7ed2aacf39e"
+        },
+        "trad": {
+            "fr": "guerre",
+            "en": "war"
+        },
+        "userId": "13",
+        "definitions": {
+            "fr": "",
+            "en": ""
+        },
+        "phonetic": {
+            "fr": "gɛʁ",
+            "en": "wɔːr"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "6926bbf35ff4c7ed2aacf39f"
+        },
+        "trad": {
+            "fr": "bras",
+            "en": "arm"
+        },
+        "userId": "14",
+        "definitions": {
+            "fr": "",
+            "en": ""
+        },
+        "phonetic": {
+            "fr": "bʁa",
+            "en": "ɑːm"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "6926bbf35ff4c7ed2aacf40a"
+        },
+        "trad": {
+            "fr": "bois",
+            "en": "wood"
+        },
+        "userId": "15",
+        "definitions": {
+            "fr": "",
+            "en": ""
+        },
+        "phonetic": {
+            "fr": "bwa",
+            "en": "wʊd"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "6926bbf35ff4c7ed2aacf40b"
+        },
+        "trad": {
+            "fr": "mouton",
+            "en": "sheep"
+        },
+        "userId": "16",
+        "definitions": {
+            "fr": "",
+            "en": ""
+        },
+        "phonetic": {
+            "fr": "mutɔ̃",
+            "en": "ʃiːp"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "6926bbf35ff4c7ed2aacf40c"
+        },
+        "trad": {
+            "fr": "arbre",
+            "en": "tree"
+        },
+        "userId": "17",
+        "definitions": {
+            "fr": "",
+            "en": ""
+        },
+        "phonetic": {
+            "fr": "aʁbʁ",
+            "en": "triː"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "6926bbf35ff4c7ed2aacf40d"
+        },
+        "trad": {
+            "fr": "force",
+            "en": "strength"
+        },
+        "userId": "18",
+        "definitions": {
+            "fr": "",
+            "en": ""
+        },
+        "phonetic": {
+            "fr": "fɔʁs",
+            "en": "strɛŋkθ"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "6926bbf35ff4c7ed2aacf40e"
+        },
+        "trad": {
+            "fr": "coffre",
+            "en": "chest"
+        },
+        "userId": "19",
+        "definitions": {
+            "fr": "",
+            "en": ""
+        },
+        "phonetic": {
+            "fr": "kɔfʁ",
+            "en": "tʃɛst"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "6926bbf35ff4c7ed2aacf40f"
+        },
+        "trad": {
+            "fr": "cerveau",
+            "en": "brain"
+        },
+        "userId": "20",
+        "definitions": {
+            "fr": "",
+            "en": ""
+        },
+        "phonetic": {
+            "fr": "sɛʁvo",
+            "en": "breɪn"
+        }
+    }
+]
