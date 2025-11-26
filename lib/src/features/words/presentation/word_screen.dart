@@ -3,6 +3,7 @@ import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:voc_app/src/common/constants/sizes.dart';
 import 'package:voc_app/src/common/constants/test_datas.dart';
 import 'package:voc_app/src/common/widgets/styled_option.dart';
+import 'package:voc_app/src/features/repetition/data/repetition_repository.dart';
 import 'package:voc_app/src/features/words/presentation/widgets/word_card.dart';
 import 'package:voc_app/src/common/widgets/common_progress_indicator.dart';
 import 'package:voc_app/src/common/widgets/option_panel.dart';
@@ -15,7 +16,9 @@ class WordScreen extends StatefulWidget {
 }
 
 class _WordScreenState extends State<WordScreen> {
+  RepetitionRepository repository = RepetitionRepository();
   Widget component = const SizedBox();
+  final List<Widget> children = <Widget>[];
 
   final swipeController = CardSwiperController();
   int? actualIndex = 0;
@@ -39,58 +42,121 @@ class _WordScreenState extends State<WordScreen> {
   }
 
   void changeWidget() {
-    component = Center(
-      child: SizedBox(
-        width: 400,
-        height: 280,
-        child: CardSwiper(
-          controller: swipeController,
-          cardsCount: test_words.length,
-          numberOfCardsDisplayed: 5,
-          isLoop: false,
-          onSwipe: (previousIndex, currentIndex, direction) {
-            if (direction.isVertical) {
-              swipeController.undo();
-              return false;
-            }
-            if (direction.isCloseTo(CardSwiperDirection.left)) {
-              passWord(id: test_words[previousIndex].id, known: false);
-            }
-            if (direction.isCloseTo(CardSwiperDirection.right)) {
-              passWord(id: test_words[previousIndex].id, known: true);
-            }
-            actualIndex = currentIndex;
-            return true;
-          },
-          onUndo: (previousIndex, currentIndex, direction) {
-            passWord(id: test_words[currentIndex].id);
-            actualIndex = currentIndex;
-            return true;
-          },
-          onEnd: () {
-            //TODO end
-          },
-          cardBuilder:
-              (
-                context,
-                index,
-                horizontalOffsetPercentage,
-                verticalOffsetPercentage,
-              ) {
-                final word = test_words[index];
-                return WordCard(
-                  key: Key(word.id),
-                  word: word,
-                  color: Colors.grey,
-                  textColor: Colors.black,
-                  actif: index == actualIndex,
-                  firstLanguage: 'fr',
-                  secondLanguage: 'en',
-                );
-              },
-        ),
-      ),
-    );
+    children.clear();
+    switch (repository.state) {
+      case Etat.begin:
+        break;
+      case Etat.process:
+        children.add(
+          Center(
+            child: SizedBox(
+              width: 400,
+              height: 280,
+              child: CardSwiper(
+                controller: swipeController,
+                cardsCount: testWords.length,
+                numberOfCardsDisplayed: 5,
+                isLoop: false,
+                onSwipe: (previousIndex, currentIndex, direction) {
+                  if (direction.isVertical) {
+                    swipeController.undo();
+                    return false;
+                  }
+                  if (direction.isCloseTo(CardSwiperDirection.left)) {
+                    passWord(id: testWords[previousIndex].id, known: false);
+                  }
+                  if (direction.isCloseTo(CardSwiperDirection.right)) {
+                    passWord(id: testWords[previousIndex].id, known: true);
+                  }
+                  actualIndex = currentIndex;
+                  return true;
+                },
+                onUndo: (previousIndex, currentIndex, direction) {
+                  passWord(id: testWords[currentIndex].id);
+                  actualIndex = currentIndex;
+                  return true;
+                },
+                onEnd: () {
+                  //TODO end
+                },
+                cardBuilder:
+                    (
+                      context,
+                      index,
+                      horizontalOffsetPercentage,
+                      verticalOffsetPercentage,
+                    ) {
+                      final word = testWords[index];
+                      return WordCard(
+                        key: Key(word.id),
+                        word: word,
+                        color: Colors.grey,
+                        textColor: Colors.black,
+                        actif: index == actualIndex,
+                        firstLanguage: 'fr',
+                        secondLanguage: 'en',
+                      );
+                    },
+              ),
+            ),
+          ),
+        );
+        break;
+      case Etat.end:
+        break;
+    }
+    // component = Center(
+    //   child: SizedBox(
+    //     width: 400,
+    //     height: 280,
+    //     child: CardSwiper(
+    //       controller: swipeController,
+    //       cardsCount: testWords.length,
+    //       numberOfCardsDisplayed: 5,
+    //       isLoop: false,
+    //       onSwipe: (previousIndex, currentIndex, direction) {
+    //         if (direction.isVertical) {
+    //           swipeController.undo();
+    //           return false;
+    //         }
+    //         if (direction.isCloseTo(CardSwiperDirection.left)) {
+    //           passWord(id: testWords[previousIndex].id, known: false);
+    //         }
+    //         if (direction.isCloseTo(CardSwiperDirection.right)) {
+    //           passWord(id: testWords[previousIndex].id, known: true);
+    //         }
+    //         actualIndex = currentIndex;
+    //         return true;
+    //       },
+    //       onUndo: (previousIndex, currentIndex, direction) {
+    //         passWord(id: testWords[currentIndex].id);
+    //         actualIndex = currentIndex;
+    //         return true;
+    //       },
+    //       onEnd: () {
+    //         //TODO end
+    //       },
+    //       cardBuilder:
+    //           (
+    //             context,
+    //             index,
+    //             horizontalOffsetPercentage,
+    //             verticalOffsetPercentage,
+    //           ) {
+    //             final word = testWords[index];
+    //             return WordCard(
+    //               key: Key(word.id),
+    //               word: word,
+    //               color: Colors.grey,
+    //               textColor: Colors.black,
+    //               actif: index == actualIndex,
+    //               firstLanguage: 'fr',
+    //               secondLanguage: 'en',
+    //             );
+    //           },
+    //     ),
+    //   ),
+    // );
   }
 
   @override
@@ -116,7 +182,7 @@ class _WordScreenState extends State<WordScreen> {
             title: CommonProgressIndicator(
               passed: knownWords.length,
               other: unknownWords.length,
-              total: test_words.length,
+              total: testWords.length,
             ),
             //TODO Implementer method pour options
             options: [

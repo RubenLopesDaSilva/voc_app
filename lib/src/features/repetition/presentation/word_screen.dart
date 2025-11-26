@@ -45,7 +45,7 @@ class _WordScreenState extends State<WordScreen> {
         height: 280,
         child: CardSwiper(
           controller: swipeController,
-          cardsCount: test_words.length,
+          cardsCount: testWords.length,
           numberOfCardsDisplayed: 5,
           isLoop: false,
           onSwipe: (previousIndex, currentIndex, direction) {
@@ -54,16 +54,16 @@ class _WordScreenState extends State<WordScreen> {
               return false;
             }
             if (direction.isCloseTo(CardSwiperDirection.left)) {
-              passWord(id: test_words[previousIndex].id, known: false);
+              passWord(id: testWords[previousIndex].id, known: false);
             }
             if (direction.isCloseTo(CardSwiperDirection.right)) {
-              passWord(id: test_words[previousIndex].id, known: true);
+              passWord(id: testWords[previousIndex].id, known: true);
             }
             actualIndex = currentIndex;
             return true;
           },
           onUndo: (previousIndex, currentIndex, direction) {
-            passWord(id: test_words[currentIndex].id);
+            passWord(id: testWords[currentIndex].id);
             actualIndex = currentIndex;
             return true;
           },
@@ -77,7 +77,7 @@ class _WordScreenState extends State<WordScreen> {
                 horizontalOffsetPercentage,
                 verticalOffsetPercentage,
               ) {
-                final word = test_words[index];
+                final word = testWords[index];
                 return WordCard(
                   key: Key(word.id),
                   word: word,
@@ -116,7 +116,7 @@ class _WordScreenState extends State<WordScreen> {
             title: CommonProgressIndicator(
               passed: knownWords.length,
               other: unknownWords.length,
-              total: test_words.length,
+              total: testWords.length,
             ),
             //TODO Implementer method pour options
             options: [

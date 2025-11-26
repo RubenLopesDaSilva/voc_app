@@ -1,6 +1,6 @@
 import 'package:voc_app/src/features/words/models/word.dart';
 
-final test_words = <Word>[
+final testWords = <Word>[
   const Word(
     id: '1',
     traductions: {'en': 'apple', 'fr': 'pomme'},
