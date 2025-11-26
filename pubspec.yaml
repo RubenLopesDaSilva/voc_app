@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter_card_swiper: ^7.2.0
   flutter_flip_card: ^0.0.6
+  primer_progress_bar: ^0.5.0
 
 dev_dependencies:
   flutter_test:

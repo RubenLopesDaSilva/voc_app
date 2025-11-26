@@ -82,14 +82,7 @@ class CardSide extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Text(
-              phonetic,
-              style: TextStyle(
-                color: textColor,
-                fontSize: 24,
-                fontWeight: FontWeight.normal,
-              ),
-            ),
+            Text(phonetic, style: TextStyle(color: textColor, fontSize: 24)),
           ],
         ),
       ),
