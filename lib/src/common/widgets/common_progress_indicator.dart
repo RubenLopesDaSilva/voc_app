@@ -4,14 +4,14 @@ import 'package:voc_app/src/common/constants/sizes.dart';
 
 class CommonProgressIndicator extends StatelessWidget {
   const CommonProgressIndicator({
-    required this.passed,
-    required this.other,
+    required this.successful,
+    required this.failed,
     required this.total,
     super.key,
   });
 
-  final int passed;
-  final int other;
+  final int successful;
+  final int failed;
   final int total;
 
   @override
@@ -25,8 +25,8 @@ class CommonProgressIndicator extends StatelessWidget {
       ),
       child: PrimerProgressBar(
         segments: [
-          Segment(value: passed, color: Colors.green),
-          Segment(value: other, color: Colors.red),
+          Segment(value: successful, color: Colors.green),
+          Segment(value: failed, color: Colors.red),
         ],
         maxTotalValue: total,
         showLegend: false,

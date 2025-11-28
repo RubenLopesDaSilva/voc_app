@@ -20,8 +20,6 @@ class WordCard extends StatelessWidget {
   final String firstLanguage;
   final String secondLanguage;
 
-  //TODO animation si actif pour changer la couleur plus doucement
-
   @override
   Widget build(BuildContext context) {
     return FlipCard(

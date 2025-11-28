@@ -3,9 +3,11 @@ import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:voc_app/src/common/constants/sizes.dart';
 import 'package:voc_app/src/common/constants/test_datas.dart';
 import 'package:voc_app/src/common/widgets/styled_option.dart';
-import 'package:voc_app/src/features/words/presentation/widgets/word_card.dart';
+import 'package:voc_app/src/features/repetition/models/repetition.dart';
+import 'package:voc_app/src/features/repetition/presentation/widgets/word_card.dart';
 import 'package:voc_app/src/common/widgets/common_progress_indicator.dart';
 import 'package:voc_app/src/common/widgets/option_panel.dart';
+import 'package:voc_app/src/features/words/models/word.dart';
 
 class WordScreen extends StatefulWidget {
   const WordScreen({super.key});
@@ -15,110 +17,30 @@ class WordScreen extends StatefulWidget {
 }
 
 class _WordScreenState extends State<WordScreen> {
-  Widget component = const SizedBox();
+  Repetition repetition = const Repetition();
+  final List<Word> words = testWords;
 
   final swipeController = CardSwiperController();
-  int? actualIndex = 0;
-  Set<String> knownWords = <String>{};
-  Set<String> unknownWords = <String>{};
 
   void passWord({required String id, bool? known}) {
-    if (known == null) {
-      knownWords.remove(id);
-      unknownWords.remove(id);
-    } else {
-      if (known) {
-        unknownWords.remove(id);
-        knownWords.add(id);
-      } else {
-        knownWords.remove(id);
-        unknownWords.add(id);
-      }
-    }
+    repetition = repetition.passWord(id: id, known: known);
     setState(() {});
   }
 
-  void changeWidget() {
-    component = Center(
-      child: SizedBox(
-        width: 400,
-        height: 280,
-        child: CardSwiper(
-          controller: swipeController,
-          cardsCount: testWords.length,
-          numberOfCardsDisplayed: 5,
-          isLoop: false,
-          onSwipe: (previousIndex, currentIndex, direction) {
-            if (direction.isVertical) {
-              swipeController.undo();
-              return false;
-            }
-            if (direction.isCloseTo(CardSwiperDirection.left)) {
-              passWord(id: testWords[previousIndex].id, known: false);
-            }
-            if (direction.isCloseTo(CardSwiperDirection.right)) {
-              passWord(id: testWords[previousIndex].id, known: true);
-            }
-            actualIndex = currentIndex;
-            return true;
-          },
-          onUndo: (previousIndex, currentIndex, direction) {
-            passWord(id: testWords[currentIndex].id);
-            actualIndex = currentIndex;
-            return true;
-          },
-          onEnd: () {
-            //TODO end
-          },
-          cardBuilder:
-              (
-                context,
-                index,
-                horizontalOffsetPercentage,
-                verticalOffsetPercentage,
-              ) {
-                final word = testWords[index];
-                return WordCard(
-                  key: Key(word.id),
-                  word: word,
-                  color: Colors.grey,
-                  textColor: Colors.black,
-                  actif: index == actualIndex,
-                  firstLanguage: 'fr',
-                  secondLanguage: 'en',
-                );
-              },
-        ),
-      ),
-    );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    changeWidget();
-  }
-
-  @override
-  void dispose() {
-    swipeController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
+  List<Widget> children() {
+    switch (repetition.state) {
+      case RepetitionState.begin:
+        return <Widget>[];
+      case RepetitionState.process:
+        return <Widget>[
           const Expanded(child: SizedBox()),
           OptionPanel(
             width: Sizes.p400,
             title: CommonProgressIndicator(
-              passed: knownWords.length,
-              other: unknownWords.length,
-              total: testWords.length,
+              successful: repetition.knownCount,
+              failed: repetition.unknownCount,
+              total: repetition.usingCount,
             ),
-            //TODO Implementer method pour options
             options: [
               const StyledOption(Icons.replay, onPressed: null),
               gapW12,
@@ -136,11 +58,84 @@ class _WordScreenState extends State<WordScreen> {
             ],
           ),
           gapH64,
-          component,
+          Center(
+            child: SizedBox(
+              width: 400,
+              height: 280,
+              child: CardSwiper(
+                controller: swipeController,
+                cardsCount: testWords.length,
+                numberOfCardsDisplayed: 5,
+                isLoop: false,
+                onSwipe: (previousIndex, currentIndex, direction) {
+                  if (direction.isVertical) {
+                    swipeController.undo();
+                    return false;
+                  }
+                  if (direction.isCloseTo(CardSwiperDirection.left)) {
+                    passWord(id: words[previousIndex].id, known: false);
+                  }
+                  if (direction.isCloseTo(CardSwiperDirection.right)) {
+                    passWord(id: words[previousIndex].id, known: true);
+                  }
+                  repetition = repetition.changeIndex(currentIndex);
+                  return true;
+                },
+                onUndo: (previousIndex, currentIndex, direction) {
+                  passWord(id: words[currentIndex].id);
+                  repetition = repetition.changeIndex(currentIndex);
+                  return true;
+                },
+                onEnd: () {},
+                cardBuilder:
+                    (
+                      context,
+                      index,
+                      horizontalOffsetPercentage,
+                      verticalOffsetPercentage,
+                    ) {
+                      final word = testWords[index];
+                      return WordCard(
+                        key: Key(word.id),
+                        word: word,
+                        color: Colors.grey,
+                        textColor: Colors.black,
+                        actif: index == repetition.index,
+                        firstLanguage: 'fr',
+                        secondLanguage: 'en',
+                      );
+                    },
+              ),
+            ),
+          ),
           gapH24,
           const Expanded(child: SizedBox()),
-        ],
-      ),
+        ];
+      case RepetitionState.end:
+        return <Widget>[];
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    repetition = repetition.initialize(
+      words: testWords.map<String>((word) => word.id).toList(),
+      initialIndex: 0,
+      firstLanguage: 'fr',
+      secondLanguage: 'en',
     );
+    repetition = repetition.start();
+  }
+
+  @override
+  void dispose() {
+    swipeController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(body: Column(children: children()));
   }
 }
