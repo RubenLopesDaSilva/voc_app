@@ -12,15 +12,26 @@ import 'package:voc_app/src/common/constants/sizes.dart';
 //   static const Color textColor = Color.fromARGB(255, 187, 62, 3);
 // }
 
+// class AppColors {
+//   static const Color white = Colors.white;
+//   static const Color grey = Colors.grey;
+//   static const Color black = Colors.black;
+//   static const Color primaryColor = Color.fromARGB(255, 217, 237, 146);
+//   static const Color primaryAccent = Color.fromARGB(255, 181, 228, 140);
+//   static const Color secondaryColor = Color.fromARGB(255, 118, 200, 147);
+//   static const Color secondaryAccent = Color.fromARGB(255, 82, 182, 154);
+//   static const Color textColor = Color.fromARGB(255, 153, 217, 140);
+// }
+
 class AppColors {
   static const Color white = Colors.white;
   static const Color grey = Colors.grey;
   static const Color black = Colors.black;
-  static const Color primaryColor = Color.fromARGB(255, 217, 237, 146);
-  static const Color primaryAccent = Color.fromARGB(255, 181, 228, 140);
-  static const Color secondaryColor = Color.fromARGB(255, 118, 200, 147);
-  static const Color secondaryAccent = Color.fromARGB(255, 82, 182, 154);
-  static const Color textColor = Color.fromARGB(255, 153, 217, 140);
+  static const Color primaryColor = Color.fromARGB(255, 248, 244, 227);
+  static const Color primaryAccent = Color.fromARGB(255, 212, 205, 195);
+  static const Color secondaryColor = Color.fromARGB(255, 162, 163, 146);
+  static const Color secondaryAccent = Color.fromARGB(255, 154, 153, 140);
+  static const Color textColor = Color.fromARGB(255, 213, 208, 205);
 }
 
 ThemeData lightTheme = ThemeData(
