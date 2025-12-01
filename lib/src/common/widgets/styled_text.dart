@@ -2,10 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class StyledText extends StatelessWidget {
-  const StyledText(this.text, {this.color, this.overflow, super.key});
+  const StyledText(
+    this.text, {
+    this.color,
+    this.fontSize,
+    this.overflow,
+    super.key,
+  });
 
   final String text;
   final Color? color;
+  final double? fontSize;
   final TextOverflow? overflow;
 
   @override
@@ -15,7 +22,7 @@ class StyledText extends StatelessWidget {
       style: GoogleFonts.geologica(
         textStyle: Theme.of(
           context,
-        ).textTheme.bodyMedium?.copyWith(color: color),
+        ).textTheme.bodyMedium?.copyWith(color: color, fontSize: fontSize),
       ),
       overflow: overflow,
     );
@@ -23,10 +30,17 @@ class StyledText extends StatelessWidget {
 }
 
 class StyledHeadline extends StatelessWidget {
-  const StyledHeadline(this.text, {this.color, this.overflow, super.key});
+  const StyledHeadline(
+    this.text, {
+    this.color,
+    this.fontSize,
+    this.overflow,
+    super.key,
+  });
 
   final String text;
   final Color? color;
+  final double? fontSize;
   final TextOverflow? overflow;
 
   @override
@@ -36,7 +50,7 @@ class StyledHeadline extends StatelessWidget {
       style: GoogleFonts.geologica(
         textStyle: Theme.of(
           context,
-        ).textTheme.headlineMedium?.copyWith(color: color),
+        ).textTheme.headlineMedium?.copyWith(color: color, fontSize: fontSize),
       ),
       overflow: overflow,
     );
@@ -44,10 +58,17 @@ class StyledHeadline extends StatelessWidget {
 }
 
 class StyledTitle extends StatelessWidget {
-  const StyledTitle(this.text, {this.color, this.overflow, super.key});
+  const StyledTitle(
+    this.text, {
+    this.color,
+    this.fontSize,
+    this.overflow,
+    super.key,
+  });
 
   final String text;
   final Color? color;
+  final double? fontSize;
   final TextOverflow? overflow;
 
   @override
@@ -57,7 +78,7 @@ class StyledTitle extends StatelessWidget {
       style: GoogleFonts.geologica(
         textStyle: Theme.of(
           context,
-        ).textTheme.titleMedium?.copyWith(color: color),
+        ).textTheme.titleMedium?.copyWith(color: color, fontSize: fontSize),
       ),
       overflow: overflow,
     );

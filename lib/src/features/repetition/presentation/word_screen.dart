@@ -98,8 +98,6 @@ class _WordScreenState extends State<WordScreen> {
                       return WordCard(
                         key: Key(word.id),
                         word: word,
-                        color: Colors.grey,
-                        textColor: Colors.black,
                         actif: index == repetition.index,
                         firstLanguage: 'fr',
                         secondLanguage: 'en',

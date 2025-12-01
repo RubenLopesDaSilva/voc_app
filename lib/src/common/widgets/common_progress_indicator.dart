@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:primer_progress_bar/primer_progress_bar.dart';
 import 'package:voc_app/src/common/constants/sizes.dart';
+import 'package:voc_app/src/theme/theme.dart';
 
 class CommonProgressIndicator extends StatelessWidget {
   const CommonProgressIndicator({
@@ -20,18 +21,19 @@ class CommonProgressIndicator extends StatelessWidget {
       width: Sizes.p256,
       height: Sizes.p64,
       decoration: BoxDecoration(
-        border: Border.all(width: Sizes.p4),
+        color: AppColors.textColor,
+        border: Border.all(width: Sizes.p4, color: AppColors.textColor),
         borderRadius: BorderRadius.circular(Sizes.p32),
       ),
       child: PrimerProgressBar(
         segments: [
-          Segment(value: successful, color: Colors.green),
-          Segment(value: failed, color: Colors.red),
+          Segment(value: successful, color: AppColors.primaryColor),
+          Segment(value: failed, color: AppColors.secondaryAccent),
         ],
         maxTotalValue: total,
         showLegend: false,
         barStyle: const SegmentedBarStyle(
-          backgroundColor: Colors.grey,
+          backgroundColor: Colors.transparent,
           size: Sizes.p64,
           gap: 4,
           padding: EdgeInsets.all(0),

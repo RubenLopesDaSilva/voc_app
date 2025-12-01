@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:voc_app/src/common/constants/sizes.dart';
+import 'package:voc_app/src/theme/theme.dart';
 
 class OptionPanel extends StatelessWidget {
   const OptionPanel({
@@ -19,8 +20,8 @@ class OptionPanel extends StatelessWidget {
       child: Container(
         width: width,
         decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border.all(color: Colors.black, width: 2.0),
+          color: AppColors.primaryColor,
+          border: Border.all(color: AppColors.textColor, width: Sizes.p4),
           borderRadius: BorderRadius.circular(20),
         ),
         padding: const EdgeInsets.all(Sizes.p12),
