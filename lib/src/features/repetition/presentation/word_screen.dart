@@ -18,7 +18,7 @@ class WordScreen extends StatefulWidget {
 
 class _WordScreenState extends State<WordScreen> {
   Repetition repetition = const Repetition();
-  final List<Word> words = testWords;
+  List<Word> words = [];
 
   final swipeController = CardSwiperController();
 
@@ -64,7 +64,7 @@ class _WordScreenState extends State<WordScreen> {
               height: 280,
               child: CardSwiper(
                 controller: swipeController,
-                cardsCount: testWords.length,
+                cardsCount: words.length,
                 numberOfCardsDisplayed: 5,
                 isLoop: false,
                 onSwipe: (previousIndex, currentIndex, direction) {
@@ -94,7 +94,7 @@ class _WordScreenState extends State<WordScreen> {
                       horizontalOffsetPercentage,
                       verticalOffsetPercentage,
                     ) {
-                      final word = testWords[index];
+                      final word = words[index];
                       return WordCard(
                         key: Key(word.id),
                         word: word,
@@ -118,11 +118,17 @@ class _WordScreenState extends State<WordScreen> {
   void initState() {
     super.initState();
     repetition = repetition.initialize(
-      words: testWords.map<String>((word) => word.id).toList(),
+      words: testWords
+          .where((word) => testGroups['1']?.words.contains(word.id) ?? false)
+          .map((word) => word.id)
+          .toList(),
       initialIndex: 0,
       firstLanguage: 'fr',
       secondLanguage: 'en',
     );
+    words = testWords
+        .where((word) => repetition.allUsingWords.contains(word.id))
+        .toList();
     repetition = repetition.start();
   }
 

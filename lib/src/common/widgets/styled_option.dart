@@ -16,10 +16,7 @@ class StyledOption extends StatelessWidget {
       color: AppColors.secondaryAccent,
       highlightColor: AppColors.textColor,
       hoverColor: AppColors.primaryAccent,
-      disabledColor: AppColors.primaryAccent,
-      // highlightColor: const Color.fromARGB(255, 170, 170, 170),
-      // hoverColor: const Color.fromARGB(255, 200, 200, 200),
-      // disabledColor: AppColors.grey,
+      disabledColor: AppColors.textColor,
     );
   }
 }

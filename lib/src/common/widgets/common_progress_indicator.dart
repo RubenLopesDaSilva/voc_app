@@ -21,14 +21,14 @@ class CommonProgressIndicator extends StatelessWidget {
       width: Sizes.p256,
       height: Sizes.p64,
       decoration: BoxDecoration(
-        color: AppColors.textColor,
-        border: Border.all(width: Sizes.p4, color: AppColors.textColor),
+        color: AppColors.secondaryAccent,
+        border: Border.all(width: Sizes.p4, color: AppColors.secondaryAccent),
         borderRadius: BorderRadius.circular(Sizes.p32),
       ),
       child: PrimerProgressBar(
         segments: [
-          Segment(value: successful, color: AppColors.primaryColor),
-          Segment(value: failed, color: AppColors.secondaryAccent),
+          Segment(value: successful, color: AppColors.primaryAccent),
+          Segment(value: failed, color: AppColors.secondaryColor),
         ],
         maxTotalValue: total,
         showLegend: false,

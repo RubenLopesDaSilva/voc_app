@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_flip_card/flutter_flip_card.dart';
+import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:voc_app/src/common/constants/sizes.dart';
 import 'package:voc_app/src/common/widgets/styled_text.dart';
 import 'package:voc_app/src/features/words/models/word.dart';
@@ -62,22 +63,26 @@ class CardSide extends StatelessWidget {
       decoration: BoxDecoration(
         color: color,
         border: Border.all(
-          color: actif ? AppColors.textColor : color,
+          color: actif ? AppColors.primaryAccent : color,
           width: 4.0,
         ),
         borderRadius: BorderRadius.circular(20),
       ),
-      child: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            StyledHeadline(
-              title,
-              color: actif ? null : color,
-              fontSize: Sizes.p40,
-            ),
-            StyledText(phonetic, color: actif ? null : color),
-          ],
+      child: Shimmer(
+        enabled: actif,
+        interval: const Duration(seconds: 4),
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              StyledHeadline(
+                title,
+                color: actif ? null : color,
+                fontSize: Sizes.p40,
+              ),
+              StyledText(phonetic, color: actif ? null : color),
+            ],
+          ),
         ),
       ),
     );
