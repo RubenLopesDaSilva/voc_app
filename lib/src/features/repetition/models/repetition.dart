@@ -8,6 +8,7 @@ class Repetition {
     Set<String> unknownWords = const {},
     RepetitionState state = RepetitionState.begin,
     int actualIndex = 0,
+    String listId = '',
     String firstLanguage = '',
     String secondLanguage = '',
   }) : _allWords = allWords,
@@ -16,6 +17,7 @@ class Repetition {
        _unknownWords = unknownWords,
        _state = state,
        _index = actualIndex,
+       _listId = listId,
        _firstLanguage = firstLanguage,
        _secondLanguage = secondLanguage;
 
@@ -26,6 +28,7 @@ class Repetition {
 
   final RepetitionState _state;
   final int _index;
+  final String _listId;
   final String _firstLanguage;
   final String _secondLanguage;
 
@@ -36,6 +39,7 @@ class Repetition {
     Set<String>? unknownWords,
     RepetitionState? state,
     int? actualIndex,
+    String? listId,
     String? firstLanguage,
     String? secondLanguage,
   }) {
@@ -46,6 +50,7 @@ class Repetition {
       unknownWords: unknownWords ?? _unknownWords,
       state: state ?? _state,
       actualIndex: actualIndex ?? _index,
+      listId: listId ?? _listId,
       firstLanguage: firstLanguage ?? _firstLanguage,
       secondLanguage: secondLanguage ?? _secondLanguage,
     );
@@ -58,6 +63,7 @@ extension GetRepetition on Repetition {
   int get unknownCount => _unknownWords.length;
   RepetitionState get state => _state;
   int? get index => _index;
+  String get listId => _listId;
   String get firstLanguage => _firstLanguage;
   String get secondLanguage => _secondLanguage;
 
@@ -68,6 +74,7 @@ extension MutableRepetition on Repetition {
   Repetition initialize({
     required List<String> words,
     required int initialIndex,
+    required String listId,
     required String firstLanguage,
     required String secondLanguage,
   }) {
@@ -77,6 +84,7 @@ extension MutableRepetition on Repetition {
       usingWords: allWords,
       state: RepetitionState.begin,
       actualIndex: initialIndex,
+      listId: listId,
       firstLanguage: firstLanguage,
       secondLanguage: secondLanguage,
     );

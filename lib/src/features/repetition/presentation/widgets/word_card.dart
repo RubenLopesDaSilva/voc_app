@@ -78,7 +78,7 @@ class CardSide extends StatelessWidget {
               StyledHeadline(
                 title,
                 color: actif ? null : color,
-                fontSize: Sizes.p40,
+                fontSize: Sizes.p10,
               ),
               StyledText(phonetic, color: actif ? null : color),
             ],

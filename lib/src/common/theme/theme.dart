@@ -39,15 +39,15 @@ ThemeData lightTheme = ThemeData(
   colorScheme: ColorScheme.fromSeed(seedColor: AppColors.middleColor),
   scaffoldBackgroundColor: AppColors.primaryAccent,
   textTheme: const TextTheme(
-    bodyMedium: TextStyle(color: AppColors.secondaryColor, fontSize: Sizes.p16),
+    bodyMedium: TextStyle(color: AppColors.secondaryColor, fontSize: Sizes.p4),
     headlineMedium: TextStyle(
       color: AppColors.secondaryColor,
-      fontSize: Sizes.p16,
+      fontSize: Sizes.p4,
       fontWeight: FontWeight.bold,
     ),
     titleMedium: TextStyle(
       color: AppColors.secondaryColor,
-      fontSize: Sizes.p20,
+      fontSize: Sizes.p5,
       fontWeight: FontWeight.bold,
     ),
   ),
