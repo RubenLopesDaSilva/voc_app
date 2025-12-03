@@ -29,24 +29,24 @@ class AppColors {
   static const Color black = Colors.black;
   static const Color primaryColor = Color.fromARGB(255, 248, 244, 227);
   static const Color primaryAccent = Color.fromARGB(255, 212, 205, 195);
+  static const Color middleColor = Color.fromARGB(255, 213, 208, 205);
   static const Color secondaryColor = Color.fromARGB(255, 162, 163, 146);
   static const Color secondaryAccent = Color.fromARGB(255, 154, 153, 140);
-  static const Color textColor = Color.fromARGB(255, 213, 208, 205);
 }
 
 ThemeData lightTheme = ThemeData(
   brightness: Brightness.light,
-  colorScheme: ColorScheme.fromSeed(seedColor: AppColors.textColor),
+  colorScheme: ColorScheme.fromSeed(seedColor: AppColors.middleColor),
   scaffoldBackgroundColor: AppColors.primaryAccent,
   textTheme: const TextTheme(
-    bodyMedium: TextStyle(color: AppColors.textColor, fontSize: Sizes.p16),
+    bodyMedium: TextStyle(color: AppColors.secondaryColor, fontSize: Sizes.p16),
     headlineMedium: TextStyle(
-      color: AppColors.textColor,
+      color: AppColors.secondaryColor,
       fontSize: Sizes.p16,
       fontWeight: FontWeight.bold,
     ),
     titleMedium: TextStyle(
-      color: AppColors.textColor,
+      color: AppColors.secondaryColor,
       fontSize: Sizes.p20,
       fontWeight: FontWeight.bold,
     ),
