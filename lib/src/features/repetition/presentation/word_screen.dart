@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:voc_app/src/common/constants/gap.dart';
@@ -5,7 +7,8 @@ import 'package:voc_app/src/common/constants/sizes.dart';
 import 'package:voc_app/src/common/constants/test_datas.dart';
 import 'package:voc_app/src/common/localization/string_hardcoded.dart';
 import 'package:voc_app/src/common/theme/theme.dart';
-import 'package:voc_app/src/common/widgets/styled_option.dart';
+import 'package:voc_app/src/common/widgets/styled_button.dart';
+import 'package:voc_app/src/common/widgets/styled_icon.dart';
 import 'package:voc_app/src/common/widgets/styled_text.dart';
 import 'package:voc_app/src/features/groups/models/group.dart';
 import 'package:voc_app/src/features/repetition/models/repetition.dart';
@@ -118,11 +121,12 @@ class _WordScreenState extends State<WordScreen> {
               Expanded(
                 child: Center(
                   child: StyledHeadline(
-                    '${'Contient'.hardcoded} ${group.words.length > 1
-                        ? '${group.words.length} ${'mots'.hardcoded}'
-                        : group.words.length == 1
-                        ? '${'un'.hardcoded} ${'mot'.hardcoded}'
-                        : '${'aucun'.hardcoded} ${'mot'.hardcoded}'}',
+                    'Contient ${group.words.length > 1
+                            ? '${group.words.length} mots'
+                            : group.words.length == 1
+                            ? 'un mot'
+                            : 'aucun mot'}'
+                        .hardcoded,
                     fontSize: Sizes.p4,
                   ),
                 ),
@@ -151,9 +155,9 @@ class _WordScreenState extends State<WordScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const StyledOption(Icons.replay, onPressed: null),
+                  const StyledIcon(Icons.replay, onPressed: null),
                   gapW3,
-                  StyledOption(
+                  StyledIcon(
                     // Icons.arrow_upward,
                     Icons.arrow_back,
                     // Icons.arrow_downward,
@@ -163,7 +167,7 @@ class _WordScreenState extends State<WordScreen> {
                     },
                   ),
                   gapW3,
-                  StyledOption(
+                  StyledIcon(
                     Icons.close,
                     onPressed: () {
                       repetition = repetition.end();
@@ -180,9 +184,14 @@ class _WordScreenState extends State<WordScreen> {
               width: 400,
               height: 280,
               child: CardSwiper(
+                key: const Key(''),
                 controller: swipeController,
-                cardsCount: words.length,
-                numberOfCardsDisplayed: 5,
+                cardsCount: words.isNotEmpty ? words.length : 1,
+                numberOfCardsDisplayed: words.length > 5
+                    ? 5
+                    : words.isNotEmpty
+                    ? words.length
+                    : 1,
                 isLoop: false,
                 onSwipe: (previousIndex, currentIndex, direction) {
                   if (direction.isVertical) {
@@ -214,7 +223,15 @@ class _WordScreenState extends State<WordScreen> {
                       horizontalOffsetPercentage,
                       verticalOffsetPercentage,
                     ) {
-                      final word = words[index];
+                      final word = (index <= words.length)
+                          ? words[index]
+                          : const Word(
+                              id: '0',
+                              traductions: {},
+                              phonetics: {},
+                              definitions: {},
+                              userId: '9',
+                            );
                       return WordCard(
                         key: Key(word.id),
                         word: word,
@@ -232,7 +249,54 @@ class _WordScreenState extends State<WordScreen> {
         break;
       case RepetitionState.end:
         children.addAll(<Widget>[
-           
+          StyledHeadline(
+            'Vous connaissez ${100 * repetition.knownCount / repetition.usingCount} % ${repetition.usingCount}'
+                .hardcoded,
+          ),
+          StyledButton(
+            width: Sizes.p40,
+            height: Sizes.p10,
+            onPressed: () {
+              repetition = repetition.repeatWords(initialIndex: 0).restart();
+              words = testWords
+                  .where((word) => repetition.allUsingWords.contains(word.id))
+                  .toList();
+              setState(() {});
+            },
+            child: StyledHeadline('Répeter à nouveau'.hardcoded),
+          ),
+          StyledButton(
+            width: Sizes.p70,
+            height: Sizes.p10,
+            onPressed: () {
+              repetition = repetition
+                  .repeatWords(initialIndex: 0, all: false)
+                  .restart();
+              words = testWords
+                  .where((word) => repetition.allUsingWords.contains(word.id))
+                  .toList();
+              print('Mot pas sue ${repetition.allUsingWords.length}');
+              setState(() {});
+            },
+            child: StyledHeadline(
+              'Répeter seulement les mots pas sue'.hardcoded,
+            ),
+          ),
+          //TODO : Pouvoir revenire en arrière
+          StyledButton(
+            width: Sizes.p60,
+            height: Sizes.p10,
+            // onPressed: () {
+            //   repetition = repetition.changeState(RepetitionState.process);
+            //   setState(() {});
+            // },
+            child: StyledHeadline('Retour à la repetition actuelle'.hardcoded),
+          ),
+          StyledButton(
+            width: Sizes.p50,
+            height: Sizes.p10,
+            child: StyledHeadline('Arrêter cette repetition'.hardcoded),
+          ),
         ]);
         break;
     }

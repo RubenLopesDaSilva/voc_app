@@ -7,7 +7,7 @@ class Repetition {
     Set<String> knownWords = const {},
     Set<String> unknownWords = const {},
     RepetitionState state = RepetitionState.begin,
-    int actualIndex = 0,
+    int index = 0,
     String listId = '',
     String firstLanguage = '',
     String secondLanguage = '',
@@ -16,7 +16,7 @@ class Repetition {
        _knownWords = knownWords,
        _unknownWords = unknownWords,
        _state = state,
-       _index = actualIndex,
+       _index = index,
        _listId = listId,
        _firstLanguage = firstLanguage,
        _secondLanguage = secondLanguage;
@@ -38,18 +38,18 @@ class Repetition {
     Set<String>? knownWords,
     Set<String>? unknownWords,
     RepetitionState? state,
-    int? actualIndex,
+    int? index,
     String? listId,
     String? firstLanguage,
     String? secondLanguage,
   }) {
     return Repetition(
-      allWords: allWords ?? _allWords,
-      usingWords: usingWords ?? _usingWords,
-      knownWords: knownWords ?? _knownWords,
-      unknownWords: unknownWords ?? _unknownWords,
+      allWords: allWords?.toSet() ?? _allWords,
+      usingWords: usingWords?.toSet() ?? _usingWords,
+      knownWords: knownWords?.toSet() ?? _knownWords,
+      unknownWords: unknownWords?.toSet() ?? _unknownWords,
       state: state ?? _state,
-      actualIndex: actualIndex ?? _index,
+      index: index ?? _index,
       listId: listId ?? _listId,
       firstLanguage: firstLanguage ?? _firstLanguage,
       secondLanguage: secondLanguage ?? _secondLanguage,
@@ -72,18 +72,17 @@ extension GetRepetition on Repetition {
 
 extension MutableRepetition on Repetition {
   Repetition initialize({
-    required List<String> words,
+    required Iterable<String> words,
     required int initialIndex,
     required String listId,
     required String firstLanguage,
     required String secondLanguage,
   }) {
-    Set<String> allWords = words.toSet();
     return copyWith(
-      allWords: allWords,
-      usingWords: allWords,
+      allWords: words.toSet(),
+      usingWords: words.toSet(),
       state: RepetitionState.begin,
-      actualIndex: initialIndex,
+      index: initialIndex,
       listId: listId,
       firstLanguage: firstLanguage,
       secondLanguage: secondLanguage,
@@ -94,20 +93,30 @@ extension MutableRepetition on Repetition {
     return changeState(RepetitionState.process);
   }
 
+  Repetition restart() {
+    return copyWith(
+      knownWords: const {},
+      unknownWords: const {},
+    ).changeState(RepetitionState.process);
+  }
+
   Repetition end() {
     return changeState(RepetitionState.end);
   }
 
-  Repetition repeatAllWords({required int initialIndex}) {
-    return copyWith(usingWords: _allWords, actualIndex: initialIndex);
-  }
-
-  Repetition repeatUnknownWords({required int initialIndex}) {
-    return copyWith(usingWords: _unknownWords, actualIndex: initialIndex);
+  Repetition repeatWords({required int initialIndex, bool all = true}) {
+    return copyWith(
+      usingWords: all ? _allWords : _unknownWords,
+      index: initialIndex,
+    );
   }
 
   Repetition changeState(RepetitionState state) {
     return copyWith(state: state);
+  }
+
+  Repetition changeIndex(int? index) {
+    return copyWith(index: index);
   }
 
   Repetition passWord({required String id, bool? known}) {
@@ -126,18 +135,5 @@ extension MutableRepetition on Repetition {
       }
     }
     return copyWith(knownWords: knowns, unknownWords: unknowns);
-  }
-
-  Repetition changeIndex(int? index) {
-    return Repetition(
-      allWords: _allWords,
-      usingWords: _usingWords,
-      knownWords: _knownWords,
-      unknownWords: _unknownWords,
-      state: _state,
-      actualIndex: index ?? _index,
-      firstLanguage: _firstLanguage,
-      secondLanguage: _secondLanguage,
-    );
   }
 }

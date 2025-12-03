@@ -6,14 +6,14 @@ class StyledText extends StatelessWidget {
     this.text, {
     this.color,
     this.fontSize,
-    this.overflow,
+    this.overflow = TextOverflow.ellipsis,
     super.key,
   });
 
   final String text;
   final Color? color;
   final double? fontSize;
-  final TextOverflow? overflow;
+  final TextOverflow overflow;
 
   @override
   Widget build(BuildContext context) {
@@ -34,14 +34,14 @@ class StyledHeadline extends StatelessWidget {
     this.text, {
     this.color,
     this.fontSize,
-    this.overflow,
+    this.overflow = TextOverflow.ellipsis,
     super.key,
   });
 
   final String text;
   final Color? color;
   final double? fontSize;
-  final TextOverflow? overflow;
+  final TextOverflow overflow;
 
   @override
   Widget build(BuildContext context) {
@@ -62,14 +62,14 @@ class StyledTitle extends StatelessWidget {
     this.text, {
     this.color,
     this.fontSize,
-    this.overflow,
+    this.overflow = TextOverflow.ellipsis,
     super.key,
   });
 
   final String text;
   final Color? color;
   final double? fontSize;
-  final TextOverflow? overflow;
+  final TextOverflow overflow;
 
   @override
   Widget build(BuildContext context) {
