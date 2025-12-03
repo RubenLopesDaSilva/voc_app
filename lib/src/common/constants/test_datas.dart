@@ -67,8 +67,8 @@ final testWords = <Word>[
   ),
   const Word(
     id: '10',
-    traductions: {'en': 'tomato', 'fr': 'tomate'},
-    phonetics: {'en': 'to-may-to', 'fr': 'to-mat'},
+    traductions: {'en': 'pumpkin', 'fr': 'citrouille'},
+    phonetics: {'en': 'tpumpkin', 'fr': 'citrouille'},
     definitions: {},
     userId: '1',
   ),

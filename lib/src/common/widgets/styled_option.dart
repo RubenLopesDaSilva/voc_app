@@ -14,9 +14,9 @@ class StyledOption extends StatelessWidget {
       onPressed: onPressed,
       icon: Icon(icon, size: Sizes.p32),
       color: AppColors.secondaryAccent,
-      highlightColor: AppColors.textColor,
+      highlightColor: AppColors.middleColor,
       hoverColor: AppColors.primaryAccent,
-      disabledColor: AppColors.textColor,
+      disabledColor: AppColors.middleColor,
     );
   }
 }

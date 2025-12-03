@@ -21,7 +21,7 @@ class OptionPanel extends StatelessWidget {
         width: width,
         decoration: BoxDecoration(
           color: AppColors.primaryColor,
-          border: Border.all(color: AppColors.textColor, width: Sizes.p4),
+          border: Border.all(color: AppColors.middleColor, width: Sizes.p4),
           borderRadius: BorderRadius.circular(20),
         ),
         padding: const EdgeInsets.all(Sizes.p12),
