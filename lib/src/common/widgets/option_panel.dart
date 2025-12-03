@@ -19,10 +19,24 @@ class OptionPanel extends StatelessWidget {
     return Center(
       child: Container(
         width: width,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: AppColors.primaryColor,
-          border: Border.all(color: AppColors.middleColor, width: Sizes.p4),
-          borderRadius: BorderRadius.circular(20),
+          border: Border(
+            right: BorderSide(
+              color: AppColors.secondaryAccent,
+              width: Sizes.p8,
+            ),
+            bottom: BorderSide(
+              color: AppColors.secondaryAccent,
+              width: Sizes.p8,
+            ),
+          ),
+          borderRadius: BorderRadius.only(
+            // topLeft: Radius.circular(20),
+            // bottomRight: Radius.circular(20),
+            topRight: Radius.circular(20),
+            bottomLeft: Radius.circular(20),
+          ),
         ),
         padding: const EdgeInsets.all(Sizes.p12),
         child: Center(

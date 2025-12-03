@@ -22,20 +22,23 @@ class CommonProgressIndicator extends StatelessWidget {
       height: Sizes.p64,
       decoration: BoxDecoration(
         color: AppColors.secondaryAccent,
-        border: Border.all(width: Sizes.p4, color: AppColors.secondaryAccent),
+        border: Border.all(width: Sizes.p8, color: AppColors.secondaryAccent),
         borderRadius: BorderRadius.circular(Sizes.p32),
       ),
+      //TODO : Créer ma propre bar de progress pour que les 2 couleurs soi opposé et rejoigne le centre
       child: PrimerProgressBar(
         segments: [
-          Segment(value: successful, color: AppColors.primaryAccent),
-          Segment(value: failed, color: AppColors.secondaryColor),
+          // Segment(value: successful, color: AppColors.primaryAccent),
+          // Segment(value: failed, color: AppColors.secondaryColor),
+          Segment(value: successful, color: AppColors.primaryColor),
+          Segment(value: failed, color: AppColors.primaryAccent),
         ],
         maxTotalValue: total,
         showLegend: false,
         barStyle: const SegmentedBarStyle(
           backgroundColor: Colors.transparent,
           size: Sizes.p64,
-          gap: 4,
+          gap: Sizes.p8,
           padding: EdgeInsets.all(0),
         ),
       ),
