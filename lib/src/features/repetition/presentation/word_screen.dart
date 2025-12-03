@@ -36,79 +36,107 @@ class _WordScreenState extends State<WordScreen> {
     setState(() {});
   }
 
+  @override
+  void initState() {
+    super.initState();
+    repetition = repetition.initialize(
+      words: testWords
+          .where((word) => group.words.contains(word.id))
+          .map((word) => word.id)
+          .toList(),
+      initialIndex: 0,
+      listId: group.id,
+      firstLanguage: 'fr',
+      secondLanguage: 'en',
+    );
+    words = testWords
+        .where((word) => repetition.allUsingWords.contains(word.id))
+        .toList();
+    repetition = repetition.start();
+  }
+
+  @override
+  void dispose() {
+    swipeController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(body: Column(children: children()));
+  }
+
   List<Widget> children() {
-    switch (repetition.state) {
-      case RepetitionState.begin:
-        return <Widget>[];
-      case RepetitionState.process:
-        return <Widget>[
-          InfoPanel(
+    List<Widget> children = [
+      InfoPanel(
+        children: [
+          Row(
             children: [
-              Row(
-                children: [
-                  gapW10,
-                  StyledHeadline('Repetition'.hardcoded, fontSize: Sizes.p10),
-                  expandH10,
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.account_circle_outlined,
-                      color: AppColors.secondaryAccent,
-                      size: Sizes.p15,
-                    ),
-                  ),
-                  gapW10,
-                ],
+              gapW10,
+              StyledHeadline('Repetition'.hardcoded, fontSize: Sizes.p10),
+              expandH10,
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.account_circle_outlined,
+                  color: AppColors.secondaryAccent,
+                  size: Sizes.p15,
+                ),
               ),
-              gapH4,
-              const Divider(
-                color: AppColors.secondaryAccent,
-                thickness: Sizes.p1,
-                height: 0,
-              ),
-              gapH4,
-              Row(
-                children: [
-                  Expanded(
-                    child: Center(
-                      child: Column(
-                        children: [
-                          StyledHeadline(' ${group.name}', fontSize: Sizes.p6),
-                          const StyledHeadline(
-                            'Burri Simon',
-                            fontSize: Sizes.p6,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  gapW4,
-                  const SizedBox(
-                    height: Sizes.p20,
-                    child: VerticalDivider(
-                      color: AppColors.secondaryAccent,
-                      thickness: Sizes.p1,
-                      width: 0,
-                    ),
-                  ),
-                  gapW4,
-                  Expanded(
-                    child: Center(
-                      child: StyledHeadline(
-                        '${'Contient'.hardcoded} ${group.words.length > 1
-                            ? '${group.words.length} ${'mots'.hardcoded}'
-                            : group.words.length == 1
-                            ? '${'un'.hardcoded} ${'mot'.hardcoded}'
-                            : '${'aucun'.hardcoded} ${'mot'.hardcoded}'}',
-                        fontSize: Sizes.p4,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              // gapH3,
+              gapW10,
             ],
           ),
+          gapH4,
+          const Divider(
+            color: AppColors.secondaryAccent,
+            thickness: Sizes.p1,
+            height: 0,
+          ),
+          gapH4,
+          Row(
+            children: [
+              Expanded(
+                child: Center(
+                  child: Column(
+                    children: [
+                      StyledHeadline(' ${group.name}', fontSize: Sizes.p6),
+                      const StyledHeadline('Burri Simon', fontSize: Sizes.p6),
+                    ],
+                  ),
+                ),
+              ),
+              gapW4,
+              const SizedBox(
+                height: Sizes.p20,
+                child: VerticalDivider(
+                  color: AppColors.secondaryAccent,
+                  thickness: Sizes.p1,
+                  width: 0,
+                ),
+              ),
+              gapW4,
+              Expanded(
+                child: Center(
+                  child: StyledHeadline(
+                    '${'Contient'.hardcoded} ${group.words.length > 1
+                        ? '${group.words.length} ${'mots'.hardcoded}'
+                        : group.words.length == 1
+                        ? '${'un'.hardcoded} ${'mot'.hardcoded}'
+                        : '${'aucun'.hardcoded} ${'mot'.hardcoded}'}',
+                    fontSize: Sizes.p4,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    ];
+    switch (repetition.state) {
+      case RepetitionState.begin:
+        break;
+      case RepetitionState.process:
+        children.addAll(<Widget>[
           gapH16,
           OptionPanel(
             width: Sizes.p100,
@@ -135,7 +163,13 @@ class _WordScreenState extends State<WordScreen> {
                     },
                   ),
                   gapW3,
-                  const StyledOption(Icons.close, onPressed: null),
+                  StyledOption(
+                    Icons.close,
+                    onPressed: () {
+                      repetition = repetition.end();
+                      setState(() {});
+                    },
+                  ),
                 ],
               ),
             ],
@@ -169,7 +203,10 @@ class _WordScreenState extends State<WordScreen> {
                   repetition = repetition.changeIndex(currentIndex);
                   return true;
                 },
-                onEnd: () {},
+                onEnd: () {
+                  repetition = repetition.end();
+                  setState(() {});
+                },
                 cardBuilder:
                     (
                       context,
@@ -190,40 +227,15 @@ class _WordScreenState extends State<WordScreen> {
             ),
           ),
           gapH6,
-          const Expanded(child: SizedBox()),
-        ];
+          expandH1,
+        ]);
+        break;
       case RepetitionState.end:
-        return <Widget>[];
+        children.addAll(<Widget>[
+           
+        ]);
+        break;
     }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    repetition = repetition.initialize(
-      words: testWords
-          .where((word) => group.words.contains(word.id))
-          .map((word) => word.id)
-          .toList(),
-      initialIndex: 0,
-      listId: group.id,
-      firstLanguage: 'fr',
-      secondLanguage: 'en',
-    );
-    words = testWords
-        .where((word) => repetition.allUsingWords.contains(word.id))
-        .toList();
-    repetition = repetition.start();
-  }
-
-  @override
-  void dispose() {
-    swipeController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(body: Column(children: children()));
+    return children;
   }
 }

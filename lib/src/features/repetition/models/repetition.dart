@@ -91,11 +91,11 @@ extension MutableRepetition on Repetition {
   }
 
   Repetition start() {
-    return copyWith(state: RepetitionState.process);
+    return changeState(RepetitionState.process);
   }
 
   Repetition end() {
-    return copyWith(state: RepetitionState.end);
+    return changeState(RepetitionState.end);
   }
 
   Repetition repeatAllWords({required int initialIndex}) {
@@ -104,6 +104,10 @@ extension MutableRepetition on Repetition {
 
   Repetition repeatUnknownWords({required int initialIndex}) {
     return copyWith(usingWords: _unknownWords, actualIndex: initialIndex);
+  }
+
+  Repetition changeState(RepetitionState state) {
+    return copyWith(state: state);
   }
 
   Repetition passWord({required String id, bool? known}) {
@@ -122,10 +126,6 @@ extension MutableRepetition on Repetition {
       }
     }
     return copyWith(knownWords: knowns, unknownWords: unknowns);
-  }
-
-  Repetition changeState(RepetitionState state) {
-    return copyWith(state: state);
   }
 
   Repetition changeIndex(int? index) {
