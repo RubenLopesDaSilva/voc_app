@@ -36,25 +36,32 @@ class _WordScreenState extends State<WordScreen> {
           const Expanded(child: SizedBox()),
           OptionPanel(
             width: Sizes.p400,
-            title: CommonProgressIndicator(
-              successful: repetition.knownCount,
-              failed: repetition.unknownCount,
-              total: repetition.usingCount,
-            ),
-            options: [
-              const StyledOption(Icons.replay, onPressed: null),
-              gapW12,
-              StyledOption(
-                // Icons.arrow_upward,
-                Icons.arrow_back,
-                // Icons.arrow_downward,
-                // Icons.arrow_back_ios,
-                onPressed: () {
-                  swipeController.undo();
-                },
+            children: [
+              gapH12,
+              CommonProgressIndicator(
+                successful: repetition.knownCount,
+                failed: repetition.unknownCount,
+                total: repetition.usingCount,
               ),
-              gapW12,
-              const StyledOption(Icons.close, onPressed: null),
+              gapH24,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const StyledOption(Icons.replay, onPressed: null),
+                  gapW12,
+                  StyledOption(
+                    // Icons.arrow_upward,
+                    Icons.arrow_back,
+                    // Icons.arrow_downward,
+                    // Icons.arrow_back_ios,
+                    onPressed: () {
+                      swipeController.undo();
+                    },
+                  ),
+                  gapW12,
+                  const StyledOption(Icons.close, onPressed: null),
+                ],
+              ),
             ],
           ),
           gapH64,
