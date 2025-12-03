@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:voc_app/src/features/repetition/presentation/word_screen.dart';
-import 'package:voc_app/src/theme/theme.dart';
+import 'package:voc_app/src/common/theme/theme.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

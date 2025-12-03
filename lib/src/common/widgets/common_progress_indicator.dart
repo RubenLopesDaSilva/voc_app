@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:primer_progress_bar/primer_progress_bar.dart';
 import 'package:voc_app/src/common/constants/sizes.dart';
-import 'package:voc_app/src/theme/theme.dart';
+import 'package:voc_app/src/common/theme/theme.dart';
 
 class CommonProgressIndicator extends StatelessWidget {
   const CommonProgressIndicator({

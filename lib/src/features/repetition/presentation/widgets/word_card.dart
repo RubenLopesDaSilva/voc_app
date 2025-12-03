@@ -4,7 +4,7 @@ import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:voc_app/src/common/constants/sizes.dart';
 import 'package:voc_app/src/common/widgets/styled_text.dart';
 import 'package:voc_app/src/features/words/models/word.dart';
-import 'package:voc_app/src/theme/theme.dart';
+import 'package:voc_app/src/common/theme/theme.dart';
 
 class WordCard extends StatelessWidget {
   const WordCard({
