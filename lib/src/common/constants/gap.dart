@@ -29,6 +29,22 @@ const gapH16 = SizedBox(height: Sizes.p16);
 
 const expandW1 = Expanded(child: gapW1);
 const expandW2 = Expanded(child: gapW2);
+const expandW3 = Expanded(child: gapW3);
+const expandW4 = Expanded(child: gapW4);
+const expandW5 = Expanded(child: gapW5);
+const expandW6 = Expanded(child: gapW6);
+const expandW7 = Expanded(child: gapW7);
+const expandW8 = Expanded(child: gapW8);
+const expandW9 = Expanded(child: gapW9);
+const expandW10 = Expanded(child: gapW10);
 
 const expandH1 = Expanded(child: gapH1);
 const expandH2 = Expanded(child: gapH2);
+const expandH3 = Expanded(child: gapH3);
+const expandH4 = Expanded(child: gapH4);
+const expandH5 = Expanded(child: gapH5);
+const expandH6 = Expanded(child: gapH6);
+const expandH7 = Expanded(child: gapH7);
+const expandH8 = Expanded(child: gapH8);
+const expandH9 = Expanded(child: gapH9);
+const expandH10 = Expanded(child: gapH10);

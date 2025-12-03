@@ -12,6 +12,7 @@ class InfoPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: width,
+      height: Sizes.p60,
       decoration: const BoxDecoration(
         color: AppColors.primaryColor,
         border: Border(

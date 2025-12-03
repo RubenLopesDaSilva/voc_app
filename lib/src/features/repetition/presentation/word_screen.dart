@@ -42,15 +42,13 @@ class _WordScreenState extends State<WordScreen> {
         return <Widget>[];
       case RepetitionState.process:
         return <Widget>[
-          // gapH10,
           InfoPanel(
-            // width: Sizes.p100,
             children: [
               Row(
-                mainAxisSize: MainAxisSize.min,
                 children: [
-                  StyledHeadline('Repetition'.hardcoded, fontSize: Sizes.p10),
                   gapW10,
+                  StyledHeadline('Repetition'.hardcoded, fontSize: Sizes.p10),
+                  expandH10,
                   IconButton(
                     onPressed: () {},
                     icon: const Icon(
@@ -59,24 +57,59 @@ class _WordScreenState extends State<WordScreen> {
                       size: Sizes.p15,
                     ),
                   ),
+                  gapW10,
                 ],
               ),
-              StyledHeadline(
-                ' ${group.name} ${'de'.hardcoded} Burri Simon',
-                fontSize: Sizes.p6,
+              gapH4,
+              const Divider(
+                color: AppColors.secondaryAccent,
+                thickness: Sizes.p1,
+                height: 0,
               ),
-              gapH3,
-              StyledHeadline(
-                '${'Contient'.hardcoded} ${group.words.length > 1
-                    ? '${group.words.length} ${'mots'.hardcoded}'
-                    : group.words.length == 1
-                    ? '${'un'.hardcoded} ${'mot'.hardcoded}'
-                    : '${'aucun'.hardcoded} ${'mot'.hardcoded}'}',
-                fontSize: Sizes.p4,
+              gapH4,
+              Row(
+                children: [
+                  Expanded(
+                    child: Center(
+                      child: Column(
+                        children: [
+                          StyledHeadline(' ${group.name}', fontSize: Sizes.p6),
+                          const StyledHeadline(
+                            'Burri Simon',
+                            fontSize: Sizes.p6,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  gapW4,
+                  const SizedBox(
+                    height: Sizes.p20,
+                    child: VerticalDivider(
+                      color: AppColors.secondaryAccent,
+                      thickness: Sizes.p1,
+                      width: 0,
+                    ),
+                  ),
+                  gapW4,
+                  Expanded(
+                    child: Center(
+                      child: StyledHeadline(
+                        '${'Contient'.hardcoded} ${group.words.length > 1
+                            ? '${group.words.length} ${'mots'.hardcoded}'
+                            : group.words.length == 1
+                            ? '${'un'.hardcoded} ${'mot'.hardcoded}'
+                            : '${'aucun'.hardcoded} ${'mot'.hardcoded}'}',
+                        fontSize: Sizes.p4,
+                      ),
+                    ),
+                  ),
+                ],
               ),
+              // gapH3,
             ],
           ),
-          gapH10,
+          gapH16,
           OptionPanel(
             width: Sizes.p100,
             children: [
