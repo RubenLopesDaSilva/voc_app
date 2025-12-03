@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
+import 'package:voc_app/src/common/constants/gap.dart';
 import 'package:voc_app/src/common/constants/sizes.dart';
 import 'package:voc_app/src/common/constants/test_datas.dart';
+import 'package:voc_app/src/common/localization/string_hardcoded.dart';
+import 'package:voc_app/src/common/theme/theme.dart';
 import 'package:voc_app/src/common/widgets/styled_option.dart';
+import 'package:voc_app/src/common/widgets/styled_text.dart';
+import 'package:voc_app/src/features/groups/models/group.dart';
 import 'package:voc_app/src/features/repetition/models/repetition.dart';
+import 'package:voc_app/src/features/repetition/presentation/widgets/info_panel.dart';
 import 'package:voc_app/src/features/repetition/presentation/widgets/word_card.dart';
 import 'package:voc_app/src/common/widgets/common_progress_indicator.dart';
 import 'package:voc_app/src/common/widgets/option_panel.dart';
@@ -18,6 +24,9 @@ class WordScreen extends StatefulWidget {
 
 class _WordScreenState extends State<WordScreen> {
   Repetition repetition = const Repetition();
+  Group group =
+      testGroups['1'] ??
+      const Group(id: '0', name: 'name', words: [], userId: '0');
   List<Word> words = [];
 
   final swipeController = CardSwiperController();
@@ -33,22 +42,56 @@ class _WordScreenState extends State<WordScreen> {
         return <Widget>[];
       case RepetitionState.process:
         return <Widget>[
-          const Expanded(child: SizedBox()),
-          OptionPanel(
-            width: Sizes.p400,
+          // gapH10,
+          InfoPanel(
+            // width: Sizes.p100,
             children: [
-              gapH12,
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  StyledHeadline('Repetition'.hardcoded, fontSize: Sizes.p10),
+                  gapW10,
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.account_circle_outlined,
+                      color: AppColors.secondaryAccent,
+                      size: Sizes.p15,
+                    ),
+                  ),
+                ],
+              ),
+              StyledHeadline(
+                ' ${group.name} ${'de'.hardcoded} Burri Simon',
+                fontSize: Sizes.p6,
+              ),
+              gapH3,
+              StyledHeadline(
+                '${'Contient'.hardcoded} ${group.words.length > 1
+                    ? '${group.words.length} ${'mots'.hardcoded}'
+                    : group.words.length == 1
+                    ? '${'un'.hardcoded} ${'mot'.hardcoded}'
+                    : '${'aucun'.hardcoded} ${'mot'.hardcoded}'}',
+                fontSize: Sizes.p4,
+              ),
+            ],
+          ),
+          gapH10,
+          OptionPanel(
+            width: Sizes.p100,
+            children: [
+              gapH3,
               CommonProgressIndicator(
                 successful: repetition.knownCount,
                 failed: repetition.unknownCount,
                 total: repetition.usingCount,
               ),
-              gapH24,
+              gapH6,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const StyledOption(Icons.replay, onPressed: null),
-                  gapW12,
+                  gapW3,
                   StyledOption(
                     // Icons.arrow_upward,
                     Icons.arrow_back,
@@ -58,13 +101,13 @@ class _WordScreenState extends State<WordScreen> {
                       swipeController.undo();
                     },
                   ),
-                  gapW12,
+                  gapW3,
                   const StyledOption(Icons.close, onPressed: null),
                 ],
               ),
             ],
           ),
-          gapH64,
+          gapH16,
           Center(
             child: SizedBox(
               width: 400,
@@ -113,7 +156,7 @@ class _WordScreenState extends State<WordScreen> {
               ),
             ),
           ),
-          gapH24,
+          gapH6,
           const Expanded(child: SizedBox()),
         ];
       case RepetitionState.end:
@@ -126,10 +169,11 @@ class _WordScreenState extends State<WordScreen> {
     super.initState();
     repetition = repetition.initialize(
       words: testWords
-          .where((word) => testGroups['1']?.words.contains(word.id) ?? false)
+          .where((word) => group.words.contains(word.id))
           .map((word) => word.id)
           .toList(),
       initialIndex: 0,
+      listId: group.id,
       firstLanguage: 'fr',
       secondLanguage: 'en',
     );

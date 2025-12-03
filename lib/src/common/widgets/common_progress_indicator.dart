@@ -18,12 +18,12 @@ class CommonProgressIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: Sizes.p256,
-      height: Sizes.p64,
+      width: Sizes.p64,
+      height: Sizes.p16,
       decoration: BoxDecoration(
         color: AppColors.secondaryAccent,
-        border: Border.all(width: Sizes.p8, color: AppColors.secondaryAccent),
-        borderRadius: BorderRadius.circular(Sizes.p32),
+        border: Border.all(width: Sizes.p2, color: AppColors.secondaryAccent),
+        borderRadius: BorderRadius.circular(Sizes.p8),
       ),
       //TODO : Créer ma propre bar de progress pour que les 2 couleurs soi opposé et rejoigne le centre
       child: PrimerProgressBar(
@@ -37,8 +37,8 @@ class CommonProgressIndicator extends StatelessWidget {
         showLegend: false,
         barStyle: const SegmentedBarStyle(
           backgroundColor: Colors.transparent,
-          size: Sizes.p64,
-          gap: Sizes.p8,
+          size: Sizes.p16,
+          gap: Sizes.p2,
           padding: EdgeInsets.all(0),
         ),
       ),

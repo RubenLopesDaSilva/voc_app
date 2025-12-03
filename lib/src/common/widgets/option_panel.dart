@@ -18,11 +18,11 @@ class OptionPanel extends StatelessWidget {
           border: Border(
             right: BorderSide(
               color: AppColors.secondaryAccent,
-              width: Sizes.p8,
+              width: Sizes.p2,
             ),
             bottom: BorderSide(
               color: AppColors.secondaryAccent,
-              width: Sizes.p8,
+              width: Sizes.p2,
             ),
           ),
           borderRadius: BorderRadius.only(
@@ -30,7 +30,7 @@ class OptionPanel extends StatelessWidget {
             bottomLeft: Radius.circular(20),
           ),
         ),
-        padding: const EdgeInsets.all(Sizes.p12),
+        padding: const EdgeInsets.all(Sizes.p3),
         child: Center(child: Column(children: children)),
       ),
     );

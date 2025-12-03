@@ -12,7 +12,7 @@ class StyledOption extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: onPressed,
-      icon: Icon(icon, size: Sizes.p32),
+      icon: Icon(icon, size: Sizes.p8),
       color: AppColors.secondaryAccent,
       highlightColor: AppColors.middleColor,
       hoverColor: AppColors.primaryAccent,
