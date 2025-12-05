@@ -258,61 +258,108 @@ class _WordScreenState extends State<WordScreen> {
         break;
       case RepetitionState.end:
         children.addAll([
-          StyledHeadline(
-            'Vous connaissez ${100 * repetition.knownCount / repetition.usingCount} % ${repetition.usingCount}'
-                .hardcoded,
+          expandH4,
+          OptionPanel(
+            width: Sizes.p100,
+            children: [
+              gapH3,
+              StyledHeadline(
+                'Vous connaissez ${(100 * repetition.knownCount / repetition.usingCount).round()} % des ${repetition.usingCount} mots'
+                    .hardcoded,
+              ),
+              gapH6,
+              StyledButton(
+                width: Sizes.p60,
+                height: Sizes.p10,
+                onPressed: repetition.index < words.length
+                    ? () {
+                        repetition = repetition.changeState(
+                          RepetitionState.process,
+                        );
+                        setState(() {});
+                      }
+                    : null,
+                child: StyledHeadline(
+                  'Retour à la repetition actuelle'.hardcoded,
+                ),
+              ),
+            ],
           ),
-          StyledButton(
-            width: Sizes.p40,
-            height: Sizes.p10,
-            onPressed: () {
-              repetition = repetition.repeatWords(initialIndex: 0).restart();
-              words = testWords
-                  .where((word) => repetition.allUsingWords.contains(word.id))
-                  .toList();
-              setState(() {});
-            },
-            child: StyledHeadline('Répeter à nouveau'.hardcoded),
+          gapH6,
+          OptionPanel(
+            width: Sizes.p100,
+            children: [
+              gapH3,
+              StyledHeadline(
+                'Vous connaissez ${repetition.knownCount} mots'.hardcoded,
+              ),
+              gapH6,
+              StyledButton(
+                width: Sizes.p40,
+                height: Sizes.p10,
+                onPressed: () {
+                  repetition = repetition
+                      .repeatWords(initialIndex: 0)
+                      .restart();
+                  words = testWords
+                      .where(
+                        (word) => repetition.allUsingWords.contains(word.id),
+                      )
+                      .toList();
+                  setState(() {});
+                },
+                child: StyledHeadline('Répeter à nouveau'.hardcoded),
+              ),
+            ],
           ),
-          StyledButton(
-            width: Sizes.p70,
-            height: Sizes.p10,
-            onPressed: repetition.unknownCount > 0
-                ? () {
-                    repetition = repetition
-                        .repeatWords(initialIndex: 0, all: false)
-                        .restart();
-                    words = testWords
-                        .where(
-                          (word) => repetition.allUsingWords.contains(word.id),
-                        )
-                        .toList();
-                    setState(() {});
-                  }
-                : null,
-            child: StyledHeadline(
-              'Répeter seulement les mots pas sue'.hardcoded,
-            ),
+          gapH6,
+          OptionPanel(
+            width: Sizes.p100,
+            children: [
+              gapH3,
+              StyledHeadline(
+                'Vous ne connaissez pas ${repetition.unknownCount} mots'
+                    .hardcoded,
+              ),
+              gapH6,
+              StyledButton(
+                width: Sizes.p70,
+                height: Sizes.p10,
+                onPressed: repetition.unknownCount > 0
+                    ? () {
+                        repetition = repetition
+                            .repeatWords(initialIndex: 0, all: false)
+                            .restart();
+                        words = testWords
+                            .where(
+                              (word) =>
+                                  repetition.allUsingWords.contains(word.id),
+                            )
+                            .toList();
+                        setState(() {});
+                      }
+                    : null,
+                child: StyledHeadline(
+                  'Répeter seulement les mots pas sue'.hardcoded,
+                ),
+              ),
+            ],
           ),
-          //TODO : Pouvoir revenire en arrière
-          StyledButton(
-            width: Sizes.p60,
-            height: Sizes.p10,
-            onPressed: repetition.index < words.length
-                ? () {
-                    repetition = repetition.changeState(
-                      RepetitionState.process,
-                    );
-                    setState(() {});
-                  }
-                : null,
-            child: StyledHeadline('Retour à la repetition actuelle'.hardcoded),
+          gapH6,
+          OptionPanel(
+            width: Sizes.p100,
+            children: [
+              gapH3,
+              StyledHeadline('Vous avez répétez cette liste 20 fois'.hardcoded),
+              gapH6,
+              StyledButton(
+                width: Sizes.p50,
+                height: Sizes.p10,
+                child: StyledHeadline('Arrêter cette repetition'.hardcoded),
+              ),
+            ],
           ),
-          StyledButton(
-            width: Sizes.p50,
-            height: Sizes.p10,
-            child: StyledHeadline('Arrêter cette repetition'.hardcoded),
-          ),
+          expandH4,
         ]);
         break;
     }
