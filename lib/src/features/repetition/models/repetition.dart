@@ -62,7 +62,7 @@ extension GetRepetition on Repetition {
   int get knownCount => _knownWords.length;
   int get unknownCount => _unknownWords.length;
   RepetitionState get state => _state;
-  int? get index => _index;
+  int get index => _index;
   String get listId => _listId;
   String get firstLanguage => _firstLanguage;
   String get secondLanguage => _secondLanguage;

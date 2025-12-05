@@ -29,10 +29,14 @@ class StyledButton extends StatelessWidget {
       ),
       child: TextButton(
         onPressed: onPressed,
-        style: TextButton.styleFrom(
-          foregroundColor: foregroundColor ?? AppColors.secondaryAccent,
-          backgroundColor: backgroundColor ?? AppColors.middleColor,
-        ),
+        style: onPressed != null
+            ? TextButton.styleFrom(
+                foregroundColor: foregroundColor ?? AppColors.secondaryAccent,
+                backgroundColor: backgroundColor ?? AppColors.middleColor,
+              )
+            : TextButton.styleFrom(
+                backgroundColor: backgroundColor ?? AppColors.middleColor,
+              ),
         child: SizedBox(
           width: width,
           height: height,

@@ -10,6 +10,7 @@ import 'package:voc_app/src/common/widgets/styled_icon.dart';
 import 'package:voc_app/src/common/widgets/styled_text.dart';
 import 'package:voc_app/src/features/groups/models/group.dart';
 import 'package:voc_app/src/features/repetition/models/repetition.dart';
+import 'package:voc_app/src/features/repetition/presentation/widgets/end_card.dart';
 import 'package:voc_app/src/features/repetition/presentation/widgets/info_panel.dart';
 import 'package:voc_app/src/features/repetition/presentation/widgets/word_card.dart';
 import 'package:voc_app/src/common/widgets/common_progress_indicator.dart';
@@ -64,6 +65,12 @@ class _WordScreenState extends State<WordScreen> {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((duration) async {
+      //TODO : Implémenter historique
+      // await Future.delayed(const Duration(seconds: 3));
+      // swipeController.swipe(CardSwiperDirection.left);
+      // print("$duration");
+    });
     return Scaffold(body: Column(children: children()));
   }
 
@@ -134,119 +141,123 @@ class _WordScreenState extends State<WordScreen> {
         ],
       ),
     ];
+
     switch (repetition.state) {
       case RepetitionState.begin:
+        children.addAll([]);
         break;
       case RepetitionState.process:
-        children.addAll(<Widget>[
-          gapH16,
-          OptionPanel(
-            width: Sizes.p100,
-            children: [
-              gapH3,
-              CommonProgressIndicator(
-                successful: repetition.knownCount,
-                failed: repetition.unknownCount,
-                total: repetition.usingCount,
-              ),
-              gapH6,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const StyledIcon(Icons.replay, onPressed: null),
-                  gapW3,
-                  StyledIcon(
-                    // Icons.arrow_upward,
-                    Icons.arrow_back,
-                    // Icons.arrow_downward,
-                    // Icons.arrow_back_ios,
-                    onPressed: () {
-                      swipeController.undo();
-                    },
+        if (repetition.index < words.length) {
+          children.addAll([
+            gapH16,
+            OptionPanel(
+              width: Sizes.p100,
+              children: [
+                gapH3,
+                CommonProgressIndicator(
+                  successful: repetition.knownCount,
+                  failed: repetition.unknownCount,
+                  total: repetition.usingCount,
+                ),
+                gapH6,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const StyledIcon(Icons.replay, onPressed: null),
+                    gapW3,
+                    StyledIcon(
+                      // Icons.arrow_upward,
+                      Icons.arrow_back,
+                      // Icons.arrow_downward,
+                      // Icons.arrow_back_ios,
+                      onPressed: () {
+                        swipeController.undo();
+                      },
+                    ),
+                    gapW3,
+                    StyledIcon(
+                      Icons.close,
+                      onPressed: () {
+                        repetition = repetition.end();
+                        setState(() {});
+                      },
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            gapH16,
+            Center(
+              child: SizedBox(
+                width: 400,
+                height: 280,
+                child: CardSwiper(
+                  controller: swipeController,
+                  cardsCount: words.isNotEmpty ? words.length : 1,
+                  numberOfCardsDisplayed: words.length > 5
+                      ? 5
+                      : words.isNotEmpty
+                      ? words.length
+                      : 1,
+                  isLoop: false,
+                  initialIndex: repetition.index,
+                  allowedSwipeDirection: const AllowedSwipeDirection.only(
+                    left: true,
+                    right: true,
                   ),
-                  gapW3,
-                  StyledIcon(
-                    Icons.close,
-                    onPressed: () {
-                      repetition = repetition.end();
-                      setState(() {});
-                    },
-                  ),
-                ],
-              ),
-            ],
-          ),
-          gapH16,
-          Center(
-            child: SizedBox(
-              width: 400,
-              height: 280,
-              child: CardSwiper(
-                key: const Key(''),
-                controller: swipeController,
-                cardsCount: words.isNotEmpty ? words.length : 1,
-                numberOfCardsDisplayed: words.length > 5
-                    ? 5
-                    : words.isNotEmpty
-                    ? words.length
-                    : 1,
-                isLoop: false,
-                onSwipe: (previousIndex, currentIndex, direction) {
-                  if (direction.isVertical) {
-                    swipeController.undo();
-                    return false;
-                  }
-                  if (direction.isCloseTo(CardSwiperDirection.left)) {
-                    passWord(id: words[previousIndex].id, known: false);
-                  }
-                  if (direction.isCloseTo(CardSwiperDirection.right)) {
-                    passWord(id: words[previousIndex].id, known: true);
-                  }
-                  repetition = repetition.changeIndex(currentIndex);
-                  return true;
-                },
-                onUndo: (previousIndex, currentIndex, direction) {
-                  passWord(id: words[currentIndex].id);
-                  repetition = repetition.changeIndex(currentIndex);
-                  return true;
-                },
-                onEnd: () {
-                  repetition = repetition.end();
-                  setState(() {});
-                },
-                cardBuilder:
-                    (
-                      context,
-                      index,
-                      horizontalOffsetPercentage,
-                      verticalOffsetPercentage,
-                    ) {
-                      final word = (index <= words.length)
-                          ? words[index]
-                          : const Word(
-                              id: '0',
-                              traductions: {},
-                              phonetics: {},
-                              definitions: {},
-                              userId: '9',
-                            );
-                      return WordCard(
-                        key: Key(word.id),
-                        word: word,
-                        actif: index == repetition.index,
-                        firstLanguage: 'fr',
-                        secondLanguage: 'en',
-                      );
-                    },
+                  onSwipe: (previousIndex, currentIndex, direction) {
+                    if (previousIndex < words.length) {
+                      if (direction.isCloseTo(CardSwiperDirection.left)) {
+                        passWord(id: words[previousIndex].id, known: false);
+                      }
+                      if (direction.isCloseTo(CardSwiperDirection.right)) {
+                        passWord(id: words[previousIndex].id, known: true);
+                      }
+                    }
+                    repetition = repetition.changeIndex(currentIndex);
+                    return true;
+                  },
+                  onUndo: (previousIndex, currentIndex, direction) {
+                    passWord(id: words[currentIndex].id);
+                    repetition = repetition.changeIndex(currentIndex);
+                    return true;
+                  },
+                  onEnd: () {
+                    repetition = repetition
+                        .changeIndex(repetition.index + 1)
+                        .end();
+                    setState(() {});
+                  },
+                  cardBuilder:
+                      (
+                        context,
+                        index,
+                        horizontalOffsetPercentage,
+                        verticalOffsetPercentage,
+                      ) {
+                        if (index < words.length) {
+                          final Word word = words[index];
+                          return WordCard(
+                            key: Key(word.id),
+                            word: word,
+                            actif: index == repetition.index,
+                            firstLanguage: 'fr',
+                            secondLanguage: 'en',
+                          );
+                        } else {
+                          return EndCard(title: "Fin de Repetition".hardcoded);
+                        }
+                      },
+                ),
               ),
             ),
-          ),
-          gapH6,
-          expandH1,
-        ]);
+            gapH6,
+            expandH1,
+          ]);
+        }
         break;
       case RepetitionState.end:
-        children.addAll(<Widget>[
+        children.addAll([
           StyledHeadline(
             'Vous connaissez ${100 * repetition.knownCount / repetition.usingCount} % ${repetition.usingCount}'
                 .hardcoded,
@@ -266,16 +277,19 @@ class _WordScreenState extends State<WordScreen> {
           StyledButton(
             width: Sizes.p70,
             height: Sizes.p10,
-            onPressed: () {
-              repetition = repetition
-                  .repeatWords(initialIndex: 0, all: false)
-                  .restart();
-              words = testWords
-                  .where((word) => repetition.allUsingWords.contains(word.id))
-                  .toList();
-              print('Mot pas sue ${repetition.allUsingWords.length}');
-              setState(() {});
-            },
+            onPressed: repetition.unknownCount > 0
+                ? () {
+                    repetition = repetition
+                        .repeatWords(initialIndex: 0, all: false)
+                        .restart();
+                    words = testWords
+                        .where(
+                          (word) => repetition.allUsingWords.contains(word.id),
+                        )
+                        .toList();
+                    setState(() {});
+                  }
+                : null,
             child: StyledHeadline(
               'Répeter seulement les mots pas sue'.hardcoded,
             ),
@@ -284,10 +298,14 @@ class _WordScreenState extends State<WordScreen> {
           StyledButton(
             width: Sizes.p60,
             height: Sizes.p10,
-            // onPressed: () {
-            //   repetition = repetition.changeState(RepetitionState.process);
-            //   setState(() {});
-            // },
+            onPressed: repetition.index < words.length
+                ? () {
+                    repetition = repetition.changeState(
+                      RepetitionState.process,
+                    );
+                    setState(() {});
+                  }
+                : null,
             child: StyledHeadline('Retour à la repetition actuelle'.hardcoded),
           ),
           StyledButton(
@@ -298,6 +316,7 @@ class _WordScreenState extends State<WordScreen> {
         ]);
         break;
     }
+
     return children;
   }
 }
