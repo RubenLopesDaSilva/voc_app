@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
+import 'package:voc_app/src/common/constants/test_datas.dart';
 import 'package:voc_app/src/features/groups/domain/group.dart';
 
 class GroupRepository {
@@ -11,7 +13,7 @@ class GroupRepository {
   GroupRepository({Dio? dio})
     : dio = dio ?? Dio(BaseOptions(baseUrl: 'http://localhost:3000'));
 
-  Future<List<Group>?> fetchGroups() async {
+  Future<List<Group>> fetchGroups() async {
     try {
       final res = await dio.get('/voc/group');
       final datas = (res.data as List)
@@ -38,7 +40,7 @@ class GroupRepository {
       return datas;
     } catch (e) {
       logger.e(e.toString());
-      return null;
+      return [];
     }
   }
 
@@ -73,3 +75,18 @@ class GroupRepository {
     }
   }
 }
+
+final groupRepositoryProvider = Provider<GroupRepository>((ref) {
+  return GroupRepository();
+});
+
+final groupListFutureProvider = FutureProvider.autoDispose<List<Group>>((ref) {
+  final wordRepository = ref.watch(groupRepositoryProvider);
+  return wordRepository.fetchGroups();
+});
+
+final groupFutureProviderBy = FutureProvider.family<Group, String>((ref, id) {
+  final wordRepository = ref.watch(groupRepositoryProvider);
+  // return wordRepository.fetchGroupsByUserId(id);
+  return Future.value(testGroups[0]);
+});

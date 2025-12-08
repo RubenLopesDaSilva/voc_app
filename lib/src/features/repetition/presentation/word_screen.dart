@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:voc_app/src/common/constants/gap.dart';
 import 'package:voc_app/src/common/constants/sizes.dart';
 import 'package:voc_app/src/common/constants/test_datas.dart';
@@ -8,6 +9,7 @@ import 'package:voc_app/src/common/theme/theme.dart';
 import 'package:voc_app/src/common/widgets/styled_button.dart';
 import 'package:voc_app/src/common/widgets/styled_icon.dart';
 import 'package:voc_app/src/common/widgets/styled_text.dart';
+import 'package:voc_app/src/features/groups/data/group_repository.dart';
 import 'package:voc_app/src/features/groups/domain/group.dart';
 import 'package:voc_app/src/features/repetition/models/repetition.dart';
 import 'package:voc_app/src/features/repetition/presentation/widgets/end_card.dart';
@@ -17,15 +19,18 @@ import 'package:voc_app/src/common/widgets/common_progress_indicator.dart';
 import 'package:voc_app/src/common/widgets/option_panel.dart';
 import 'package:voc_app/src/features/words/domain/word.dart';
 
-class WordScreen extends StatefulWidget {
-  const WordScreen({super.key});
+class WordScreen extends ConsumerStatefulWidget {
+  const WordScreen({required this.groupId, super.key});
+
+  final String groupId;
 
   @override
-  State<WordScreen> createState() => _WordScreenState();
+  ConsumerState<WordScreen> createState() => _WordScreenState();
 }
 
-class _WordScreenState extends State<WordScreen> {
+class _WordScreenState extends ConsumerState<WordScreen> {
   Repetition repetition = const Repetition();
+  late GroupRepository groupRepository;
   Group group =
       testGroups['1'] ??
       const Group(id: '0', name: 'name', words: [], userId: '0');
@@ -38,19 +43,32 @@ class _WordScreenState extends State<WordScreen> {
     setState(() {});
   }
 
+  Future<void> loadGroup() async {
+    final fetchedGroup = await groupFutureProviderBy('');
+    setState(() {
+      // group = fetchedGroup.first;
+    });
+  }
+
+  void start() {
+    if (group case Group mygroup) {
+      repetition = repetition.initialize(
+        words: testWords
+            .where((word) => mygroup.words.contains(word.id))
+            .map((word) => word.id)
+            .toList(),
+        initialIndex: 0,
+        listId: mygroup.id,
+        firstLanguage: 'fr',
+        secondLanguage: 'en',
+      );
+    }
+  }
+
   @override
   void initState() {
     super.initState();
-    repetition = repetition.initialize(
-      words: testWords
-          .where((word) => group.words.contains(word.id))
-          .map((word) => word.id)
-          .toList(),
-      initialIndex: 0,
-      listId: group.id,
-      firstLanguage: 'fr',
-      secondLanguage: 'en',
-    );
+    groupRepository = ref.read(groupRepositoryProvider);
     words = testWords
         .where((word) => repetition.allUsingWords.contains(word.id))
         .toList();
@@ -71,6 +89,7 @@ class _WordScreenState extends State<WordScreen> {
       // swipeController.swipe(CardSwiperDirection.left);
       // print("$duration");
     });
+    final asyncGroup = ref.watch(groupFutureProviderBy(widget.groupId));
     return Scaffold(body: Column(children: children()));
   }
 
@@ -144,7 +163,7 @@ class _WordScreenState extends State<WordScreen> {
 
     switch (repetition.state) {
       case RepetitionState.begin:
-        children.addAll([]);
+        children.addAll([const StyledButton(child: StyledText('Start'))]);
         break;
       case RepetitionState.process:
         if (repetition.index < words.length) {

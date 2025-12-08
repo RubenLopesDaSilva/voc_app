@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 
 import 'package:voc_app/src/features/words/domain/word.dart';
@@ -10,7 +11,7 @@ class WordRepository {
   WordRepository({Dio? dio})
     : dio = dio ?? Dio(BaseOptions(baseUrl: 'http://localhost:3000'));
 
-  Future<List<Word>?> fetchAllWords() async {
+  Future<List<Word>> fetchAllWords() async {
     try {
       final res = await dio.get('/voc');
       final statusCode = res.statusCode;
@@ -27,7 +28,7 @@ class WordRepository {
     }
   }
 
-  Future<List<Word>?> fetchWordsByIds(List<String> wordsId) async {
+  Future<List<Word>> fetchWordsByIds(List<String> wordsId) async {
     try {
       final res = await dio.get(
         '/voc/searchW',
@@ -43,7 +44,7 @@ class WordRepository {
       return datas;
     } catch (e) {
       logger.e(e.toString());
-      return null;
+      return [];
     }
   }
 
@@ -78,3 +79,12 @@ class WordRepository {
     }
   }
 }
+
+final wordRepositoryProvider = Provider<WordRepository>((ref) {
+  return WordRepository();
+});
+
+final wordListFutureProvider = FutureProvider.autoDispose<List<Word>>((ref) {
+  final wordRepository = ref.watch(wordRepositoryProvider);
+  return wordRepository.fetchAllWords();
+});
