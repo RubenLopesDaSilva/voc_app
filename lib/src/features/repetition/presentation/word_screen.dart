@@ -17,6 +17,7 @@ import 'package:voc_app/src/features/repetition/presentation/widgets/info_panel.
 import 'package:voc_app/src/features/repetition/presentation/widgets/word_card.dart';
 import 'package:voc_app/src/common/widgets/common_progress_indicator.dart';
 import 'package:voc_app/src/common/widgets/option_panel.dart';
+import 'package:voc_app/src/features/words/data/word_repository.dart';
 import 'package:voc_app/src/features/words/domain/word.dart';
 
 class WordScreen extends ConsumerStatefulWidget {
@@ -30,49 +31,58 @@ class WordScreen extends ConsumerStatefulWidget {
 
 class _WordScreenState extends ConsumerState<WordScreen> {
   Repetition repetition = const Repetition();
-  late GroupRepository groupRepository;
-  Group group =
-      testGroups['1'] ??
-      const Group(id: '0', name: 'name', words: [], userId: '0');
+  Group? group;
   List<Word> words = [];
+  bool loading = false;
+  bool get ready => group != null && !loading;
+  bool groupLoaded = false;
 
   final swipeController = CardSwiperController();
+
+  void start() {
+    if (ready) {
+      repetition = repetition.start();
+      setState(() {});
+    }
+  }
 
   void passWord({required String id, bool? known}) {
     repetition = repetition.passWord(id: id, known: known);
     setState(() {});
   }
 
-  Future<void> loadGroup() async {
-    final fetchedGroup = await groupFutureProviderBy('');
-    setState(() {
-      // group = fetchedGroup.first;
-    });
-  }
-
-  void start() {
-    if (group case Group mygroup) {
+  Future<void> loadGroup(String id) async {
+    final GroupRepository groupRepository = ref.read(groupRepositoryProvider);
+    final fetchedGroup = await groupRepository.fetchGroupBy(id);
+    groupLoaded = true;
+    if (fetchedGroup != null) {
+      loading == true;
+      group = fetchedGroup;
       repetition = repetition.initialize(
-        words: testWords
-            .where((word) => mygroup.words.contains(word.id))
-            .map((word) => word.id)
-            .toList(),
+        words: group?.words ?? [],
         initialIndex: 0,
-        listId: mygroup.id,
+        listId: group?.id ?? '',
         firstLanguage: 'fr',
         secondLanguage: 'en',
       );
+      loadWords(repetition.allUsingWords);
     }
+    setState(() {});
+  }
+
+  Future<void> loadWords(List<String> ids) async {
+    loading = true;
+    final WordRepository wordRepository = ref.read(wordRepositoryProvider);
+    final fetchedWords = await wordRepository.fetchWordsByIds(ids);
+    words = fetchedWords;
+    loading = false;
+    setState(() {});
   }
 
   @override
   void initState() {
     super.initState();
-    groupRepository = ref.read(groupRepositoryProvider);
-    words = testWords
-        .where((word) => repetition.allUsingWords.contains(word.id))
-        .toList();
-    repetition = repetition.start();
+    loadGroup(widget.groupId);
   }
 
   @override
@@ -89,11 +99,11 @@ class _WordScreenState extends ConsumerState<WordScreen> {
       // swipeController.swipe(CardSwiperDirection.left);
       // print("$duration");
     });
-    final asyncGroup = ref.watch(groupFutureProviderBy(widget.groupId));
     return Scaffold(body: Column(children: children()));
   }
 
   List<Widget> children() {
+    final groupLength = group?.words.length ?? 0;
     List<Widget> children = [
       InfoPanel(
         children: [
@@ -126,7 +136,10 @@ class _WordScreenState extends ConsumerState<WordScreen> {
                 child: Center(
                   child: Column(
                     children: [
-                      StyledHeadline(' ${group.name}', fontSize: Sizes.p6),
+                      StyledHeadline(
+                        ' ${group?.name ?? 'Aucun'.hardcoded}',
+                        fontSize: Sizes.p6,
+                      ),
                       const StyledHeadline('Burri Simon', fontSize: Sizes.p6),
                     ],
                   ),
@@ -145,9 +158,9 @@ class _WordScreenState extends ConsumerState<WordScreen> {
               Expanded(
                 child: Center(
                   child: StyledHeadline(
-                    'Contient ${group.words.length > 1
-                            ? '${group.words.length} mots'
-                            : group.words.length == 1
+                    'Contient ${groupLength > 1
+                            ? '$groupLength mots'
+                            : groupLength == 1
                             ? 'un mot'
                             : 'aucun mot'}'
                         .hardcoded,
@@ -163,7 +176,22 @@ class _WordScreenState extends ConsumerState<WordScreen> {
 
     switch (repetition.state) {
       case RepetitionState.begin:
-        children.addAll([const StyledButton(child: StyledText('Start'))]);
+        children.addAll([
+          expandH4,
+          OptionPanel(
+            width: Sizes.p100,
+            children: [
+              StyledText('${words.length} mots chargé'),
+              gapH3,
+              StyledButton(
+                onPressed: ready ? start : null,
+                child: StyledHeadline('Commnecer'.hardcoded),
+              ),
+              gapH3,
+            ],
+          ),
+          expandH4,
+        ]);
         break;
       case RepetitionState.process:
         if (repetition.index < words.length) {

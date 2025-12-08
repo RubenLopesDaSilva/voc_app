@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
-import 'package:voc_app/src/common/constants/test_datas.dart';
 import 'package:voc_app/src/features/groups/domain/group.dart';
 
 class GroupRepository {
@@ -46,9 +45,9 @@ class GroupRepository {
 
   Future<Group?> fetchGroupBy(String id) async {
     try {
-      final res = await dio.get('/voc/group/$id');
+      final res = await dio.get('/voc/group/$id',options: Options(headers: {'Content-Type':'application/json'}));
       final statusCode = res.statusCode!;
-      if (statusCode / 100 == 2) {
+      if (statusCode / 100 != 2) {
         throw Exception(statusCode);
       }
       final data = Group.fromJson(res.data);
@@ -100,8 +99,7 @@ final groupListFutureProvider = FutureProvider.autoDispose<List<Group>>((ref) {
   return wordRepository.fetchGroups();
 });
 
-final groupFutureProviderBy = FutureProvider.family<Group, String>((ref, id) {
+final groupFutureProviderBy = FutureProvider.family<Group?, String>((ref, id) {
   final wordRepository = ref.watch(groupRepositoryProvider);
-  // return wordRepository.fetchGroupsByUserId(id);
-  return Future.value(testGroups[0]);
+  return wordRepository.fetchGroupBy(id);
 });
