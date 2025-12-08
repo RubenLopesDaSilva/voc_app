@@ -8,14 +8,14 @@ import 'package:voc_app/src/common/theme/theme.dart';
 import 'package:voc_app/src/common/widgets/styled_button.dart';
 import 'package:voc_app/src/common/widgets/styled_icon.dart';
 import 'package:voc_app/src/common/widgets/styled_text.dart';
-import 'package:voc_app/src/features/groups/models/group.dart';
+import 'package:voc_app/src/features/groups/domain/group.dart';
 import 'package:voc_app/src/features/repetition/models/repetition.dart';
 import 'package:voc_app/src/features/repetition/presentation/widgets/end_card.dart';
 import 'package:voc_app/src/features/repetition/presentation/widgets/info_panel.dart';
 import 'package:voc_app/src/features/repetition/presentation/widgets/word_card.dart';
 import 'package:voc_app/src/common/widgets/common_progress_indicator.dart';
 import 'package:voc_app/src/common/widgets/option_panel.dart';
-import 'package:voc_app/src/features/words/models/word.dart';
+import 'package:voc_app/src/features/words/domain/word.dart';
 
 class WordScreen extends StatefulWidget {
   const WordScreen({super.key});

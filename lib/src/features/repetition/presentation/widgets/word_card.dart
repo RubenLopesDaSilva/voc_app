@@ -3,7 +3,7 @@ import 'package:flutter_flip_card/flutter_flip_card.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:voc_app/src/common/constants/sizes.dart';
 import 'package:voc_app/src/common/widgets/styled_text.dart';
-import 'package:voc_app/src/features/words/models/word.dart';
+import 'package:voc_app/src/features/words/domain/word.dart';
 import 'package:voc_app/src/common/theme/theme.dart';
 
 class WordCard extends StatelessWidget {
@@ -29,12 +29,12 @@ class WordCard extends StatelessWidget {
       axis: FlipAxis.horizontal,
       onTapFlipping: actif,
       frontWidget: CardSide(
-        title: word.traductions[firstLanguage].toString(),
+        title: word.trad[firstLanguage].toString(),
         phonetic: word.phonetics[firstLanguage].toString(),
         actif: actif,
       ),
       backWidget: CardSide(
-        title: word.traductions[secondLanguage].toString(),
+        title: word.trad[secondLanguage].toString(),
         phonetic: word.phonetics[secondLanguage].toString(),
         actif: actif,
       ),

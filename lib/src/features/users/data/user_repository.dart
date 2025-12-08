@@ -66,9 +66,9 @@ class UserRepository {
         throw Exception(message);
       }
       final token = body['token'];
-      final storage = FlutterSecureStorage();
+      final storage = const FlutterSecureStorage();
       await storage.write(key: 'token', value: token);
-      return User(id: '', username: '', email: '');
+      return const User(id: '', username: '', email: '');
     } catch (e) {
       logger.e(e.toString());
       return null;

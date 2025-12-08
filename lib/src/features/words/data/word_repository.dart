@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:logger/logger.dart';
+
 import 'package:voc_app/src/features/words/domain/word.dart';
 
 class WordRepository {

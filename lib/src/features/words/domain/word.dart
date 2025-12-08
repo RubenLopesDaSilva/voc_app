@@ -13,7 +13,7 @@ class Word {
   final Map<String, dynamic> trad;
   final String userId;
   final Map<String, dynamic>? definitions;
-  final Map<String, dynamic>? phonetics;
+  final Map<String, dynamic> phonetics;
 
   factory Word.fromJson(Map<String, dynamic> json) {
     return Word(
