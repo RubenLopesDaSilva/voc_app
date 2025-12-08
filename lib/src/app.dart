@@ -9,9 +9,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Vocabulary App',
+    title: 'Vocabulary App',
       theme: lightTheme,
       home: const WordScreen(),
+
     );
   }
 }
