@@ -9,7 +9,7 @@ class WordRepository {
   WordRepository({Dio? dio})
     : dio = dio ?? Dio(BaseOptions(baseUrl: 'http://localhost:3000'));
 
-  Future<List<Word>?> fetchAllWords() async {
+  Future<List<Word>> fetchAllWords() async {
     try {
       final res = await dio.get('/voc');
       final statusCode = res.statusCode;
@@ -22,11 +22,11 @@ class WordRepository {
       return datas;
     } catch (e) {
       logger.e(e.toString());
-      rethrow;
+      return List.empty();
     }
   }
 
-  Future<List<Word>?> fetchWordsByIds(List<String> wordsId) async {
+  Future<List<Word>> fetchWordsByIds(List<String> wordsId) async {
     try {
       final res = await dio.get(
         '/voc/searchW',
@@ -42,7 +42,7 @@ class WordRepository {
       return datas;
     } catch (e) {
       logger.e(e.toString());
-      return null;
+      return List.empty();
     }
   }
 

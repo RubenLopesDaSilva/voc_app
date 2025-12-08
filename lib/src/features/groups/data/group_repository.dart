@@ -11,7 +11,7 @@ class GroupRepository {
   GroupRepository({Dio? dio})
     : dio = dio ?? Dio(BaseOptions(baseUrl: 'http://localhost:3000'));
 
-  Future<List<Group>?> fetchGroups() async {
+  Future<List<Group>> fetchGroups() async {
     try {
       final res = await dio.get('/voc/group');
       final datas = (res.data as List)
@@ -20,11 +20,11 @@ class GroupRepository {
       return datas;
     } catch (e) {
       logger.e(e.toString());
-      rethrow;
+      return List.empty();
     }
   }
 
-  Future<List<Group>?> fetchGroupsByUserId(String userId) async {
+  Future<List<Group>> fetchGroupsByUserId(String userId) async {
     try {
       final res = await dio.get(
         '/voc/group',
@@ -36,6 +36,21 @@ class GroupRepository {
           .map((group) => Group.fromJson(group))
           .toList();
       return datas;
+    } catch (e) {
+      logger.e(e.toString());
+      return List.empty();
+    }
+  }
+
+  Future<Group?> fetchGroupBy(String id) async {
+    try {
+      final res = await dio.get('/voc/group/$id');
+      final statusCode = res.statusCode!;
+      if (statusCode / 100 == 2) {
+        throw Exception(statusCode);
+      }
+      final data = Group.fromJson(res.data);
+      return data;
     } catch (e) {
       logger.e(e.toString());
       return null;
