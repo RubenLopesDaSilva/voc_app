@@ -12,7 +12,7 @@
             "fr": "",
             "en": ""
         },
-        "phonetic": {
+        "phonetics": {
             "fr": "ʁiʁ",
             "en": "lɑːf"
         }
@@ -25,7 +25,7 @@
             "fr": "cuisine",
             "en": "kitchen"
         },
-        "userId": "2",
+        "userId": "1",
         "definitions": {
             "fr": "",
             "en": ""
@@ -43,12 +43,12 @@
             "fr": "boue",
             "en": "mud"
         },
-        "userId": "3",
+        "userId": "1",
         "definitions": {
             "fr": "",
             "en": ""
         },
-        "phonetic": {
+        "phonetics": {
             "fr": "bu",
             "en": "mʌd"
         }
@@ -61,12 +61,12 @@
             "fr": "outils",
             "en": "tools"
         },
-        "userId": "4",
+        "userId": "1",
         "definitions": {
             "fr": "",
             "en": ""
         },
-        "phonetic": {
+        "phonetics": {
             "fr": "uti",
             "en": "ˈtuːlz"
         }
@@ -79,12 +79,12 @@
             "fr": "squelette",
             "en": "skeleton"
         },
-        "userId": "5",
+        "userId": "1",
         "definitions": {
             "fr": "",
             "en": ""
         },
-        "phonetic": {
+        "phonetics": {
             "fr": "skəlɛt",
             "en": "ˈskel.ə.tən"
         }
@@ -97,12 +97,12 @@
             "fr": "aider",
             "en": "help"
         },
-        "userId": "6",
+        "userId": "1",
         "definitions": {
             "fr": "",
             "en": ""
         },
-        "phonetic": {
+        "phonetics": {
             "fr": "ɛde",
             "en": "hɛlp"
         }
@@ -115,12 +115,12 @@
             "fr": "grandir",
             "en": "grow"
         },
-        "userId": "7",
+        "userId": "1",
         "definitions": {
             "fr": "",
             "en": ""
         },
-        "phonetic": {
+        "phonetics": {
             "fr": "gʁɑ̃diʁ",
             "en": "ɡroʊ"
         }
@@ -133,12 +133,12 @@
             "fr": "cloche",
             "en": "bell"
         },
-        "userId": "8",
+        "userId": "1",
         "definitions": {
             "fr": "",
             "en": ""
         },
-        "phonetic": {
+        "phonetics": {
             "fr": "[klɔʃ]",
             "en": "bɛl"
         }
@@ -151,12 +151,12 @@
             "fr": "ceinture",
             "en": "belt"
         },
-        "userId": "9",
+        "userId": "1",
         "definitions": {
             "fr": "",
             "en": ""
         },
-        "phonetic": {
+        "phonetics": {
             "fr": "sɛ̃tyʁ",
             "en": "bɛlt"
         }
@@ -169,12 +169,12 @@
             "fr": "aube",
             "en": "dawn"
         },
-        "userId": "10",
+        "userId": "1",
         "definitions": {
             "fr": "",
             "en": ""
         },
-        "phonetic": {
+        "phonetics": {
             "fr": "[obə]",
             "en": "dɔːn"
         }
@@ -187,12 +187,12 @@
             "fr": "avion",
             "en": "plane"
         },
-        "userId": "11",
+        "userId": "1",
         "definitions": {
             "fr": "",
             "en": ""
         },
-        "phonetic": {
+        "phonetics": {
             "fr": "avjɔ̃",
             "en": "pleɪn"
         }
@@ -205,12 +205,12 @@
             "fr": "dehors",
             "en": "outside"
         },
-        "userId": "12",
+        "userId": "1",
         "definitions": {
             "fr": "",
             "en": ""
         },
-        "phonetic": {
+        "phonetics": {
             "fr": "də.ɔʁ",
             "en": "ˈaʊt.saɪd"
         }
@@ -223,12 +223,12 @@
             "fr": "guerre",
             "en": "war"
         },
-        "userId": "13",
+        "userId": "1",
         "definitions": {
             "fr": "",
             "en": ""
         },
-        "phonetic": {
+        "phonetics": {
             "fr": "gɛʁ",
             "en": "wɔːr"
         }
@@ -241,12 +241,12 @@
             "fr": "bras",
             "en": "arm"
         },
-        "userId": "14",
+        "userId": "1",
         "definitions": {
             "fr": "",
             "en": ""
         },
-        "phonetic": {
+        "phonetics": {
             "fr": "bʁa",
             "en": "ɑːm"
         }
@@ -259,12 +259,12 @@
             "fr": "bois",
             "en": "wood"
         },
-        "userId": "15",
+        "userId": "1",
         "definitions": {
             "fr": "",
             "en": ""
         },
-        "phonetic": {
+        "phonetics": {
             "fr": "bwa",
             "en": "wʊd"
         }
@@ -277,12 +277,12 @@
             "fr": "mouton",
             "en": "sheep"
         },
-        "userId": "16",
+        "userId": "1",
         "definitions": {
             "fr": "",
             "en": ""
         },
-        "phonetic": {
+        "phonetics": {
             "fr": "mutɔ̃",
             "en": "ʃiːp"
         }
@@ -295,12 +295,12 @@
             "fr": "arbre",
             "en": "tree"
         },
-        "userId": "17",
+        "userId": "1",
         "definitions": {
             "fr": "",
             "en": ""
         },
-        "phonetic": {
+        "phonetics": {
             "fr": "aʁbʁ",
             "en": "triː"
         }
@@ -313,12 +313,12 @@
             "fr": "force",
             "en": "strength"
         },
-        "userId": "18",
+        "userId": "1",
         "definitions": {
             "fr": "",
             "en": ""
         },
-        "phonetic": {
+        "phonetics": {
             "fr": "fɔʁs",
             "en": "strɛŋkθ"
         }
@@ -331,12 +331,12 @@
             "fr": "coffre",
             "en": "chest"
         },
-        "userId": "19",
+        "userId": "1",
         "definitions": {
             "fr": "",
             "en": ""
         },
-        "phonetic": {
+        "phonetics": {
             "fr": "kɔfʁ",
             "en": "tʃɛst"
         }
@@ -349,12 +349,12 @@
             "fr": "cerveau",
             "en": "brain"
         },
-        "userId": "20",
+        "userId": "1",
         "definitions": {
             "fr": "",
             "en": ""
         },
-        "phonetic": {
+        "phonetics": {
             "fr": "sɛʁvo",
             "en": "breɪn"
         }

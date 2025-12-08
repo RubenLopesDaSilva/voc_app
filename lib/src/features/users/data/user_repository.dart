@@ -6,12 +6,15 @@ import 'package:logger/logger.dart';
 import 'package:voc_app/src/features/users/domain/user.dart';
 
 class UserRepository {
-  final _dio = Dio(BaseOptions(baseUrl: 'http://localhost:3000'));
+  final Dio dio;
   final logger = Logger();
+
+  UserRepository({Dio? dio})
+    : dio = dio ?? Dio(BaseOptions(baseUrl: 'http://localhost:3000'));
 
   Future<List<User>?> fetchUsers() async {
     try {
-      final res = await _dio.get('user');
+      final res = await dio.get('user');
       final statusCode = res.statusCode;
       if (statusCode != 200) {
         throw Exception(statusCode);
@@ -28,7 +31,7 @@ class UserRepository {
 
   Future<User?> signUp(String email, String password, String userName) async {
     try {
-      final res = await _dio.put(
+      final res = await dio.put(
         '/auth/signup',
         options: Options(headers: {'Content-Type': 'application/json'}),
         data: jsonEncode({
@@ -51,7 +54,7 @@ class UserRepository {
 
   Future<User?> login(String email, String password) async {
     try {
-      final res = await _dio.post(
+      final res = await dio.post(
         '/voc/login',
         options: Options(headers: {'Content-Type': 'application/json'}),
         data: jsonEncode({'password': password, 'email': email}),
