@@ -24,7 +24,7 @@ class WordRepository {
       return datas;
     } catch (e) {
       logger.e(e.toString());
-      rethrow;
+      return List.empty();
     }
   }
 

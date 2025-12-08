@@ -36,10 +36,14 @@ void main() {
         ),
       );
 
-      final result = await repository.addWord(wordToAdd.copyWith(id: fakeId));
+      final result = await repository.addWord(wordToAdd);
 
       verify(
-        () => mockDio.post('/voc/addW', data: wordToAdd.copyWith(id: fakeId).toJson()),
+        () => mockDio.post(
+          '/voc/addW',
+          data: wordToAdd.toJson(),
+          options: any(named: 'options'),
+        ),
       ).called(1);
 
       expect(result!.id, fakeId);

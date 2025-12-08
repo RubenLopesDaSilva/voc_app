@@ -26,7 +26,7 @@ class Word {
   }
 
   Map<String, dynamic> toJson() => {
-    'id': id,
+    '_id': id,
     'trad': trad,
     'userId': userId,
     'definitions': definitions,

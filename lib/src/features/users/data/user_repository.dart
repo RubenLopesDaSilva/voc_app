@@ -12,7 +12,7 @@ class UserRepository {
   UserRepository({Dio? dio})
     : dio = dio ?? Dio(BaseOptions(baseUrl: 'http://localhost:3000'));
 
-  Future<List<User>?> fetchUsers() async {
+  Future<List<User>> fetchUsers() async {
     try {
       final res = await dio.get('user');
       final statusCode = res.statusCode;
@@ -25,7 +25,7 @@ class UserRepository {
       return datas;
     } catch (e) {
       logger.e(e.toString());
-      return null;
+      return List.empty();
     }
   }
 
