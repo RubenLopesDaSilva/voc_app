@@ -3,10 +3,12 @@ import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:voc_app/src/common/constants/gap.dart';
 import 'package:voc_app/src/common/constants/sizes.dart';
-import 'package:voc_app/src/common/constants/test_datas.dart';
 import 'package:voc_app/src/common/localization/string_hardcoded.dart';
 import 'package:voc_app/src/common/theme/theme.dart';
+import 'package:voc_app/src/common/widgets/sense_button.dart';
 import 'package:voc_app/src/common/widgets/styled_button.dart';
+import 'package:voc_app/src/common/widgets/styled_check.dart';
+import 'package:voc_app/src/common/widgets/styled_dropdown.dart';
 import 'package:voc_app/src/common/widgets/styled_icon.dart';
 import 'package:voc_app/src/common/widgets/styled_text.dart';
 import 'package:voc_app/src/features/groups/data/group_repository.dart';
@@ -30,19 +32,55 @@ class WordScreen extends ConsumerStatefulWidget {
 }
 
 class _WordScreenState extends ConsumerState<WordScreen> {
+  final swipeController = CardSwiperController();
+
   Repetition repetition = const Repetition();
   Group? group;
   List<Word> words = [];
+  List<Word> wordsToUse = [];
   bool loading = false;
-  bool get ready => group != null && !loading;
   bool groupLoaded = false;
 
-  final swipeController = CardSwiperController();
+  String firstLanguage = 'fr';
+  String secondLanguage = 'en';
+  bool sense = true;
+
+  bool get groupNotFound => groupLoaded && group == null;
+  bool get ready {
+    return group != null &&
+        !loading &&
+        words.length == group?.words.length &&
+        words.isNotEmpty;
+  }
+
+  set setWordToUse(List<Word> words) {
+    wordsToUse = words.toList();
+  }
 
   void start() {
     if (ready) {
-      repetition = repetition.start();
-      setState(() {});
+      if (group case Group mygroup) {
+        repetition = repetition.initialize(
+          words: mygroup.words,
+          initialIndex: 0,
+          listId: mygroup.id,
+          firstLanguage: sense ? firstLanguage : secondLanguage,
+          secondLanguage: sense ? secondLanguage : firstLanguage,
+        );
+        prepareWordsToUse();
+        repetition = repetition.start();
+        setState(() {});
+      }
+    }
+  }
+
+  void prepareWordsToUse() {
+    try {
+      setWordToUse = repetition.allUsingWords.map((id) {
+        return words.where((word) => word.id == id).first;
+      }).toList();
+    } catch (e) {
+      setWordToUse = words;
     }
   }
 
@@ -51,26 +89,26 @@ class _WordScreenState extends ConsumerState<WordScreen> {
     setState(() {});
   }
 
-  Future<void> loadGroup(String id) async {
+  void recommencer() {
+    repetition = repetition.repeatWords(initialIndex: 0).restart();
+    prepareWordsToUse();
+    setState(() {});
+  }
+
+  Future<void> fetchGroup(String id) async {
     final GroupRepository groupRepository = ref.read(groupRepositoryProvider);
     final fetchedGroup = await groupRepository.fetchGroupBy(id);
     groupLoaded = true;
     if (fetchedGroup != null) {
       loading == true;
       group = fetchedGroup;
-      repetition = repetition.initialize(
-        words: group?.words ?? [],
-        initialIndex: 0,
-        listId: group?.id ?? '',
-        firstLanguage: 'fr',
-        secondLanguage: 'en',
-      );
-      loadWords(repetition.allUsingWords);
+      fetchWords(fetchedGroup.words);
     }
+    // group = null;
     setState(() {});
   }
 
-  Future<void> loadWords(List<String> ids) async {
+  Future<void> fetchWords(List<String> ids) async {
     loading = true;
     final WordRepository wordRepository = ref.read(wordRepositoryProvider);
     final fetchedWords = await wordRepository.fetchWordsByIds(ids);
@@ -82,7 +120,7 @@ class _WordScreenState extends ConsumerState<WordScreen> {
   @override
   void initState() {
     super.initState();
-    loadGroup(widget.groupId);
+    fetchGroup(widget.groupId);
   }
 
   @override
@@ -94,7 +132,7 @@ class _WordScreenState extends ConsumerState<WordScreen> {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((duration) async {
-      //TODO : Implémenter historique
+      // TODO : Implémenter historique
       // await Future.delayed(const Duration(seconds: 3));
       // swipeController.swipe(CardSwiperDirection.left);
       // print("$duration");
@@ -181,12 +219,131 @@ class _WordScreenState extends ConsumerState<WordScreen> {
           OptionPanel(
             width: Sizes.p100,
             children: [
-              StyledText('${words.length} mots chargé'),
-              gapH3,
-              StyledButton(
-                onPressed: ready ? start : null,
-                child: StyledHeadline('Commnecer'.hardcoded),
+              StyledText(
+                'Ce group est gérer par Burri Simon'.hardcoded,
+                fontSize: Sizes.p5,
               ),
+              const Divider(
+                color: AppColors.secondaryColor,
+                height: Sizes.p10,
+                thickness: Sizes.p1,
+                indent: Sizes.p4,
+                endIndent: Sizes.p4,
+              ),
+              StyledText(
+                'Ce group est réussi à 20 %'.hardcoded,
+                fontSize: Sizes.p5,
+              ),
+              const Divider(
+                color: AppColors.secondaryColor,
+                height: Sizes.p10,
+                thickness: Sizes.p1,
+                indent: Sizes.p4,
+                endIndent: Sizes.p4,
+              ),
+              StyledText(
+                'Vous avez repeter ce group 5 fois'.hardcoded,
+                fontSize: Sizes.p5,
+              ),
+            ],
+          ),
+          gapH15,
+          OptionPanel(
+            width: Sizes.p100,
+            children: [
+              StyledHeadline(
+                'Dans quels langues voulez vous répéter ?'.hardcoded,
+                fontSize: Sizes.p5,
+              ),
+              gapH4,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  StyledDropdown(
+                    width: 100,
+                    height: 40,
+                    value: firstLanguage,
+                    values: ['fr', 'en'],
+                    onChanged: (value) {
+                      firstLanguage = value ?? firstLanguage;
+                      setState(() {});
+                    },
+                  ),
+                  gapW5,
+                  SenseButton(
+                    sense,
+                    onPressed: () {
+                      sense = !sense;
+                      setState(() {});
+                    },
+                  ),
+                  gapW5,
+                  StyledDropdown(
+                    width: 100,
+                    height: 40,
+                    value: secondLanguage,
+                    values: ['fr', 'en'],
+                    onChanged: (value) {
+                      secondLanguage = value ?? secondLanguage;
+                      setState(() {});
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+          gapH15,
+          OptionPanel(
+            width: Sizes.p100,
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  StyledText(
+                    group != null
+                        ? 'Le group est chargé'.hardcoded
+                        : 'Le group n\'est pas encore chargé'.hardcoded,
+                    fontSize: Sizes.p5,
+                  ),
+                  gapW4,
+                  StyledCheck(group != null),
+                ],
+              ),
+              const Divider(
+                color: AppColors.secondaryColor,
+                height: Sizes.p10,
+                thickness: Sizes.p1,
+                indent: Sizes.p4,
+                endIndent: Sizes.p4,
+              ),
+              StyledText(
+                '${words.length} mots chargés'.hardcoded,
+                fontSize: Sizes.p5,
+              ),
+              const Divider(
+                color: AppColors.secondaryColor,
+                height: Sizes.p10,
+                thickness: Sizes.p1,
+                indent: Sizes.p4,
+                endIndent: Sizes.p4,
+              ),
+              !groupNotFound
+                  ? StyledButton(
+                      width: Sizes.p50,
+                      onPressed: ready ? start : null,
+                      child: StyledHeadline(
+                        'Commencer'.hardcoded,
+                        fontSize: Sizes.p5,
+                      ),
+                    )
+                  : StyledButton(
+                      width: Sizes.p50,
+                      onPressed: () => fetchGroup(widget.groupId),
+                      child: StyledHeadline(
+                        'Recharger'.hardcoded,
+                        fontSize: Sizes.p5,
+                      ),
+                    ),
               gapH3,
             ],
           ),
@@ -194,7 +351,7 @@ class _WordScreenState extends ConsumerState<WordScreen> {
         ]);
         break;
       case RepetitionState.process:
-        if (repetition.index < words.length) {
+        if (repetition.index < wordsToUse.length) {
           children.addAll([
             gapH16,
             OptionPanel(
@@ -213,10 +370,7 @@ class _WordScreenState extends ConsumerState<WordScreen> {
                     const StyledIcon(Icons.replay, onPressed: null),
                     gapW3,
                     StyledIcon(
-                      // Icons.arrow_upward,
                       Icons.arrow_back,
-                      // Icons.arrow_downward,
-                      // Icons.arrow_back_ios,
                       onPressed: () {
                         swipeController.undo();
                       },
@@ -240,11 +394,11 @@ class _WordScreenState extends ConsumerState<WordScreen> {
                 height: 280,
                 child: CardSwiper(
                   controller: swipeController,
-                  cardsCount: words.isNotEmpty ? words.length : 1,
-                  numberOfCardsDisplayed: words.length > 5
+                  cardsCount: wordsToUse.isNotEmpty ? wordsToUse.length : 1,
+                  numberOfCardsDisplayed: wordsToUse.length > 5
                       ? 5
-                      : words.isNotEmpty
-                      ? words.length
+                      : wordsToUse.isNotEmpty
+                      ? wordsToUse.length
                       : 1,
                   isLoop: false,
                   initialIndex: repetition.index,
@@ -253,19 +407,22 @@ class _WordScreenState extends ConsumerState<WordScreen> {
                     right: true,
                   ),
                   onSwipe: (previousIndex, currentIndex, direction) {
-                    if (previousIndex < words.length) {
+                    if (previousIndex < wordsToUse.length) {
                       if (direction.isCloseTo(CardSwiperDirection.left)) {
-                        passWord(id: words[previousIndex].id, known: false);
+                        passWord(
+                          id: wordsToUse[previousIndex].id,
+                          known: false,
+                        );
                       }
                       if (direction.isCloseTo(CardSwiperDirection.right)) {
-                        passWord(id: words[previousIndex].id, known: true);
+                        passWord(id: wordsToUse[previousIndex].id, known: true);
                       }
                     }
                     repetition = repetition.changeIndex(currentIndex);
                     return true;
                   },
                   onUndo: (previousIndex, currentIndex, direction) {
-                    passWord(id: words[currentIndex].id);
+                    passWord(id: wordsToUse[currentIndex].id);
                     repetition = repetition.changeIndex(currentIndex);
                     return true;
                   },
@@ -282,14 +439,14 @@ class _WordScreenState extends ConsumerState<WordScreen> {
                         horizontalOffsetPercentage,
                         verticalOffsetPercentage,
                       ) {
-                        if (index < words.length) {
-                          final Word word = words[index];
+                        if (index < wordsToUse.length) {
+                          final Word word = wordsToUse[index];
                           return WordCard(
                             key: Key(word.id),
                             word: word,
                             actif: index == repetition.index,
-                            firstLanguage: 'fr',
-                            secondLanguage: 'en',
+                            firstLanguage: repetition.firstLanguage,
+                            secondLanguage: repetition.secondLanguage,
                           );
                         } else {
                           return EndCard(title: "Fin de Repetition".hardcoded);
@@ -344,17 +501,7 @@ class _WordScreenState extends ConsumerState<WordScreen> {
               StyledButton(
                 width: Sizes.p40,
                 height: Sizes.p10,
-                onPressed: () {
-                  repetition = repetition
-                      .repeatWords(initialIndex: 0)
-                      .restart();
-                  words = testWords
-                      .where(
-                        (word) => repetition.allUsingWords.contains(word.id),
-                      )
-                      .toList();
-                  setState(() {});
-                },
+                onPressed: recommencer,
                 child: StyledHeadline('Répeter à nouveau'.hardcoded),
               ),
             ],
@@ -377,12 +524,7 @@ class _WordScreenState extends ConsumerState<WordScreen> {
                         repetition = repetition
                             .repeatWords(initialIndex: 0, all: false)
                             .restart();
-                        words = testWords
-                            .where(
-                              (word) =>
-                                  repetition.allUsingWords.contains(word.id),
-                            )
-                            .toList();
+                        prepareWordsToUse();
                         setState(() {});
                       }
                     : null,
