@@ -45,7 +45,10 @@ class GroupRepository {
 
   Future<Group?> fetchGroupBy(String id) async {
     try {
-      final res = await dio.get('/voc/group/$id',options: Options(headers: {'Content-Type':'application/json'}));
+      final res = await dio.get(
+        '/voc/group/$id',
+        options: Options(headers: {'Content-Type': 'application/json'}),
+      );
       final statusCode = res.statusCode!;
       if (statusCode / 100 != 2) {
         throw Exception(statusCode);
@@ -96,6 +99,7 @@ final groupRepositoryProvider = Provider<GroupRepository>((ref) {
 
 final groupListFutureProvider = FutureProvider.autoDispose<List<Group>>((ref) {
   final wordRepository = ref.watch(groupRepositoryProvider);
+  // throw Error();
   return wordRepository.fetchGroups();
 });
 

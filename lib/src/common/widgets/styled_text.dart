@@ -7,6 +7,7 @@ class StyledText extends StatelessWidget {
     this.color,
     this.fontSize,
     this.overflow = TextOverflow.ellipsis,
+    this.maxLines,
     super.key,
   });
 
@@ -14,6 +15,7 @@ class StyledText extends StatelessWidget {
   final Color? color;
   final double? fontSize;
   final TextOverflow overflow;
+  final int? maxLines;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +27,7 @@ class StyledText extends StatelessWidget {
         ).textTheme.bodyMedium?.copyWith(color: color, fontSize: fontSize),
       ),
       overflow: overflow,
+      maxLines: maxLines,
     );
   }
 }
@@ -35,6 +38,7 @@ class StyledHeadline extends StatelessWidget {
     this.color,
     this.fontSize,
     this.overflow = TextOverflow.ellipsis,
+    this.maxLines,
     super.key,
   });
 
@@ -42,6 +46,7 @@ class StyledHeadline extends StatelessWidget {
   final Color? color;
   final double? fontSize;
   final TextOverflow overflow;
+  final int? maxLines;
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +58,7 @@ class StyledHeadline extends StatelessWidget {
         ).textTheme.headlineMedium?.copyWith(color: color, fontSize: fontSize),
       ),
       overflow: overflow,
+      maxLines: maxLines,
     );
   }
 }
@@ -63,6 +69,7 @@ class StyledTitle extends StatelessWidget {
     this.color,
     this.fontSize,
     this.overflow = TextOverflow.ellipsis,
+    this.maxLines,
     super.key,
   });
 
@@ -70,6 +77,7 @@ class StyledTitle extends StatelessWidget {
   final Color? color;
   final double? fontSize;
   final TextOverflow overflow;
+  final int? maxLines;
 
   @override
   Widget build(BuildContext context) {
@@ -81,6 +89,7 @@ class StyledTitle extends StatelessWidget {
         ).textTheme.titleMedium?.copyWith(color: color, fontSize: fontSize),
       ),
       overflow: overflow,
+      maxLines: maxLines,
     );
   }
 }
