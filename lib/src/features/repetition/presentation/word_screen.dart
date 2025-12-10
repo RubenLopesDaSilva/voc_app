@@ -104,7 +104,6 @@ class _WordScreenState extends ConsumerState<WordScreen> {
       group = fetchedGroup;
       fetchWords(fetchedGroup.words);
     }
-    // group = null;
     setState(() {});
   }
 
