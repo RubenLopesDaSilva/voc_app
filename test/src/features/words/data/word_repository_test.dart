@@ -57,7 +57,7 @@ void main() {
     });
 
     test('delWord calls Dio.delete and succeeds', () async {
-      when(() => mockDio.delete('/voc/word/5')).thenAnswer(
+      when(() => mockDio.delete('/voc/word/5',options: any(named: 'options'))).thenAnswer(
         (_) async => Response(
           requestOptions: RequestOptions(path: '/voc/word/5'),
           statusCode: 200,
@@ -66,7 +66,111 @@ void main() {
 
       await repository.delWord('5');
 
-      verify(() => mockDio.delete('/voc/word/5')).called(1);
+      verify(() => mockDio.delete('/voc/word/5',options: any(named: 'options'))).called(1);
     });
+    test('fetchWordsByIds calls Dio.get(list) and succeeds', () async {
+      const listIds = <String>['1', '2', '3'];
+      const List<Word> words = [
+        Word(
+          id: '1',
+          trad: {'fr': 'rire', 'en': 'laugh'},
+          userId: '1',
+          phonetics: {},
+        ),
+        Word(
+          id: '2',
+          trad: {'fr': 'poubelle', 'en': 'bin'},
+          userId: '1',
+          phonetics: {},
+        ),
+        Word(
+          id: '3',
+          trad: {'fr': 'force', 'en': 'strength'},
+          userId: '1',
+          phonetics: {},
+        ),
+      ];
+      when(
+        () => mockDio.get(
+          any(),
+          options: any(named: 'options'),
+          queryParameters: any(named: 'queryParameters'),
+        ),
+      ).thenAnswer(
+        (_) async => Response(
+          requestOptions: RequestOptions(path: '/voc/searchW'),
+          statusCode: 200,
+          data: words.map((e) => e.toJson()).toList(),
+        ),
+      );
+
+      final result = await repository.fetchWordsByIds(listIds);
+
+      verify(
+        () => mockDio.get(
+          '/voc/searchW',
+          options: any(named: 'options'),
+          queryParameters: {'listeId': listIds},
+        ),
+      ).called(1);
+
+      expect(result.length, words.length);
+      expect(result, words);
+    });
+    test(
+      'fetchAllWords returns all words available and calls Dio.get and succeeds',
+      () async {
+        const List<Word> words = [
+          Word(
+            id: '1',
+            trad: {'fr': 'rire', 'en': 'laugh'},
+            userId: '1',
+            phonetics: {},
+          ),
+          Word(
+            id: '2',
+            trad: {'fr': 'poubelle', 'en': 'bin'},
+            userId: '1',
+            phonetics: {},
+          ),
+          Word(
+            id: '3',
+            trad: {'fr': 'force', 'en': 'strength'},
+            userId: '3',
+            phonetics: {},
+          ),
+          Word(
+            id: '4',
+            trad: {'fr': 'coffre', 'en': 'chest'},
+            userId: '1',
+            phonetics: {},
+          ),
+          Word(
+            id: '5',
+            trad: {'fr': 'jambes', 'en': 'legs'},
+            userId: '2',
+            phonetics: {},
+          ),
+        ];
+        when(
+          () => mockDio.get(any(), options: any(named: 'options')),
+        ).thenAnswer(
+          (_) async => Response(
+            requestOptions: RequestOptions(path: '/voc'),
+            statusCode: 200,
+            data: words.map((e) => e.toJson()).toList(),
+          ),
+        );
+
+        final result = await repository.fetchAllWords();
+
+        verify(
+          () => mockDio.get('/voc', options: any(named: 'options')),
+        ).called(1);
+
+        expect(result.length, words.length);
+        expect(result, words);
+      },
+    );
   });
 }

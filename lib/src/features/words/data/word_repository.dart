@@ -11,7 +11,10 @@ class WordRepository {
 
   Future<List<Word>> fetchAllWords() async {
     try {
-      final res = await dio.get('/voc');
+      final res = await dio.get(
+        '/voc',
+        options: Options(headers: {'Content-Type': 'application/json'}),
+      );
       final statusCode = res.statusCode;
       if (statusCode != 200) {
         throw Exception('$statusCode');
@@ -31,6 +34,7 @@ class WordRepository {
       final res = await dio.get(
         '/voc/searchW',
         queryParameters: {'listeId': wordsId},
+        options: Options(headers: {'Content-Type': 'application/json'}),
       );
       final statusCode = res.statusCode!;
       if (statusCode / 100 != 2) {
@@ -66,7 +70,10 @@ class WordRepository {
 
   Future<void> delWord(String wordId) async {
     try {
-      final res = await dio.delete('/voc/word/$wordId');
+      final res = await dio.delete(
+        '/voc/word/$wordId',
+        options: Options(headers: {'Content-Type': 'application/json'}),
+      );
       final statusCode = res.statusCode!;
       if (statusCode / 100 != 2) {
         throw Exception(statusCode);

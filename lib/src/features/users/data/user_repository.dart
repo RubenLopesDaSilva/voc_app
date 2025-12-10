@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:logger/logger.dart';
@@ -7,14 +5,19 @@ import 'package:voc_app/src/features/users/domain/user.dart';
 
 class UserRepository {
   final Dio dio;
+  final FlutterSecureStorage storage;
   final logger = Logger();
 
-  UserRepository({Dio? dio})
-    : dio = dio ?? Dio(BaseOptions(baseUrl: 'http://localhost:3000'));
+  UserRepository({Dio? dio, FlutterSecureStorage? storage})
+    : dio = dio ?? Dio(BaseOptions(baseUrl: 'http://localhost:3000')),
+      storage = storage ?? FlutterSecureStorage();
 
   Future<List<User>> fetchUsers() async {
     try {
-      final res = await dio.get('user');
+      final res = await dio.get(
+        '/auth/user',
+        options: Options(headers: {'Content-Type': 'application/json'}),
+      );
       final statusCode = res.statusCode;
       if (statusCode != 200) {
         throw Exception(statusCode);
@@ -25,23 +28,19 @@ class UserRepository {
       return datas;
     } catch (e) {
       logger.e(e.toString());
-      return List.empty();
+      return <User>[];
     }
   }
 
   Future<User?> signUp(String email, String password, String userName) async {
     try {
-      final res = await dio.put(
+      final res = await dio.post(
         '/auth/signup',
         options: Options(headers: {'Content-Type': 'application/json'}),
-        data: jsonEncode({
-          "userName": userName,
-          "email": email,
-          "password": password,
-        }),
+        data: {"userName": userName, "email": email, "password": password},
       );
       final statusCode = res.statusCode;
-      if (statusCode != 200) {
+      if (statusCode != 201) {
         throw Exception(statusCode);
       }
       final data = User.fromJson(res.data);
@@ -55,20 +54,19 @@ class UserRepository {
   Future<User?> login(String email, String password) async {
     try {
       final res = await dio.post(
-        '/voc/login',
+        '/auth/login',
         options: Options(headers: {'Content-Type': 'application/json'}),
-        data: jsonEncode({'password': password, 'email': email}),
+        data: {'password': password, 'email': email},
       );
       final statusCode = res.statusCode;
-      final body = jsonDecode(res.data);
+      final body = res.data;
       if (statusCode != 200) {
         final message = body['message'];
         throw Exception(message);
       }
       final token = body['token'];
-      final storage = FlutterSecureStorage();
       await storage.write(key: 'token', value: token);
-      return User(id: '', username: '', email: '');
+      return User(id: body['_id'], username: '', email: email);
     } catch (e) {
       logger.e(e.toString());
       return null;

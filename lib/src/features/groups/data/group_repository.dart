@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:logger/logger.dart';
 import 'package:voc_app/src/features/groups/domain/group.dart';
@@ -13,22 +11,26 @@ class GroupRepository {
 
   Future<List<Group>> fetchGroups() async {
     try {
-      final res = await dio.get('/voc/group');
+      final res = await dio.get(
+        '/voc/group',
+        options: Options(headers: {'Content-Type': 'application/json'}),
+      );
       final datas = (res.data as List)
           .map((data) => Group.fromJson(data))
           .toList();
       return datas;
     } catch (e) {
       logger.e(e.toString());
-      return List.empty();
+      return <Group>[];
     }
   }
 
   Future<List<Group>> fetchGroupsByUserId(String userId) async {
     try {
       final res = await dio.get(
-        '/voc/group',
+        '/voc/search',
         queryParameters: {'userId': userId},
+        options: Options(headers: {'Content-Type': 'application/json'}),
       );
       final statusCode = res.statusCode;
       if (statusCode != 200) throw Exception(statusCode);
@@ -38,15 +40,18 @@ class GroupRepository {
       return datas;
     } catch (e) {
       logger.e(e.toString());
-      return List.empty();
+      return <Group>[];
     }
   }
 
   Future<Group?> fetchGroupBy(String id) async {
     try {
-      final res = await dio.get('/voc/group/$id');
+      final res = await dio.get(
+        '/voc/group/$id',
+        options: Options(headers: {'Content-Type': 'application/json'}),
+      );
       final statusCode = res.statusCode!;
-      if (statusCode / 100 == 2) {
+      if (statusCode / 100 != 2) {
         throw Exception(statusCode);
       }
       final data = Group.fromJson(res.data);
@@ -62,10 +67,10 @@ class GroupRepository {
       final res = await dio.post(
         '/voc/addG',
         options: Options(headers: {'Content-Type': 'application/json'}),
-        data: jsonEncode(group),
+        data: group.toJson(),
       );
       final statusCode = res.statusCode!;
-      if (statusCode / 100 != 2) {
+      if (statusCode != 201) {
         throw Exception(statusCode);
       }
       return Group.fromJson(res.data);
@@ -77,7 +82,10 @@ class GroupRepository {
 
   Future<void> delGroup(String groupId) async {
     try {
-      final res = await dio.delete('/voc/group/$groupId');
+      final res = await dio.delete(
+        '/voc/group/$groupId',
+        options: Options(headers: {'Content-Type': 'application/json'}),
+      );
       final statusCode = res.statusCode!;
       if (statusCode / 100 != 2) {
         throw Exception(statusCode);
