@@ -3,13 +3,13 @@ import 'package:voc_app/src/features/repetition/presentation/repetitions_screen.
 import 'package:voc_app/src/features/repetition/presentation/word_screen.dart';
 
 enum AppRoutes {
-  home('/', 'home'),
-  repetitions('/repetitions', 'repetitions'),
-  repetition('/repetitions/repetition/:groupId', 'repetition');
+  home('/'),
+  repetitions('/repetitions'),
+  repetition('/repetitions/repetition/:groupId');
 
   final String path;
-  final String name;
-  const AppRoutes(this.path, this.name);
+
+  const AppRoutes(this.path);
 }
 
 final goRouter = GoRouter(

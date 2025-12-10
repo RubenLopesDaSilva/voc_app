@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:voc_app/src/common/constants/gap.dart';
 import 'package:voc_app/src/common/constants/sizes.dart';
-import 'package:voc_app/src/common/theme/theme.dart';
+import 'package:voc_app/src/common/widgets/styled_divider.dart';
 import 'package:voc_app/src/common/widgets/styled_text.dart';
 
 class AsyncValueWidget<T> extends StatelessWidget {
@@ -44,11 +44,7 @@ class AsyncValueWidget<T> extends StatelessWidget {
                   overflow: TextOverflow.visible,
                   maxLines: 10,
                 ),
-                const Divider(
-                  color: AppColors.secondaryAccent,
-                  thickness: Sizes.p1,
-                  height: Sizes.p10,
-                ),
+                const StyledDivider(horizontal: true),
                 StyledTitle(
                   '$stackTrace',
                   fontSize: Sizes.p10,

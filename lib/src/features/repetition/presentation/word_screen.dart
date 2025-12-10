@@ -8,6 +8,7 @@ import 'package:voc_app/src/common/theme/theme.dart';
 import 'package:voc_app/src/common/widgets/sense_button.dart';
 import 'package:voc_app/src/common/widgets/styled_button.dart';
 import 'package:voc_app/src/common/widgets/styled_check.dart';
+import 'package:voc_app/src/common/widgets/styled_divider.dart';
 import 'package:voc_app/src/common/widgets/styled_dropdown.dart';
 import 'package:voc_app/src/common/widgets/styled_icon.dart';
 import 'package:voc_app/src/common/widgets/styled_text.dart';
@@ -161,11 +162,7 @@ class _WordScreenState extends ConsumerState<WordScreen> {
             ],
           ),
           gapH4,
-          const Divider(
-            color: AppColors.secondaryAccent,
-            thickness: Sizes.p1,
-            height: 0,
-          ),
+          const StyledDivider(spacement: 0),
           gapH4,
           Row(
             children: [
@@ -174,10 +171,10 @@ class _WordScreenState extends ConsumerState<WordScreen> {
                   child: Column(
                     children: [
                       StyledHeadline(
-                        ' ${group?.name ?? 'Aucun'.hardcoded}',
+                        'Burri Simon'.hardcoded,
                         fontSize: Sizes.p6,
                       ),
-                      const StyledHeadline('Burri Simon', fontSize: Sizes.p6),
+                      const StyledHeadline('Rien', fontSize: Sizes.p6),
                     ],
                   ),
                 ),
@@ -185,23 +182,31 @@ class _WordScreenState extends ConsumerState<WordScreen> {
               gapW4,
               const SizedBox(
                 height: Sizes.p20,
-                child: VerticalDivider(
-                  color: AppColors.secondaryAccent,
-                  thickness: Sizes.p1,
-                  width: 0,
-                ),
+                child: StyledDivider(horizontal: false, spacement: 0),
               ),
               gapW4,
               Expanded(
                 child: Center(
-                  child: StyledHeadline(
-                    'Contient ${groupLength > 1
-                            ? '$groupLength mots'
-                            : groupLength == 1
-                            ? 'un mot'
-                            : 'aucun mot'}'
-                        .hardcoded,
-                    fontSize: Sizes.p4,
+                  child: Column(
+                    children: [
+                      StyledHeadline(
+                        ' ${group?.name ?? 'Aucun'.hardcoded}'.hardcoded,
+                        fontSize: Sizes.p4,
+                      ),
+                      StyledHeadline(
+                        'De Burri Simon'.hardcoded,
+                        fontSize: Sizes.p4,
+                      ),
+                      StyledHeadline(
+                        'Contient ${groupLength > 1
+                                ? '$groupLength mots'
+                                : groupLength == 1
+                                ? 'un mot'
+                                : 'aucun mot'}'
+                            .hardcoded,
+                        fontSize: Sizes.p4,
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -222,10 +227,9 @@ class _WordScreenState extends ConsumerState<WordScreen> {
                 'Ce group est gérer par Burri Simon'.hardcoded,
                 fontSize: Sizes.p5,
               ),
-              const Divider(
+              const StyledDivider(
                 color: AppColors.secondaryColor,
-                height: Sizes.p10,
-                thickness: Sizes.p1,
+                spacement: Sizes.p10,
                 indent: Sizes.p4,
                 endIndent: Sizes.p4,
               ),
@@ -233,10 +237,9 @@ class _WordScreenState extends ConsumerState<WordScreen> {
                 'Ce group est réussi à 20 %'.hardcoded,
                 fontSize: Sizes.p5,
               ),
-              const Divider(
+              const StyledDivider(
                 color: AppColors.secondaryColor,
-                height: Sizes.p10,
-                thickness: Sizes.p1,
+                spacement: Sizes.p10,
                 indent: Sizes.p4,
                 endIndent: Sizes.p4,
               ),
@@ -308,10 +311,9 @@ class _WordScreenState extends ConsumerState<WordScreen> {
                   StyledCheck(group != null),
                 ],
               ),
-              const Divider(
+              const StyledDivider(
                 color: AppColors.secondaryColor,
-                height: Sizes.p10,
-                thickness: Sizes.p1,
+                spacement: Sizes.p10,
                 indent: Sizes.p4,
                 endIndent: Sizes.p4,
               ),
@@ -319,10 +321,9 @@ class _WordScreenState extends ConsumerState<WordScreen> {
                 '${words.length} mots chargés'.hardcoded,
                 fontSize: Sizes.p5,
               ),
-              const Divider(
+              const StyledDivider(
                 color: AppColors.secondaryColor,
-                height: Sizes.p10,
-                thickness: Sizes.p1,
+                spacement: Sizes.p10,
                 indent: Sizes.p4,
                 endIndent: Sizes.p4,
               ),

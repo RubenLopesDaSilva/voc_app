@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:voc_app/src/common/constants/gap.dart';
 import 'package:voc_app/src/common/constants/sizes.dart';
 import 'package:voc_app/src/common/localization/string_hardcoded.dart';
 import 'package:voc_app/src/common/theme/theme.dart';
 import 'package:voc_app/src/common/widgets/async_value_widget.dart';
+import 'package:voc_app/src/common/widgets/styled_divider.dart';
 import 'package:voc_app/src/common/widgets/styled_text.dart';
 import 'package:voc_app/src/features/groups/data/group_repository.dart';
 import 'package:voc_app/src/features/groups/domain/group.dart';
+import 'package:voc_app/src/features/repetition/presentation/widgets/group_item_repetition.dart';
 import 'package:voc_app/src/features/repetition/presentation/widgets/info_panel.dart';
+import 'package:voc_app/src/navigation/navigation.dart';
 
 class RepetitionsScreen extends StatefulWidget {
   const RepetitionsScreen({super.key});
@@ -18,6 +22,10 @@ class RepetitionsScreen extends StatefulWidget {
 }
 
 class _RepetitionsScreenState extends State<RepetitionsScreen> {
+  void repeatGroup(String id) {
+    context.goNamed(AppRoutes.repetition.name, pathParameters: {'groupId': id});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,11 +50,7 @@ class _RepetitionsScreenState extends State<RepetitionsScreen> {
                 ],
               ),
               gapH4,
-              const Divider(
-                color: AppColors.secondaryAccent,
-                thickness: Sizes.p1,
-                height: 0,
-              ),
+              const StyledDivider(horizontal: true, spacement: 0),
               gapH4,
               Row(
                 children: [
@@ -69,11 +73,7 @@ class _RepetitionsScreenState extends State<RepetitionsScreen> {
                   gapW4,
                   const SizedBox(
                     height: Sizes.p20,
-                    child: VerticalDivider(
-                      color: AppColors.secondaryAccent,
-                      thickness: Sizes.p1,
-                      width: 0,
-                    ),
+                    child: StyledDivider(horizontal: false, spacement: 0),
                   ),
                   gapW4,
                   Expanded(
@@ -88,7 +88,7 @@ class _RepetitionsScreenState extends State<RepetitionsScreen> {
               ),
             ],
           ),
-          expandH4,
+          gapH5,
           Consumer(
             builder: (context, ref, child) {
               final AsyncValue<List<Group>> asyncGroups = ref.watch(
@@ -102,15 +102,17 @@ class _RepetitionsScreenState extends State<RepetitionsScreen> {
                       itemCount: groups.length,
                       itemBuilder: (context, index) {
                         final Group group = groups[index];
-                        return StyledText(group.name);
+                        return GroupItemRepetition(
+                          group,
+                          onTapDown: () {
+                            repeatGroup(group.id);
+                          },
+                        );
                       },
                       separatorBuilder: (context, index) {
-                        return const Divider(
-                          color: AppColors.secondaryAccent,
-                          thickness: Sizes.p1,
-                          height: Sizes.p10,
-                          indent: Sizes.p10,
-                          endIndent: Sizes.p10,
+                        return const StyledDivider(
+                          horizontal: true,
+                          spacement: Sizes.p10,
                         );
                       },
                     ),
@@ -130,7 +132,7 @@ class _RepetitionsScreenState extends State<RepetitionsScreen> {
               );
             },
           ),
-          expandH4,
+          gapH5,
         ],
       ),
     );
