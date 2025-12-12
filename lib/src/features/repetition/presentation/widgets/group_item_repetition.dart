@@ -23,8 +23,7 @@ class GroupItemRepetition extends StatelessWidget {
         children: [
           Row(
             children: [
-              SizedBox(
-                width: 100,
+              Expanded(
                 child: Center(
                   child: StyledHeadline(group.name, fontSize: Sizes.p5),
                 ),
@@ -36,7 +35,10 @@ class GroupItemRepetition extends StatelessWidget {
               ),
               Column(
                 children: [
-                  const StyledHeadline('De Burri Simon', fontSize: Sizes.p5),
+                  StyledHeadline(
+                    'De Burri Simon'.hardcoded,
+                    fontSize: Sizes.p5,
+                  ),
                   const StyledDivider(
                     horizontal: true,
                     height: Sizes.p25,

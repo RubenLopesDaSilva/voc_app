@@ -6,6 +6,7 @@ import 'package:voc_app/src/common/constants/sizes.dart';
 import 'package:voc_app/src/common/localization/string_hardcoded.dart';
 import 'package:voc_app/src/common/theme/theme.dart';
 import 'package:voc_app/src/common/widgets/async_value_widget.dart';
+import 'package:voc_app/src/common/widgets/option_panel.dart';
 import 'package:voc_app/src/common/widgets/styled_divider.dart';
 import 'package:voc_app/src/common/widgets/styled_text.dart';
 import 'package:voc_app/src/features/groups/data/group_repository.dart';
@@ -110,7 +111,17 @@ class _RepetitionsScreenState extends State<RepetitionsScreen> {
                         );
                       },
                       separatorBuilder: (context, index) {
-                        return const StyledDivider(spacement: Sizes.p10);
+                        return const Column(
+                          children: [
+                            gapH5,
+                            OptionPanel(
+                              width: Sizes.p100,
+                              children: [StyledDivider(spacement: Sizes.p10)],
+                            ),
+                            gapH5,
+                          ],
+                        );
+                        // return const StyledDivider(spacement: Sizes.p10);
                       },
                     ),
                   );

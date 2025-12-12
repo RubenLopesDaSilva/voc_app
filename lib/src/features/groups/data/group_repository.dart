@@ -49,7 +49,6 @@ class GroupRepository {
         '/voc/group/$id',
         options: Options(headers: {'Content-Type': 'application/json'}),
       );
-      print('${res.data}');
       final statusCode = res.statusCode!;
       if (statusCode / 100 != 2) {
         throw Exception(statusCode);
