@@ -110,10 +110,7 @@ class _RepetitionsScreenState extends State<RepetitionsScreen> {
                         );
                       },
                       separatorBuilder: (context, index) {
-                        return const StyledDivider(
-                          horizontal: true,
-                          spacement: Sizes.p10,
-                        );
+                        return const StyledDivider(spacement: Sizes.p10);
                       },
                     ),
                   );
