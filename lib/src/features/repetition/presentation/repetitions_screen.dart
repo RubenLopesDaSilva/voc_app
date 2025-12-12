@@ -12,7 +12,8 @@ import 'package:voc_app/src/common/widgets/styled_text.dart';
 import 'package:voc_app/src/features/groups/data/group_repository.dart';
 import 'package:voc_app/src/features/groups/domain/group.dart';
 import 'package:voc_app/src/features/repetition/presentation/widgets/group_item_repetition.dart';
-import 'package:voc_app/src/features/repetition/presentation/widgets/info_panel.dart';
+import 'package:voc_app/src/common/widgets/info_panel.dart';
+import 'package:voc_app/src/features/users/presentation/widgets/profile_show_dialog.dart';
 import 'package:voc_app/src/navigation/navigation.dart';
 
 class RepetitionsScreen extends StatefulWidget {
@@ -40,7 +41,14 @@ class _RepetitionsScreenState extends State<RepetitionsScreen> {
                   StyledHeadline('Repetitions'.hardcoded, fontSize: Sizes.p10),
                   expandH10,
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return const ProfileShowDialog();
+                        },
+                      );
+                    },
                     icon: const Icon(
                       Icons.account_circle_outlined,
                       color: AppColors.secondaryAccent,

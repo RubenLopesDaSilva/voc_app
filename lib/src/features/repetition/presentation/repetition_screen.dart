@@ -20,7 +20,7 @@ import 'package:voc_app/src/features/groups/data/group_repository.dart';
 import 'package:voc_app/src/features/groups/domain/group.dart';
 import 'package:voc_app/src/features/repetition/models/repetition.dart';
 import 'package:voc_app/src/features/repetition/presentation/widgets/end_card.dart';
-import 'package:voc_app/src/features/repetition/presentation/widgets/info_panel.dart';
+import 'package:voc_app/src/common/widgets/info_panel.dart';
 import 'package:voc_app/src/features/repetition/presentation/widgets/word_card.dart';
 import 'package:voc_app/src/common/widgets/common_progress_indicator.dart';
 import 'package:voc_app/src/common/widgets/option_panel.dart';
