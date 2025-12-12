@@ -51,4 +51,9 @@ ThemeData lightTheme = ThemeData(
       fontWeight: FontWeight.bold,
     ),
   ),
+  scrollbarTheme: const ScrollbarThemeData(
+    thickness: WidgetStatePropertyAll(Sizes.p4),
+    radius: Radius.circular(Sizes.p5),
+    thumbColor: WidgetStatePropertyAll(AppColors.secondaryAccent),
+  ),
 );

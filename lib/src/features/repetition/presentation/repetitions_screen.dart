@@ -99,30 +99,33 @@ class _RepetitionsScreenState extends State<RepetitionsScreen> {
                 asyncGroups,
                 dataW: (groups) {
                   return Expanded(
-                    child: ListView.separated(
-                      itemCount: groups.length,
-                      itemBuilder: (context, index) {
-                        final Group group = groups[index];
-                        return GroupItemRepetition(
-                          group,
-                          onTapDown: () {
-                            repeatGroup(group.id);
-                          },
-                        );
-                      },
-                      separatorBuilder: (context, index) {
-                        return const Column(
-                          children: [
-                            gapH5,
-                            OptionPanel(
-                              width: Sizes.p100,
-                              children: [StyledDivider(spacement: Sizes.p10)],
-                            ),
-                            gapH5,
-                          ],
-                        );
-                        // return const StyledDivider(spacement: Sizes.p10);
-                      },
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: Sizes.p4),
+                      child: ListView.separated(
+                        itemCount: groups.length,
+                        itemBuilder: (context, index) {
+                          final Group group = groups[index];
+                          return GroupItemRepetition(
+                            group,
+                            onTapDown: () {
+                              repeatGroup(group.id);
+                            },
+                          );
+                        },
+                        separatorBuilder: (context, index) {
+                          return const Column(
+                            children: [
+                              gapH5,
+                              OptionPanel(
+                                width: Sizes.p100,
+                                children: [StyledDivider(spacement: Sizes.p10)],
+                              ),
+                              gapH5,
+                            ],
+                          );
+                          // return const StyledDivider(spacement: Sizes.p10);
+                        },
+                      ),
                     ),
                   );
                 },
