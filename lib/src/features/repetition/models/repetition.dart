@@ -8,6 +8,7 @@ class Repetition {
     Set<String> unknownWords = const {},
     RepetitionState state = RepetitionState.begin,
     int index = 0,
+    int seed = 0,
     String listId = '',
     String firstLanguage = '',
     String secondLanguage = '',
@@ -17,6 +18,7 @@ class Repetition {
        _unknownWords = unknownWords,
        _state = state,
        _index = index,
+       _seed = seed,
        _listId = listId,
        _firstLanguage = firstLanguage,
        _secondLanguage = secondLanguage;
@@ -28,6 +30,7 @@ class Repetition {
 
   final RepetitionState _state;
   final int _index;
+  final int _seed;
   final String _listId;
   final String _firstLanguage;
   final String _secondLanguage;
@@ -39,6 +42,7 @@ class Repetition {
     Set<String>? unknownWords,
     RepetitionState? state,
     int? index,
+    int? seed,
     String? listId,
     String? firstLanguage,
     String? secondLanguage,
@@ -50,6 +54,7 @@ class Repetition {
       unknownWords: unknownWords?.toSet() ?? _unknownWords,
       state: state ?? _state,
       index: index ?? _index,
+      seed: seed ?? _seed,
       listId: listId ?? _listId,
       firstLanguage: firstLanguage ?? _firstLanguage,
       secondLanguage: secondLanguage ?? _secondLanguage,
@@ -63,6 +68,7 @@ extension GetRepetition on Repetition {
   int get unknownCount => _unknownWords.length;
   RepetitionState get state => _state;
   int get index => _index;
+  int get seed => _seed;
   String get listId => _listId;
   String get firstLanguage => _firstLanguage;
   String get secondLanguage => _secondLanguage;
@@ -74,6 +80,7 @@ extension MutableRepetition on Repetition {
   Repetition initialize({
     required Iterable<String> words,
     required int initialIndex,
+    required int seed,
     required String listId,
     required String firstLanguage,
     required String secondLanguage,
@@ -83,6 +90,7 @@ extension MutableRepetition on Repetition {
       usingWords: words.toSet(),
       state: RepetitionState.begin,
       index: initialIndex,
+      seed: seed,
       listId: listId,
       firstLanguage: firstLanguage,
       secondLanguage: secondLanguage,
@@ -117,6 +125,10 @@ extension MutableRepetition on Repetition {
 
   Repetition changeIndex(int? index) {
     return copyWith(index: index);
+  }
+
+  Repetition changeSeed(int? seed) {
+    return copyWith(seed: seed);
   }
 
   Repetition passWord({required String id, bool? known}) {

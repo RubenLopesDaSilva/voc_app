@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:voc_app/src/features/repetition/presentation/repetitions_screen.dart';
-import 'package:voc_app/src/features/repetition/presentation/word_screen.dart';
+import 'package:voc_app/src/features/repetition/presentation/repetition_screen.dart';
 
 enum AppRoutes {
   home('/'),
@@ -34,7 +34,7 @@ final goRouter = GoRouter(
           name: AppRoutes.repetition.name,
           builder: (context, state) {
             final String groupId = state.pathParameters['groupId'].toString();
-            return WordScreen(groupId: groupId);
+            return RepetitionScreen(groupId: groupId);
           },
           redirect: (context, state) {
             final String? groupId = state.pathParameters['groupId'];

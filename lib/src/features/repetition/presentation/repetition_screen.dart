@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -6,6 +8,7 @@ import 'package:voc_app/src/common/constants/gap.dart';
 import 'package:voc_app/src/common/constants/sizes.dart';
 import 'package:voc_app/src/common/localization/string_hardcoded.dart';
 import 'package:voc_app/src/common/theme/theme.dart';
+import 'package:voc_app/src/common/utilities/seed.dart';
 import 'package:voc_app/src/common/widgets/sense_button.dart';
 import 'package:voc_app/src/common/widgets/styled_button.dart';
 import 'package:voc_app/src/common/widgets/styled_check.dart';
@@ -25,16 +28,16 @@ import 'package:voc_app/src/features/words/data/word_repository.dart';
 import 'package:voc_app/src/features/words/domain/word.dart';
 import 'package:voc_app/src/navigation/navigation.dart';
 
-class WordScreen extends ConsumerStatefulWidget {
-  const WordScreen({required this.groupId, super.key});
+class RepetitionScreen extends ConsumerStatefulWidget {
+  const RepetitionScreen({required this.groupId, super.key});
 
   final String groupId;
 
   @override
-  ConsumerState<WordScreen> createState() => _WordScreenState();
+  ConsumerState<RepetitionScreen> createState() => _RepetitionScreenState();
 }
 
-class _WordScreenState extends ConsumerState<WordScreen> {
+class _RepetitionScreenState extends ConsumerState<RepetitionScreen> {
   final swipeController = CardSwiperController();
 
   Repetition repetition = const Repetition();
@@ -58,6 +61,7 @@ class _WordScreenState extends ConsumerState<WordScreen> {
 
   set setWordToUse(List<Word> words) {
     wordsToUse = words.toList();
+    wordsToUse.shuffle(Random(repetition.seed));
   }
 
   void goToRepetitions() {
@@ -70,6 +74,7 @@ class _WordScreenState extends ConsumerState<WordScreen> {
         repetition = repetition.initialize(
           words: mygroup.words,
           initialIndex: 0,
+          seed: newSeed,
           listId: mygroup.id,
           firstLanguage: sense ? firstLanguage : secondLanguage,
           secondLanguage: sense ? secondLanguage : firstLanguage,
@@ -96,8 +101,11 @@ class _WordScreenState extends ConsumerState<WordScreen> {
     setState(() {});
   }
 
-  void recommencer() {
-    repetition = repetition.repeatWords(initialIndex: 0).restart();
+  void recommencer({bool all = true}) {
+    repetition = repetition
+        .repeatWords(initialIndex: 0, all: all)
+        .changeSeed(newSeed)
+        .restart();
     prepareWordsToUse();
     setState(() {});
   }
@@ -541,13 +549,7 @@ class _WordScreenState extends ConsumerState<WordScreen> {
                 width: Sizes.p70,
                 height: Sizes.p10,
                 onPressed: repetition.unknownCount > 0
-                    ? () {
-                        repetition = repetition
-                            .repeatWords(initialIndex: 0, all: false)
-                            .restart();
-                        prepareWordsToUse();
-                        setState(() {});
-                      }
+                    ? () => recommencer(all: false)
                     : null,
                 child: StyledHeadline(
                   'Répeter seulement les mots pas sue'.hardcoded,
