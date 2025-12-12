@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:voc_app/src/common/constants/gap.dart';
 import 'package:voc_app/src/common/constants/sizes.dart';
 import 'package:voc_app/src/common/localization/string_hardcoded.dart';
@@ -22,6 +23,7 @@ import 'package:voc_app/src/common/widgets/common_progress_indicator.dart';
 import 'package:voc_app/src/common/widgets/option_panel.dart';
 import 'package:voc_app/src/features/words/data/word_repository.dart';
 import 'package:voc_app/src/features/words/domain/word.dart';
+import 'package:voc_app/src/navigation/navigation.dart';
 
 class WordScreen extends ConsumerStatefulWidget {
   const WordScreen({required this.groupId, super.key});
@@ -56,6 +58,10 @@ class _WordScreenState extends ConsumerState<WordScreen> {
 
   set setWordToUse(List<Word> words) {
     wordsToUse = words.toList();
+  }
+
+  void goToRepetitions() {
+    context.goNamed(AppRoutes.repetitions.name);
   }
 
   void start() {
@@ -327,23 +333,38 @@ class _WordScreenState extends ConsumerState<WordScreen> {
                 indent: Sizes.p4,
                 endIndent: Sizes.p4,
               ),
-              !groupNotFound
-                  ? StyledButton(
-                      width: Sizes.p50,
-                      onPressed: ready ? start : null,
-                      child: StyledHeadline(
-                        'Commencer'.hardcoded,
-                        fontSize: Sizes.p5,
-                      ),
-                    )
-                  : StyledButton(
-                      width: Sizes.p50,
-                      onPressed: () => fetchGroup(widget.groupId),
-                      child: StyledHeadline(
-                        'Recharger'.hardcoded,
-                        fontSize: Sizes.p5,
-                      ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  StyledButton(
+                    width: Sizes.p25,
+                    onPressed: goToRepetitions,
+                    child: StyledHeadline(
+                      'Quitter'.hardcoded,
+                      fontSize: Sizes.p5,
                     ),
+                  ),
+                  gapW5,
+                  !groupNotFound
+                      ? StyledButton(
+                          width: Sizes.p40,
+                          onPressed: ready ? start : null,
+                          child: StyledHeadline(
+                            'Commencer'.hardcoded,
+                            fontSize: Sizes.p5,
+                          ),
+                        )
+                      : StyledButton(
+                          width: Sizes.p50,
+                          onPressed: () => fetchGroup(widget.groupId),
+                          child: StyledHeadline(
+                            'Recharger'.hardcoded,
+                            fontSize: Sizes.p5,
+                          ),
+                        ),
+                ],
+              ),
+
               gapH3,
             ],
           ),
@@ -475,7 +496,7 @@ class _WordScreenState extends ConsumerState<WordScreen> {
               StyledButton(
                 width: Sizes.p60,
                 height: Sizes.p10,
-                onPressed: repetition.index < words.length
+                onPressed: repetition.index < wordsToUse.length
                     ? () {
                         repetition = repetition.changeState(
                           RepetitionState.process,
@@ -544,6 +565,7 @@ class _WordScreenState extends ConsumerState<WordScreen> {
               StyledButton(
                 width: Sizes.p50,
                 height: Sizes.p10,
+                onPressed: goToRepetitions,
                 child: StyledHeadline('Arrêter cette repetition'.hardcoded),
               ),
             ],
