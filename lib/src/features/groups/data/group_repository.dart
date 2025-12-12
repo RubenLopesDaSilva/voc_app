@@ -44,13 +44,12 @@ class GroupRepository {
   }
 
   Future<Group?> fetchGroupBy(String id) async {
-    //TODO : Corriger Retourne le même group peut importe
     try {
-      print('iid $id');
       final res = await dio.get(
         '/voc/group/$id',
         options: Options(headers: {'Content-Type': 'application/json'}),
       );
+      print('${res.data}');
       final statusCode = res.statusCode!;
       if (statusCode / 100 != 2) {
         throw Exception(statusCode);
