@@ -18,8 +18,8 @@ class UserRepository {
         '/auth/user',
         options: Options(headers: {'Content-Type': 'application/json'}),
       );
-      final statusCode = res.statusCode;
-      if (statusCode != 200) {
+      final statusCode = res.statusCode!;
+      if (statusCode ~/ 100 != 2) {
         throw Exception(statusCode);
       }
       final datas = (res.data as List)
@@ -39,8 +39,8 @@ class UserRepository {
         options: Options(headers: {'Content-Type': 'application/json'}),
         data: {"userName": userName, "email": email, "password": password},
       );
-      final statusCode = res.statusCode;
-      if (statusCode != 201) {
+      final statusCode = res.statusCode!;
+      if (statusCode ~/ 100 != 2) {
         throw Exception(statusCode);
       }
       final data = User.fromJson(res.data);
@@ -58,11 +58,10 @@ class UserRepository {
         options: Options(headers: {'Content-Type': 'application/json'}),
         data: {'password': password, 'email': email},
       );
-      final statusCode = res.statusCode;
+      final statusCode = res.statusCode!;
       final body = res.data;
-      if (statusCode != 200) {
-        final message = body['message'];
-        throw Exception(message);
+      if (statusCode ~/ 100 != 2) {
+        throw Exception(statusCode);
       }
       final token = body['token'];
       await storage.write(key: 'token', value: token);

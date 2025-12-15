@@ -15,6 +15,8 @@ class GroupRepository {
         '/voc/group',
         options: Options(headers: {'Content-Type': 'application/json'}),
       );
+      final statusCode = res.statusCode!;
+      if ((statusCode ~/ 100) != 2) throw Exception(statusCode);
       final datas = (res.data as List)
           .map((data) => Group.fromJson(data))
           .toList();
@@ -32,8 +34,8 @@ class GroupRepository {
         queryParameters: {'userId': userId},
         options: Options(headers: {'Content-Type': 'application/json'}),
       );
-      final statusCode = res.statusCode;
-      if (statusCode != 200) throw Exception(statusCode);
+      final statusCode = res.statusCode!;
+      if ((statusCode ~/ 100) != 2) throw Exception(statusCode);
       final datas = (res.data as List)
           .map((group) => Group.fromJson(group))
           .toList();
@@ -51,7 +53,7 @@ class GroupRepository {
         options: Options(headers: {'Content-Type': 'application/json'}),
       );
       final statusCode = res.statusCode!;
-      if (statusCode / 100 != 2) {
+      if ((statusCode ~/ 100) != 2) {
         throw Exception(statusCode);
       }
       final data = Group.fromJson(res.data);
@@ -70,7 +72,7 @@ class GroupRepository {
         data: group.toJson(),
       );
       final statusCode = res.statusCode!;
-      if (statusCode != 201) {
+      if ((statusCode ~/ 100) != 2) {
         throw Exception(statusCode);
       }
       return Group.fromJson(res.data);
@@ -87,7 +89,7 @@ class GroupRepository {
         options: Options(headers: {'Content-Type': 'application/json'}),
       );
       final statusCode = res.statusCode!;
-      if (statusCode / 100 != 2) {
+      if ((statusCode ~/ 100) != 2) {
         throw Exception(statusCode);
       }
     } catch (e) {
