@@ -12,6 +12,7 @@ class StyledDivider extends StatelessWidget {
     this.spacement,
     this.indent,
     this.endIndent,
+    this.radius,
     super.key,
   });
 
@@ -23,6 +24,7 @@ class StyledDivider extends StatelessWidget {
   final double? spacement;
   final double? indent;
   final double? endIndent;
+  final BorderRadiusGeometry? radius;
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +38,7 @@ class StyledDivider extends StatelessWidget {
               height: spacement ?? Sizes.p5,
               indent: indent ?? Sizes.p2,
               endIndent: endIndent ?? Sizes.p2,
+              radius: radius,
             )
           : VerticalDivider(
               color: color ?? AppColors.secondaryAccent,
@@ -43,6 +46,7 @@ class StyledDivider extends StatelessWidget {
               width: spacement ?? Sizes.p5,
               indent: indent ?? Sizes.p2,
               endIndent: endIndent ?? Sizes.p2,
+              radius: radius,
             ),
     );
   }

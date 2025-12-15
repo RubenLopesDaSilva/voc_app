@@ -67,7 +67,9 @@ class _RepetitionsScreenState extends State<RepetitionsScreen> {
                       gapH5,
                       StyledButton(
                         width: Sizes.p75,
-                        onPressed: () {},
+                        onPressed: () {
+                          context.goNamed(AppRoutes.login.name);
+                        },
                         child: StyledText(
                           'Se déconnecter'.hardcoded,
                           fontSize: Sizes.p5,

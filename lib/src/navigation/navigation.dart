@@ -1,9 +1,11 @@
 import 'package:go_router/go_router.dart';
 import 'package:voc_app/src/features/repetition/presentation/repetitions_screen.dart';
 import 'package:voc_app/src/features/repetition/presentation/repetition_screen.dart';
+import 'package:voc_app/src/features/users/presentation/widgets/login_screen.dart';
 
 enum AppRoutes {
   home('/'),
+  login('/login'),
   repetitions('/repetitions'),
   repetition('/repetitions/repetition/:groupId');
 
@@ -19,7 +21,14 @@ final goRouter = GoRouter(
       path: AppRoutes.home.path,
       name: AppRoutes.home.name,
       redirect: (context, state) {
-        return AppRoutes.repetitions.path;
+        return AppRoutes.login.path;
+      },
+    ),
+    GoRoute(
+      path: AppRoutes.login.path,
+      name: AppRoutes.login.name,
+      builder: (context, state) {
+        return const LoginScreen();
       },
     ),
     GoRoute(

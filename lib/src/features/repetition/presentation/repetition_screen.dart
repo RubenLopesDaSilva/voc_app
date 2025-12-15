@@ -191,8 +191,10 @@ class _RepetitionScreenState extends ConsumerState<RepetitionScreen> {
                   ),
                   gapH5,
                   StyledButton(
+                    onPressed: () {
+                      context.goNamed(AppRoutes.login.name);
+                    },
                     width: Sizes.p75,
-                    onPressed: () {},
                     child: StyledText(
                       'Se déconnecter'.hardcoded,
                       fontSize: Sizes.p5,
