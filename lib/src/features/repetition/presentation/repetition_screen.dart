@@ -9,6 +9,7 @@ import 'package:voc_app/src/common/constants/sizes.dart';
 import 'package:voc_app/src/common/localization/string_hardcoded.dart';
 import 'package:voc_app/src/common/theme/theme.dart';
 import 'package:voc_app/src/common/utilities/seed.dart';
+import 'package:voc_app/src/common/widgets/profile_menu_button.dart';
 import 'package:voc_app/src/common/widgets/sense_button.dart';
 import 'package:voc_app/src/common/widgets/styled_button.dart';
 import 'package:voc_app/src/common/widgets/styled_check.dart';
@@ -164,13 +165,41 @@ class _RepetitionScreenState extends ConsumerState<RepetitionScreen> {
               gapW10,
               StyledHeadline('Repetition'.hardcoded, fontSize: Sizes.p10),
               expandH10,
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.account_circle_outlined,
-                  color: AppColors.secondaryAccent,
-                  size: Sizes.p15,
-                ),
+              ProfileMenuButton(
+                children: [
+                  gapH5,
+                  gapWinfinity,
+                  StyledHeadline(
+                    'Option de profile'.hardcoded,
+                    fontSize: Sizes.p5,
+                  ),
+                  gapH5,
+                  StyledButton(
+                    width: Sizes.p75,
+                    child: StyledText(
+                      'Aller au profile'.hardcoded,
+                      fontSize: Sizes.p5,
+                    ),
+                  ),
+                  gapH5,
+                  StyledButton(
+                    width: Sizes.p75,
+                    child: StyledText(
+                      'Changer de comptes'.hardcoded,
+                      fontSize: Sizes.p5,
+                    ),
+                  ),
+                  gapH5,
+                  StyledButton(
+                    width: Sizes.p75,
+                    onPressed: () {},
+                    child: StyledText(
+                      'Se déconnecter'.hardcoded,
+                      fontSize: Sizes.p5,
+                    ),
+                  ),
+                  gapH5,
+                ],
               ),
               gapW10,
             ],

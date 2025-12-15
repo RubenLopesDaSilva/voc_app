@@ -1,6 +1,7 @@
 const double scale = 4;
 
 class Sizes {
+  static const double pZero = 0;
   static const double p1 = 1 * scale;
   static const double p2 = 2 * scale;
   static const double p3 = 3 * scale;

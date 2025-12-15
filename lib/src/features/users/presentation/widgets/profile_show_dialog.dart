@@ -11,21 +11,35 @@ class ProfileShowDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: StyledHeadline('Option de profile'.hardcoded, fontSize: Sizes.p5),
-      content: StyledText(
-        'Que voulez vous faire ?'.hardcoded,
-        fontSize: Sizes.p5,
+      title: Center(
+        child: StyledHeadline(
+          'Option de profile'.hardcoded,
+          fontSize: Sizes.p5,
+        ),
+      ),
+      content: SizedBox(
+        width: Sizes.p5,
+        height: Sizes.p5,
+        child: Center(
+          child: StyledText(
+            'Que voulez vous faire ?'.hardcoded,
+            fontSize: Sizes.p5,
+          ),
+        ),
       ),
       actions: [
         StyledButton(
+          width: Sizes.p50,
           child: StyledText('Aller au profile'.hardcoded, fontSize: Sizes.p5),
         ),
         gapH5,
         StyledButton(
+          width: Sizes.p50,
           child: StyledText('Changer de comptes'.hardcoded, fontSize: Sizes.p5),
         ),
         gapH5,
         StyledButton(
+          width: Sizes.p50,
           child: StyledText('Se déconnecter'.hardcoded, fontSize: Sizes.p5),
         ),
       ],

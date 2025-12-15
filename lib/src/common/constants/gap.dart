@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:voc_app/src/common/constants/sizes.dart';
 
+const gapWinfinity = SizedBox(width: double.infinity);
 const gapW1 = SizedBox(width: Sizes.p1);
 const gapW2 = SizedBox(width: Sizes.p2);
 const gapW3 = SizedBox(width: Sizes.p3);
@@ -14,6 +15,7 @@ const gapW10 = SizedBox(width: Sizes.p10);
 const gapW15 = SizedBox(width: Sizes.p15);
 const gapW16 = SizedBox(width: Sizes.p16);
 
+const gapHinfinity = SizedBox(height: double.infinity);
 const gapH1 = SizedBox(height: Sizes.p1);
 const gapH2 = SizedBox(height: Sizes.p2);
 const gapH3 = SizedBox(height: Sizes.p3);
