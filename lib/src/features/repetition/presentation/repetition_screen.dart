@@ -394,7 +394,7 @@ class _RepetitionScreenState extends ConsumerState<RepetitionScreen> {
                           ),
                         )
                       : StyledButton(
-                          width: Sizes.p50,
+                          width: Sizes.p40,
                           onPressed: () => fetchGroup(widget.groupId),
                           child: StyledHeadline(
                             'Recharger'.hardcoded,
