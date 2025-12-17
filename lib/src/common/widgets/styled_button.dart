@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:voc_app/src/common/constants/sizes.dart';
 import 'package:voc_app/src/common/theme/theme.dart';
 
 class StyledButton extends StatelessWidget {
@@ -23,19 +22,16 @@ class StyledButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: AppColors.secondaryAccent, width: Sizes.p1),
-        borderRadius: BorderRadius.circular(40),
-      ),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(40)),
       child: TextButton(
         onPressed: onPressed,
         style: onPressed != null
             ? TextButton.styleFrom(
                 foregroundColor: foregroundColor ?? AppColors.secondaryAccent,
-                backgroundColor: backgroundColor ?? AppColors.middleColor,
+                backgroundColor: backgroundColor ?? AppColors.primaryColor,
               )
             : TextButton.styleFrom(
-                backgroundColor: backgroundColor ?? AppColors.middleColor,
+                backgroundColor: backgroundColor ?? AppColors.grey,
               ),
         child: SizedBox(
           width: width,

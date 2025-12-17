@@ -203,60 +203,60 @@ class _RepetitionScreenState extends ConsumerState<RepetitionScreen> {
                   gapH5,
                 ],
               ),
-              gapW10,
+              gapW5,
             ],
           ),
-          gapH4,
-          const StyledDivider(spacement: 0),
-          gapH4,
-          Row(
-            children: [
-              Expanded(
-                child: Center(
-                  child: Column(
-                    children: [
-                      StyledHeadline(
-                        'Burri Simon'.hardcoded,
-                        fontSize: Sizes.p6,
-                      ),
-                      const StyledHeadline('Rien', fontSize: Sizes.p6),
-                    ],
-                  ),
-                ),
-              ),
-              gapW4,
-              const SizedBox(
-                height: Sizes.p20,
-                child: StyledDivider(horizontal: false, spacement: 0),
-              ),
-              gapW4,
-              Expanded(
-                child: Center(
-                  child: Column(
-                    children: [
-                      StyledHeadline(
-                        ' ${group?.name ?? 'Aucun'.hardcoded}'.hardcoded,
-                        fontSize: Sizes.p4,
-                      ),
-                      StyledHeadline(
-                        'De Burri Simon'.hardcoded,
-                        fontSize: Sizes.p4,
-                      ),
-                      StyledHeadline(
-                        'Contient ${groupLength > 1
-                                ? '$groupLength mots'
-                                : groupLength == 1
-                                ? 'un mot'
-                                : 'aucun mot'}'
-                            .hardcoded,
-                        fontSize: Sizes.p4,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
+          // gapH4,
+          // const StyledDivider(spacement: 0),
+          // gapH4,
+          // Row(
+          //   children: [
+          //     Expanded(
+          //       child: Center(
+          //         child: Column(
+          //           children: [
+          //             StyledHeadline(
+          //               'Burri Simon'.hardcoded,
+          //               fontSize: Sizes.p6,
+          //             ),
+          //             const StyledHeadline('Rien', fontSize: Sizes.p6),
+          //           ],
+          //         ),
+          //       ),
+          //     ),
+          //     gapW4,
+          //     const SizedBox(
+          //       height: Sizes.p20,
+          //       child: StyledDivider(horizontal: false, spacement: 0),
+          //     ),
+          //     gapW4,
+          //     Expanded(
+          //       child: Center(
+          //         child: Column(
+          //           children: [
+          //             StyledHeadline(
+          //               ' ${group?.name ?? 'Aucun'.hardcoded}'.hardcoded,
+          //               fontSize: Sizes.p4,
+          //             ),
+          //             StyledHeadline(
+          //               'De Burri Simon'.hardcoded,
+          //               fontSize: Sizes.p4,
+          //             ),
+          //             StyledHeadline(
+          //               'Contient ${groupLength > 1
+          //                       ? '$groupLength mots'
+          //                       : groupLength == 1
+          //                       ? 'un mot'
+          //                       : 'aucun mot'}'
+          //                   .hardcoded,
+          //               fontSize: Sizes.p4,
+          //             ),
+          //           ],
+          //         ),
+          //       ),
+          //     ),
+          //   ],
+          // ),
         ],
       ),
     ];
@@ -265,47 +265,52 @@ class _RepetitionScreenState extends ConsumerState<RepetitionScreen> {
       case RepetitionState.begin:
         children.addAll([
           expandH4,
-          OptionPanel(
-            width: Sizes.p100,
-            children: [
-              StyledText(
-                'Ce group est gérer par Burri Simon'.hardcoded,
-                fontSize: Sizes.p5,
-              ),
-              const StyledDivider(
-                color: AppColors.secondaryColor,
-                spacement: Sizes.p10,
-                indent: Sizes.p4,
-                endIndent: Sizes.p4,
-              ),
-              StyledText(
-                'Ce group est réussi à 20 %'.hardcoded,
-                fontSize: Sizes.p5,
-              ),
-              const StyledDivider(
-                color: AppColors.secondaryColor,
-                spacement: Sizes.p10,
-                indent: Sizes.p4,
-                endIndent: Sizes.p4,
-              ),
-              StyledText(
-                'Vous avez repeter ce group 5 fois'.hardcoded,
-                fontSize: Sizes.p5,
-              ),
-            ],
-          ),
+          // OptionPanel(
+          //   width: Sizes.p100,
+          //   children: [
+          //     StyledText(
+          //       'Ce group est gérer par Burri Simon'.hardcoded,
+          //       fontSize: Sizes.p5,
+          //     ),
+          //     const StyledDivider(
+          //       color: AppColors.secondaryColor,
+          //       spacement: Sizes.p10,
+          //       indent: Sizes.p4,
+          //       endIndent: Sizes.p4,
+          //     ),
+          //     StyledText(
+          //       'Ce group est réussi à 20 %'.hardcoded,
+          //       fontSize: Sizes.p5,
+          //     ),
+          //     const StyledDivider(
+          //       color: AppColors.secondaryColor,
+          //       spacement: Sizes.p10,
+          //       indent: Sizes.p4,
+          //       endIndent: Sizes.p4,
+          //     ),
+          //     StyledText(
+          //       'Vous avez repeter ce group 5 fois'.hardcoded,
+          //       fontSize: Sizes.p5,
+          //     ),
+          //   ],
+          // ),
           gapH15,
           OptionPanel(
             width: Sizes.p100,
             children: [
-              StyledHeadline(
-                'Dans quels langues voulez vous répéter ?'.hardcoded,
-                fontSize: Sizes.p5,
-              ),
+              // StyledHeadline(
+              //   'Dans quels langues voulez vous répéter ?'.hardcoded,
+              //   fontSize: Sizes.p5,
+              // ),
               gapH4,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  const Icon(
+                    Icons.language,
+                    color: AppColors.secondaryAccent,
+                    size: Sizes.p10,
+                  ),
                   StyledDropdown(
                     width: 100,
                     height: 40,
@@ -343,35 +348,36 @@ class _RepetitionScreenState extends ConsumerState<RepetitionScreen> {
           OptionPanel(
             width: Sizes.p100,
             children: [
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  StyledText(
-                    group != null
-                        ? 'Le group est chargé'.hardcoded
-                        : 'Le group n\'est pas encore chargé'.hardcoded,
-                    fontSize: Sizes.p5,
-                  ),
-                  gapW4,
-                  StyledCheck(group != null),
-                ],
-              ),
-              const StyledDivider(
-                color: AppColors.secondaryColor,
-                spacement: Sizes.p10,
-                indent: Sizes.p4,
-                endIndent: Sizes.p4,
-              ),
-              StyledText(
-                '${words.length} mots chargés'.hardcoded,
-                fontSize: Sizes.p5,
-              ),
-              const StyledDivider(
-                color: AppColors.secondaryColor,
-                spacement: Sizes.p10,
-                indent: Sizes.p4,
-                endIndent: Sizes.p4,
-              ),
+              // Row(
+              //   mainAxisSize: MainAxisSize.min,
+              //   children: [
+              //     StyledText(
+              //       group != null
+              //           ? 'Le group est chargé'.hardcoded
+              //           : 'Le group n\'est pas encore chargé'.hardcoded,
+              //       fontSize: Sizes.p5,
+              //     ),
+              //     gapW4,
+              //     StyledCheck(group != null),
+              //   ],
+              // ),
+              // const StyledDivider(
+              //   color: AppColors.secondaryColor,
+              //   spacement: Sizes.p10,
+              //   indent: Sizes.p4,
+              //   endIndent: Sizes.p4,
+              // ),
+              // StyledText(
+              //   '${words.length} mots chargés'.hardcoded,
+              //   fontSize: Sizes.p5,
+              // ),
+              // const StyledDivider(
+              //   color: AppColors.secondaryColor,
+              //   spacement: Sizes.p10,
+              //   indent: Sizes.p4,
+              //   endIndent: Sizes.p4,
+              // ),
+              gapH3,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -403,7 +409,6 @@ class _RepetitionScreenState extends ConsumerState<RepetitionScreen> {
                         ),
                 ],
               ),
-
               gapH3,
             ],
           ),
@@ -523,35 +528,36 @@ class _RepetitionScreenState extends ConsumerState<RepetitionScreen> {
       case RepetitionState.end:
         children.addAll([
           expandH4,
+          // OptionPanel(
+          //   width: Sizes.p100,
+          //   children: [
+          //     gapH3,
+          //     StyledHeadline(
+          //       'Vous connaissez ${(100 * repetition.knownCount / repetition.usingCount).round()} % des ${repetition.usingCount} mots'
+          //           .hardcoded,
+          //     ),
+          //     gapH6,
+          //     StyledButton(
+          //       width: Sizes.p60,
+          //       height: Sizes.p10,
+          //       onPressed: repetition.index < wordsToUse.length
+          //           ? () {
+          //               repetition = repetition.changeState(
+          //                 RepetitionState.process,
+          //               );
+          //               setState(() {});
+          //             }
+          //           : null,
+          //       child: StyledHeadline(
+          //         'Retour à la repetition actuelle'.hardcoded,
+          //       ),
+          //     ),
+          //   ],
+          // ),
+          // gapH6,
           OptionPanel(
             width: Sizes.p100,
-            children: [
-              gapH3,
-              StyledHeadline(
-                'Vous connaissez ${(100 * repetition.knownCount / repetition.usingCount).round()} % des ${repetition.usingCount} mots'
-                    .hardcoded,
-              ),
-              gapH6,
-              StyledButton(
-                width: Sizes.p60,
-                height: Sizes.p10,
-                onPressed: repetition.index < wordsToUse.length
-                    ? () {
-                        repetition = repetition.changeState(
-                          RepetitionState.process,
-                        );
-                        setState(() {});
-                      }
-                    : null,
-                child: StyledHeadline(
-                  'Retour à la repetition actuelle'.hardcoded,
-                ),
-              ),
-            ],
-          ),
-          gapH6,
-          OptionPanel(
-            width: Sizes.p100,
+            part: Part.Top,
             children: [
               gapH3,
               StyledHeadline(
@@ -566,9 +572,10 @@ class _RepetitionScreenState extends ConsumerState<RepetitionScreen> {
               ),
             ],
           ),
-          gapH6,
+          // gapH15,
           OptionPanel(
             width: Sizes.p100,
+            part: Part.Body,
             children: [
               gapH3,
               StyledHeadline(
@@ -588,13 +595,14 @@ class _RepetitionScreenState extends ConsumerState<RepetitionScreen> {
               ),
             ],
           ),
-          gapH6,
+          // gapH15,
           OptionPanel(
             width: Sizes.p100,
+            part: Part.Bottom,
             children: [
               gapH3,
-              StyledHeadline('Vous avez répétez cette liste 20 fois'.hardcoded),
-              gapH6,
+              // StyledHeadline('Vous avez répétez cette liste 20 fois'.hardcoded),
+              // gapH6,
               StyledButton(
                 width: Sizes.p50,
                 height: Sizes.p10,

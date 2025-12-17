@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:voc_app/src/features/dashboard/presentation/home_screen.dart';
 import 'package:voc_app/src/features/repetition/presentation/repetitions_screen.dart';
 import 'package:voc_app/src/features/repetition/presentation/repetition_screen.dart';
 import 'package:voc_app/src/features/users/presentation/widgets/login_screen.dart';
@@ -20,8 +21,12 @@ final goRouter = GoRouter(
     GoRoute(
       path: AppRoutes.home.path,
       name: AppRoutes.home.name,
+      builder: (context, state) {
+        return const HomeScreen();
+      },
       redirect: (context, state) {
-        return AppRoutes.login.path;
+        return null;
+        // return AppRoutes.login.path;
       },
     ),
     GoRoute(

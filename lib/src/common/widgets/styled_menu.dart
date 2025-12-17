@@ -13,6 +13,7 @@ class StyledMenu {
   }) {
     showMenu(
       context: context,
+      color: AppColors.primaryColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadiusGeometry.circular(12),
       ),

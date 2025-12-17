@@ -5,7 +5,6 @@ import 'package:voc_app/src/common/constants/gap.dart';
 import 'package:voc_app/src/common/constants/sizes.dart';
 import 'package:voc_app/src/common/localization/string_hardcoded.dart';
 import 'package:voc_app/src/common/widgets/async_value_widget.dart';
-import 'package:voc_app/src/common/widgets/option_panel.dart';
 import 'package:voc_app/src/common/widgets/profile_menu_button.dart';
 import 'package:voc_app/src/common/widgets/styled_button.dart';
 import 'package:voc_app/src/common/widgets/styled_divider.dart';
@@ -81,43 +80,43 @@ class _RepetitionsScreenState extends State<RepetitionsScreen> {
                   gapW10,
                 ],
               ),
-              gapH4,
-              const StyledDivider(horizontal: true, spacement: 0),
-              gapH4,
-              Row(
-                children: [
-                  Expanded(
-                    child: Center(
-                      child: Column(
-                        children: [
-                          StyledHeadline(
-                            'Burri Simon'.hardcoded,
-                            fontSize: Sizes.p6,
-                          ),
-                          const StyledHeadline(
-                            'Vos groupes',
-                            fontSize: Sizes.p6,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  gapW4,
-                  const SizedBox(
-                    height: Sizes.p20,
-                    child: StyledDivider(horizontal: false, spacement: 0),
-                  ),
-                  gapW4,
-                  Expanded(
-                    child: Center(
-                      child: StyledHeadline(
-                        'Contient'.hardcoded,
-                        fontSize: Sizes.p4,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              // gapH4,
+              // const StyledDivider(horizontal: true, spacement: 0),
+              // gapH4,
+              // Row(
+              //   children: [
+              //     Expanded(
+              //       child: Center(
+              //         child: Column(
+              //           children: [
+              //             StyledHeadline(
+              //               'Burri Simon'.hardcoded,
+              //               fontSize: Sizes.p6,
+              //             ),
+              //             const StyledHeadline(
+              //               'Vos groupes',
+              //               fontSize: Sizes.p6,
+              //             ),
+              //           ],
+              //         ),
+              //       ),
+              //     ),
+              //     gapW4,
+              //     const SizedBox(
+              //       height: Sizes.p20,
+              //       child: StyledDivider(horizontal: false, spacement: 0),
+              //     ),
+              //     gapW4,
+              //     Expanded(
+              //       child: Center(
+              //         child: StyledHeadline(
+              //           'Contient'.hardcoded,
+              //           fontSize: Sizes.p4,
+              //         ),
+              //       ),
+              //     ),
+              //   ],
+              // ),
             ],
           ),
           gapH5,
@@ -144,16 +143,17 @@ class _RepetitionsScreenState extends State<RepetitionsScreen> {
                           );
                         },
                         separatorBuilder: (context, index) {
-                          return const Column(
-                            children: [
-                              gapH5,
-                              OptionPanel(
-                                width: Sizes.p100,
-                                children: [StyledDivider(spacement: Sizes.p10)],
-                              ),
-                              gapH5,
-                            ],
-                          );
+                          return gapH5;
+                          // return const Column(
+                          //   children: [
+                          //     gapH5,
+                          //     OptionPanel(
+                          //       width: Sizes.p100,
+                          //       children: [StyledDivider(spacement: Sizes.p10)],
+                          //     ),
+                          //     gapH5,
+                          //   ],
+                          // );
                           // return const StyledDivider(spacement: Sizes.p10);
                         },
                       ),

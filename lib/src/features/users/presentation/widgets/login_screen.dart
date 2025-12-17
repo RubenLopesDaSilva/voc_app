@@ -7,7 +7,6 @@ import 'package:voc_app/src/common/theme/theme.dart';
 import 'package:voc_app/src/common/widgets/info_panel.dart';
 import 'package:voc_app/src/common/widgets/option_panel.dart';
 import 'package:voc_app/src/common/widgets/styled_button.dart';
-import 'package:voc_app/src/common/widgets/styled_divider.dart';
 import 'package:voc_app/src/common/widgets/styled_text.dart';
 import 'package:voc_app/src/common/widgets/styled_text_form_field.dart';
 import 'package:voc_app/src/navigation/navigation.dart';
@@ -72,20 +71,13 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: Column(
         children: [
-          InfoPanel(
-            children: [
-              gapH5,
-              StyledTitle('Vocabulary App'.hardcoded, fontSize: Sizes.p10),
-              gapH2,
-              StyledDivider(
-                spacement: Sizes.p10,
-                thickness: Sizes.p3,
-                radius: BorderRadius.circular(20),
-              ),
-              gapH3,
-              StyledHeadline('Login'.hardcoded, fontSize: Sizes.p8),
-            ],
-          ),
+          // InfoPanel(
+          //   children: [
+          //     expandH2,
+          //     StyledTitle('Vocabulary App'.hardcoded, fontSize: Sizes.p15),
+          //     expandH2,
+          //   ],
+          // ),
           expandH1,
           Form(
             key: formKey,

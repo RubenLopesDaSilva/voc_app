@@ -21,7 +21,7 @@ class StyledText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: GoogleFonts.kalam(
+      style: GoogleFonts.geologica(
         textStyle: Theme.of(
           context,
         ).textTheme.bodyMedium?.copyWith(color: color, fontSize: fontSize),
@@ -52,7 +52,7 @@ class StyledHeadline extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: GoogleFonts.kalam(
+      style: GoogleFonts.geologica(
         textStyle: Theme.of(
           context,
         ).textTheme.headlineMedium?.copyWith(color: color, fontSize: fontSize),
@@ -83,7 +83,7 @@ class StyledTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: GoogleFonts.kalam(
+      style: GoogleFonts.geologica(
         textStyle: Theme.of(
           context,
         ).textTheme.titleMedium?.copyWith(color: color, fontSize: fontSize),

@@ -3,16 +3,17 @@ import 'package:voc_app/src/common/constants/sizes.dart';
 import 'package:voc_app/src/common/theme/theme.dart';
 
 class InfoPanel extends StatelessWidget {
-  const InfoPanel({this.width, required this.children, super.key});
+  const InfoPanel({this.width, this.height, required this.children, super.key});
 
   final double? width;
+  final double? height;
   final List<Widget> children;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: width,
-      height: Sizes.p60,
+      height: height,
       decoration: const BoxDecoration(
         color: AppColors.primaryColor,
         border: Border(

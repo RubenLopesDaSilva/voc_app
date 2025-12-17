@@ -11,10 +11,10 @@ class SenseButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: AppColors.secondaryAccent, width: Sizes.p1),
-        borderRadius: BorderRadius.circular(40),
-      ),
+      // decoration: BoxDecoration(
+      //   border: Border.all(color: AppColors.secondaryAccent, width: Sizes.p1),
+      //   borderRadius: BorderRadius.circular(40),
+      // ),
       child: IconButton(
         onPressed: onPressed,
         icon: Icon(
