@@ -161,7 +161,7 @@ class _RepetitionsScreenState extends State<RepetitionsScreen> {
                   );
                 },
                 loadingW: () {
-                  return const CircularProgressIndicator();
+                  return const Expanded(child: Center(child: CircularProgressIndicator()));
                 },
                 errorW: (error, stackTrace) {
                   return StyledTitle(

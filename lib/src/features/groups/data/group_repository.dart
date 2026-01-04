@@ -21,6 +21,7 @@ class GroupRepository {
       return datas;
     } catch (e) {
       logger.e(e.toString());
+      rethrow;
       return List.empty();
     }
   }
