@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:voc_app/src/features/words/data/word_repository.dart';
+import 'package:voc_app/src/features/words/data/mongo_word_repository.dart';
 import 'package:voc_app/src/features/words/domain/word.dart';
 
 import '../../mock.dart';
@@ -9,10 +9,10 @@ import '../../mock.dart';
 void main() {
   group('Word', () {
     late MockDio mockDio;
-    late WordRepository repository;
+    late MongoWordRepository repository;
     setUp(() {
       mockDio = MockDio();
-      repository = WordRepository(dio: mockDio);
+      repository = MongoWordRepository(dio: mockDio);
     });
     setUpAll(() {
       registerFallbackValue(RequestOptions(path: ''));
