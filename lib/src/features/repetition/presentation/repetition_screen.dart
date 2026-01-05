@@ -15,7 +15,7 @@ import 'package:voc_app/src/common/widgets/styled_button.dart';
 import 'package:voc_app/src/common/widgets/styled_dropdown.dart';
 import 'package:voc_app/src/common/widgets/styled_icon.dart';
 import 'package:voc_app/src/common/widgets/styled_text.dart';
-import 'package:voc_app/src/features/groups/data/group_repository.dart';
+import 'package:voc_app/src/features/groups/data/mongo_group_repository.dart';
 import 'package:voc_app/src/features/groups/domain/group.dart';
 import 'package:voc_app/src/features/repetition/models/repetition.dart';
 import 'package:voc_app/src/features/repetition/presentation/widgets/end_card.dart';
@@ -110,7 +110,9 @@ class _RepetitionScreenState extends ConsumerState<RepetitionScreen> {
   }
 
   Future<void> fetchGroup(String id) async {
-    final GroupRepository groupRepository = ref.read(groupRepositoryProvider);
+    final MongoGroupRepository groupRepository = ref.read(
+      groupRepositoryProvider,
+    );
     final fetchedGroup = await groupRepository.fetchGroupBy(id);
     groupLoaded = true;
     if (fetchedGroup != null) {

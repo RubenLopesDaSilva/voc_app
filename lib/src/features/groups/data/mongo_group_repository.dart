@@ -1,0 +1,115 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:logger/logger.dart';
+import 'package:voc_app/src/features/groups/data/group_repository.dart';
+import 'package:voc_app/src/features/groups/domain/group.dart';
+
+class MongoGroupRepository implements GroupRepository {
+  final Dio dio;
+  final logger = Logger();
+
+  MongoGroupRepository({Dio? dio})
+    : dio = dio ?? Dio(BaseOptions(baseUrl: 'http://localhost:3000'));
+
+  @override
+  Future<List<Group>> fetchGroups() async {
+    try {
+      final res = await dio.get('/voc/group');
+      final datas = (res.data as List)
+          .map((data) => Group.fromJson(data))
+          .toList();
+      return datas;
+    } catch (e) {
+      logger.e(e.toString());
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<Group>> fetchGroupsByUserId(String userId) async {
+    try {
+      final res = await dio.get(
+        '/voc/group',
+        queryParameters: {'userId': userId},
+      );
+      final statusCode = res.statusCode;
+      if (statusCode != 200) throw Exception(statusCode);
+      final datas = (res.data as List)
+          .map((group) => Group.fromJson(group))
+          .toList();
+      return datas;
+    } catch (e) {
+      logger.e(e.toString());
+      rethrow;
+    }
+  }
+
+  @override
+  Future<Group?> fetchGroupBy(String id) async {
+    try {
+      final res = await dio.get(
+        '/voc/group/$id',
+        options: Options(headers: {'Content-Type': 'application/json'}),
+      );
+      final statusCode = res.statusCode!;
+      if (statusCode / 100 != 2) {
+        throw Exception(statusCode);
+      }
+      final data = Group.fromJson(res.data);
+      return data;
+    } catch (e) {
+      logger.e(e.toString());
+      rethrow;
+    }
+  }
+
+  @override
+  Future<Group?> addGroup(Group group) async {
+    try {
+      final res = await dio.post(
+        '/voc/addG',
+        options: Options(headers: {'Content-Type': 'application/json'}),
+        data: jsonEncode(group),
+      );
+      final statusCode = res.statusCode!;
+      if (statusCode / 100 != 2) {
+        throw Exception(statusCode);
+      }
+      return Group.fromJson(res.data);
+    } catch (e) {
+      logger.e(e.toString());
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> delGroup(String groupId) async {
+    try {
+      final res = await dio.delete('/voc/group/$groupId');
+      final statusCode = res.statusCode!;
+      if (statusCode / 100 != 2) {
+        throw Exception(statusCode);
+      }
+    } catch (e) {
+      logger.e(e.toString());
+      rethrow;
+    }
+  }
+}
+
+final groupRepositoryProvider = Provider<MongoGroupRepository>((ref) {
+  return MongoGroupRepository();
+});
+
+final groupListFutureProvider = FutureProvider.autoDispose<List<Group>>((ref) {
+  final wordRepository = ref.watch(groupRepositoryProvider);
+  // throw Error();
+  return wordRepository.fetchGroups();
+});
+
+final groupFutureProviderBy = FutureProvider.family<Group?, String>((ref, id) {
+  final wordRepository = ref.watch(groupRepositoryProvider);
+  return wordRepository.fetchGroupBy(id);
+});
