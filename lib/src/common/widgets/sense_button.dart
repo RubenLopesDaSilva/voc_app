@@ -10,22 +10,16 @@ class SenseButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      // decoration: BoxDecoration(
-      //   border: Border.all(color: AppColors.secondaryAccent, width: Sizes.p1),
-      //   borderRadius: BorderRadius.circular(40),
-      // ),
-      child: IconButton(
-        onPressed: onPressed,
-        icon: Icon(
-          sense
-              ? Icons.keyboard_double_arrow_right_rounded
-              : Icons.keyboard_double_arrow_left_rounded,
-          color: AppColors.secondaryAccent,
-          size: Sizes.p10,
-        ),
-        highlightColor: AppColors.primaryAccent,
+    return IconButton(
+      onPressed: onPressed,
+      icon: Icon(
+        sense
+            ? Icons.keyboard_double_arrow_right_rounded
+            : Icons.keyboard_double_arrow_left_rounded,
+        color: AppColors.secondaryAccent,
+        size: Sizes.p10,
       ),
+      highlightColor: AppColors.primaryAccent,
     );
   }
 }

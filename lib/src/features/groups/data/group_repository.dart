@@ -22,7 +22,6 @@ class GroupRepository {
     } catch (e) {
       logger.e(e.toString());
       rethrow;
-      return List.empty();
     }
   }
 
@@ -40,7 +39,7 @@ class GroupRepository {
       return datas;
     } catch (e) {
       logger.e(e.toString());
-      return List.empty();
+      rethrow;
     }
   }
 
@@ -58,7 +57,7 @@ class GroupRepository {
       return data;
     } catch (e) {
       logger.e(e.toString());
-      return null;
+      rethrow;
     }
   }
 
@@ -76,7 +75,7 @@ class GroupRepository {
       return Group.fromJson(res.data);
     } catch (e) {
       logger.e(e.toString());
-      return null;
+      rethrow;
     }
   }
 
@@ -89,7 +88,7 @@ class GroupRepository {
       }
     } catch (e) {
       logger.e(e.toString());
-      return;
+      rethrow;
     }
   }
 }

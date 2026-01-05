@@ -7,7 +7,6 @@ import 'package:voc_app/src/common/localization/string_hardcoded.dart';
 import 'package:voc_app/src/common/widgets/async_value_widget.dart';
 import 'package:voc_app/src/common/widgets/profile_menu_button.dart';
 import 'package:voc_app/src/common/widgets/styled_button.dart';
-import 'package:voc_app/src/common/widgets/styled_divider.dart';
 import 'package:voc_app/src/common/widgets/styled_text.dart';
 import 'package:voc_app/src/features/groups/data/group_repository.dart';
 import 'package:voc_app/src/features/groups/domain/group.dart';

@@ -4,7 +4,6 @@ import 'package:voc_app/src/common/constants/gap.dart';
 import 'package:voc_app/src/common/constants/sizes.dart';
 import 'package:voc_app/src/common/localization/string_hardcoded.dart';
 import 'package:voc_app/src/common/theme/theme.dart';
-import 'package:voc_app/src/common/widgets/info_panel.dart';
 import 'package:voc_app/src/common/widgets/option_panel.dart';
 import 'package:voc_app/src/common/widgets/styled_button.dart';
 import 'package:voc_app/src/common/widgets/styled_text.dart';

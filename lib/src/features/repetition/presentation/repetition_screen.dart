@@ -12,8 +12,6 @@ import 'package:voc_app/src/common/utilities/seed.dart';
 import 'package:voc_app/src/common/widgets/profile_menu_button.dart';
 import 'package:voc_app/src/common/widgets/sense_button.dart';
 import 'package:voc_app/src/common/widgets/styled_button.dart';
-import 'package:voc_app/src/common/widgets/styled_check.dart';
-import 'package:voc_app/src/common/widgets/styled_divider.dart';
 import 'package:voc_app/src/common/widgets/styled_dropdown.dart';
 import 'package:voc_app/src/common/widgets/styled_icon.dart';
 import 'package:voc_app/src/common/widgets/styled_text.dart';
@@ -146,12 +144,7 @@ class _RepetitionScreenState extends ConsumerState<RepetitionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((duration) async {
-      // TODO : Implémenter historique
-      // await Future.delayed(const Duration(seconds: 3));
-      // swipeController.swipe(CardSwiperDirection.left);
-      // print("$duration");
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((duration) async {});
     return Scaffold(body: Column(children: children()));
   }
 
@@ -557,7 +550,7 @@ class _RepetitionScreenState extends ConsumerState<RepetitionScreen> {
           // gapH6,
           OptionPanel(
             width: Sizes.p100,
-            part: Part.Top,
+            part: Part.top,
             children: [
               gapH3,
               StyledHeadline(
@@ -575,7 +568,7 @@ class _RepetitionScreenState extends ConsumerState<RepetitionScreen> {
           // gapH15,
           OptionPanel(
             width: Sizes.p100,
-            part: Part.Body,
+            part: Part.body,
             children: [
               gapH3,
               StyledHeadline(
@@ -598,7 +591,7 @@ class _RepetitionScreenState extends ConsumerState<RepetitionScreen> {
           // gapH15,
           OptionPanel(
             width: Sizes.p100,
-            part: Part.Bottom,
+            part: Part.bottom,
             children: [
               gapH3,
               // StyledHeadline('Vous avez répétez cette liste 20 fois'.hardcoded),

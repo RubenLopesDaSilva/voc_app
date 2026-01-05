@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:voc_app/src/common/constants/sizes.dart';
 import 'package:voc_app/src/common/theme/theme.dart';
 
-enum Part { Top, Body, Bottom }
+enum Part { top, body, bottom }
 
 class OptionPanel extends StatelessWidget {
   const OptionPanel({this.width, this.part, required this.children, super.key});
@@ -19,7 +19,7 @@ class OptionPanel extends StatelessWidget {
         decoration: BoxDecoration(
           color: AppColors.primaryColor,
           border: Border(
-            top: part == Part.Body
+            top: part == Part.body
                 ? const BorderSide(
                     color: AppColors.secondaryAccent,
                     width: Sizes.p2,
@@ -29,7 +29,7 @@ class OptionPanel extends StatelessWidget {
               color: AppColors.secondaryAccent,
               width: Sizes.p2,
             ),
-            bottom: part == Part.Bottom || part == Part.Body
+            bottom: part == Part.bottom || part == Part.body
                 ? const BorderSide(
                     color: AppColors.secondaryAccent,
                     width: Sizes.p2,
@@ -37,10 +37,10 @@ class OptionPanel extends StatelessWidget {
                 : BorderSide.none,
           ),
           borderRadius: BorderRadius.only(
-            topRight: part == Part.Top
+            topRight: part == Part.top
                 ? const Radius.circular(20)
                 : Radius.zero,
-            bottomLeft: part == Part.Bottom
+            bottomLeft: part == Part.bottom
                 ? const Radius.circular(20)
                 : Radius.zero,
           ),

@@ -25,7 +25,6 @@ class CommonProgressIndicator extends StatelessWidget {
         border: Border.all(width: Sizes.p2, color: AppColors.secondaryAccent),
         borderRadius: BorderRadius.circular(Sizes.p8),
       ),
-      //TODO : Créer ma propre bar de progress pour que les 2 couleurs soi opposé et rejoigne le centre
       child: (successful + failed > total || total <= 0)
           ? const SizedBox()
           : PrimerProgressBar(
