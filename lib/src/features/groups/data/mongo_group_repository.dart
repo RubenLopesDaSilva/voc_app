@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 import 'package:voc_app/src/features/groups/data/group_repository.dart';
 import 'package:voc_app/src/features/groups/domain/group.dart';
@@ -98,18 +97,3 @@ class MongoGroupRepository implements GroupRepository {
     }
   }
 }
-
-final groupRepositoryProvider = Provider<MongoGroupRepository>((ref) {
-  return MongoGroupRepository();
-});
-
-final groupListFutureProvider = FutureProvider.autoDispose<List<Group>>((ref) {
-  final wordRepository = ref.watch(groupRepositoryProvider);
-  // throw Error();
-  return wordRepository.fetchGroups();
-});
-
-final groupFutureProviderBy = FutureProvider.family<Group?, String>((ref, id) {
-  final wordRepository = ref.watch(groupRepositoryProvider);
-  return wordRepository.fetchGroupBy(id);
-});

@@ -8,7 +8,7 @@ import 'package:voc_app/src/common/widgets/async_value_widget.dart';
 import 'package:voc_app/src/common/widgets/profile_menu_button.dart';
 import 'package:voc_app/src/common/widgets/styled_button.dart';
 import 'package:voc_app/src/common/widgets/styled_text.dart';
-import 'package:voc_app/src/features/groups/data/mongo_group_repository.dart';
+import 'package:voc_app/src/features/groups/data/group_repository.dart';
 import 'package:voc_app/src/features/groups/domain/group.dart';
 import 'package:voc_app/src/features/repetition/presentation/widgets/group_item_repetition.dart';
 import 'package:voc_app/src/common/widgets/info_panel.dart';
@@ -160,7 +160,9 @@ class _RepetitionsScreenState extends State<RepetitionsScreen> {
                   );
                 },
                 loadingW: () {
-                  return const Expanded(child: Center(child: CircularProgressIndicator()));
+                  return const Expanded(
+                    child: Center(child: CircularProgressIndicator()),
+                  );
                 },
                 errorW: (error, stackTrace) {
                   return StyledTitle(
