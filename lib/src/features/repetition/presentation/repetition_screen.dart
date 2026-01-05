@@ -149,7 +149,6 @@ class _RepetitionScreenState extends ConsumerState<RepetitionScreen> {
   }
 
   List<Widget> children() {
-    final groupLength = group?.words.length ?? 0;
     List<Widget> children = [
       InfoPanel(
         children: [
