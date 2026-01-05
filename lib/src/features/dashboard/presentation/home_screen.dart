@@ -24,11 +24,8 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           gapWinfinity,
           expandH5,
-          StyledTitle(
-            'Vocabulary App'.hardcoded,
-            fontSize: Sizes.p15,
-            // color: AppColors.primaryColor,
-          ),
+          StyledTitle('Vocabulary'.hardcoded, fontSize: Sizes.p15),
+          StyledTitle('App'.hardcoded, fontSize: Sizes.p15),
           expandH10,
           StyledButton(
             width: Sizes.p100,
