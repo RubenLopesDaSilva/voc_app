@@ -79,43 +79,6 @@ class _RepetitionsScreenState extends State<RepetitionsScreen> {
                   gapW10,
                 ],
               ),
-              // gapH4,
-              // const StyledDivider(horizontal: true, spacement: 0),
-              // gapH4,
-              // Row(
-              //   children: [
-              //     Expanded(
-              //       child: Center(
-              //         child: Column(
-              //           children: [
-              //             StyledHeadline(
-              //               'Burri Simon'.hardcoded,
-              //               fontSize: Sizes.p6,
-              //             ),
-              //             const StyledHeadline(
-              //               'Vos groupes',
-              //               fontSize: Sizes.p6,
-              //             ),
-              //           ],
-              //         ),
-              //       ),
-              //     ),
-              //     gapW4,
-              //     const SizedBox(
-              //       height: Sizes.p20,
-              //       child: StyledDivider(horizontal: false, spacement: 0),
-              //     ),
-              //     gapW4,
-              //     Expanded(
-              //       child: Center(
-              //         child: StyledHeadline(
-              //           'Contient'.hardcoded,
-              //           fontSize: Sizes.p4,
-              //         ),
-              //       ),
-              //     ),
-              //   ],
-              // ),
             ],
           ),
           gapH5,
@@ -143,17 +106,6 @@ class _RepetitionsScreenState extends State<RepetitionsScreen> {
                         },
                         separatorBuilder: (context, index) {
                           return gapH5;
-                          // return const Column(
-                          //   children: [
-                          //     gapH5,
-                          //     OptionPanel(
-                          //       width: Sizes.p100,
-                          //       children: [StyledDivider(spacement: Sizes.p10)],
-                          //     ),
-                          //     gapH5,
-                          //   ],
-                          // );
-                          // return const StyledDivider(spacement: Sizes.p10);
                         },
                       ),
                     ),

@@ -32,7 +32,15 @@ class _HomeScreenState extends State<HomeScreen> {
             onPressed: () {
               context.goNamed(AppRoutes.login.name);
             },
-            child: StyledText('Commencer'.hardcoded, fontSize: Sizes.p8),
+            child: StyledText('Se connecter'.hardcoded, fontSize: Sizes.p8),
+          ),
+          gapH10,
+          StyledButton(
+            width: Sizes.p100,
+            onPressed: () {
+              context.goNamed(AppRoutes.repetitions.name);
+            },
+            child: StyledText('Continuer en tant qu\'invité'.hardcoded, fontSize: Sizes.p4),
           ),
           expandH5,
         ],

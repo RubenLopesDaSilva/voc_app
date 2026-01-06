@@ -70,13 +70,6 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: Column(
         children: [
-          // InfoPanel(
-          //   children: [
-          //     expandH2,
-          //     StyledTitle('Vocabulary App'.hardcoded, fontSize: Sizes.p15),
-          //     expandH2,
-          //   ],
-          // ),
           expandH1,
           Form(
             key: formKey,
@@ -176,6 +169,14 @@ class _LoginScreenState extends State<LoginScreen> {
         onPressed: change,
         child: StyledText('Me créer un compte'.hardcoded),
       ),
+      gapH5,
+          StyledButton(
+            width: Sizes.p100,
+            onPressed: () {
+              context.goNamed(AppRoutes.repetitions.name);
+            },
+            child: StyledText('Continuer en tant qu\'invité'.hardcoded, fontSize: Sizes.p4),
+          ),
       gapH5,
     ];
   }
