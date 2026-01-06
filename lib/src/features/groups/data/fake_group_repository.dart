@@ -6,6 +6,7 @@ class FakeGroupRepository implements GroupRepository {
   @override
   Future<Group?> addGroup(Group group) async {
     testGroups[group.id] = group;
+    await Future.delayed(const Duration(seconds: 2));
     return group;
   }
 
@@ -16,16 +17,20 @@ class FakeGroupRepository implements GroupRepository {
 
   @override
   Future<Group?> fetchGroupBy(String id) async {
+    await Future.delayed(const Duration(seconds: 2));
     return testGroups[id];
+
   }
 
   @override
   Future<List<Group>> fetchGroups() async {
+    await Future.delayed(const Duration(seconds: 2));
     return testGroups.values.toList();
   }
 
   @override
   Future<List<Group>> fetchGroupsByUserId(String userId) async {
+    await Future.delayed(const Duration(seconds: 2));
     return testGroups.values.where((group) => group.userId == userId).toList();
   }
 }
