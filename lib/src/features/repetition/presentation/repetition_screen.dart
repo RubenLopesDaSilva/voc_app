@@ -13,6 +13,7 @@ import 'package:voc_app/src/common/utilities/seed.dart';
 import 'package:voc_app/src/common/widgets/profile_menu_button.dart';
 import 'package:voc_app/src/common/widgets/sense_button.dart';
 import 'package:voc_app/src/common/widgets/styled_button.dart';
+import 'package:voc_app/src/common/widgets/styled_divider.dart';
 import 'package:voc_app/src/common/widgets/styled_dropdown.dart';
 import 'package:voc_app/src/common/widgets/styled_icon.dart';
 import 'package:voc_app/src/common/widgets/styled_text.dart';
@@ -207,7 +208,6 @@ class _RepetitionScreenState extends ConsumerState<RepetitionScreen> {
       case RepetitionState.begin:
         children.addAll([
           expandH4,
-          gapH15,
           OptionPanel(
             width: Sizes.p100,
             children: [
@@ -251,13 +251,7 @@ class _RepetitionScreenState extends ConsumerState<RepetitionScreen> {
                   ),
                 ],
               ),
-            ],
-          ),
-          gapH15,
-          OptionPanel(
-            width: Sizes.p100,
-            children: [
-              gapH3,
+              const StyledDivider(height: Sizes.p10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
