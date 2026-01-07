@@ -114,6 +114,7 @@ class _RepetitionScreenState extends ConsumerState<RepetitionScreen> {
   Future<void> fetchGroup(String id) async {
     final GroupRepository groupRepository = ref.read(groupRepositoryProvider);
     final fetchedGroup = await groupRepository.fetchGroupBy(id);
+    if (!mounted) return;
     groupLoaded = true;
     if (fetchedGroup != null) {
       loading == true;
@@ -127,9 +128,12 @@ class _RepetitionScreenState extends ConsumerState<RepetitionScreen> {
     loading = true;
     final WordRepository wordRepository = ref.read(wordRepositoryProvider);
     final fetchedWords = await wordRepository.fetchWordsByIds(ids);
+    if (!mounted) return;
     words = fetchedWords;
     loading = false;
-    setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   @override
