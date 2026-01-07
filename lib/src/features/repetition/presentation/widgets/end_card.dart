@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:voc_app/src/common/constants/sizes.dart';
 import 'package:voc_app/src/common/theme/theme.dart';
 import 'package:voc_app/src/common/widgets/styled_text.dart';
@@ -20,13 +19,10 @@ class EndCard extends StatelessWidget {
         border: Border.all(color: AppColors.primaryAccent, width: 4.0),
         borderRadius: BorderRadius.circular(20),
       ),
-      child: Shimmer(
-        interval: const Duration(seconds: 4),
-        child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [StyledHeadline(title, fontSize: Sizes.p10)],
-          ),
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [StyledHeadline(title, fontSize: Sizes.p10)],
         ),
       ),
     );
