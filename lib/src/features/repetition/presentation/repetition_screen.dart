@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:voc_app/src/common/constants/gap.dart';
 import 'package:voc_app/src/common/constants/sizes.dart';
 import 'package:voc_app/src/common/localization/string_hardcoded.dart';
@@ -270,14 +271,27 @@ class _RepetitionScreenState extends ConsumerState<RepetitionScreen> {
                   ),
                   gapW5,
                   !groupNotFound
-                      ? StyledButton(
-                          width: Sizes.p40,
-                          onPressed: ready ? start : null,
-                          child: StyledHeadline(
-                            'Commencer'.hardcoded,
-                            fontSize: Sizes.p5,
-                          ),
-                        )
+                      ? ready
+                            ? StyledButton(
+                                width: Sizes.p40,
+                                onPressed: start,
+                                child: StyledHeadline(
+                                  'Commencer'.hardcoded,
+                                  fontSize: Sizes.p5,
+                                ),
+                              )
+                            : Shimmer(
+                                enabled: true,
+                                duration: const Duration(seconds: 5),
+                                child: StyledButton(
+                                  width: Sizes.p40,
+                                  onPressed: null,
+                                  child: StyledHeadline(
+                                    'Commencer'.hardcoded,
+                                    fontSize: Sizes.p5,
+                                  ),
+                                ),
+                              )
                       : StyledButton(
                           width: Sizes.p40,
                           onPressed: () => fetchGroup(widget.groupId),

@@ -40,7 +40,10 @@ class _HomeScreenState extends State<HomeScreen> {
             onPressed: () {
               context.goNamed(AppRoutes.repetitions.name);
             },
-            child: StyledText('Continuer en tant qu\'invité'.hardcoded, fontSize: Sizes.p4),
+            child: StyledText(
+              'Continuer en tant qu\'invité'.hardcoded,
+              fontSize: Sizes.p4,
+            ),
           ),
           expandH5,
         ],
