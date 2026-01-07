@@ -170,13 +170,16 @@ class _LoginScreenState extends State<LoginScreen> {
         child: StyledText('Me créer un compte'.hardcoded),
       ),
       gapH5,
-          StyledButton(
-            width: Sizes.p100,
-            onPressed: () {
-              context.goNamed(AppRoutes.repetitions.name);
-            },
-            child: StyledText('Continuer en tant qu\'invité'.hardcoded, fontSize: Sizes.p4),
-          ),
+      StyledButton(
+        width: Sizes.p50,
+        onPressed: () {
+          context.goNamed(AppRoutes.repetitions.name);
+        },
+        child: StyledText(
+          'Continuer en tant qu\'invité'.hardcoded,
+          fontSize: Sizes.p3,
+        ),
+      ),
       gapH5,
     ];
   }
